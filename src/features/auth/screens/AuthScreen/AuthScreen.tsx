@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, Image, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { TextInput, useTheme } from 'react-native-paper';
+import { TextInput, useTheme, Button } from 'react-native-paper';
 import { createStyles } from './AuthScreen.styles';
 import { MOCK_CREDENTIALS } from '../../../../mockData';
 import { TRootStackParamList } from '../../../../types';
@@ -47,6 +47,7 @@ export const AuthScreen = () => {
             value={userName}
             onChangeText={text => setUserName(text)}
             mode="outlined"
+            autoCapitalize="none"
             outlineColor={theme.colors.secondary}
             activeOutlineColor={theme.colors.primary}
             error={isErrorVisible}
@@ -57,8 +58,8 @@ export const AuthScreen = () => {
             value={password}
             onChangeText={text => setPassword(text)}
             mode="outlined"
+            autoCapitalize="none"
             error={isErrorVisible}
-            onChange={() => setIsErrorVisible(false)}
             secureTextEntry={!isPasswordVisible}
             right={
               <TextInput.Icon
@@ -71,12 +72,14 @@ export const AuthScreen = () => {
 
         {isErrorVisible && (
           <Text style={styles.errorMessageText}>
-            Incorrect email or password
+            {isErrorVisible && 'Incorrect email or password'}
           </Text>
         )}
 
         <View style={styles.buttonContainer}>
-          <Button title={'go to news'} onPress={handleLogin} />
+          <Button mode={'contained'} textColor={'white'} onPress={handleLogin}>
+            GO TO NEWS
+          </Button>
         </View>
       </View>
     </View>
