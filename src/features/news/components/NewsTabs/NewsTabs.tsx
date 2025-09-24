@@ -1,5 +1,6 @@
 import { Pressable, Text, View } from 'react-native';
 import { createStyles } from './NewsTab.styles.ts';
+import LinearGradient from 'react-native-linear-gradient';
 
 interface IProps {
   tabs: string[];
@@ -28,8 +29,14 @@ export const NewsTabs = ({ tabs, activeTabIndex, onTabPress }: IProps) => {
     );
   };
   return (
-    <View style={styles.tabsContainer}>
-      {tabs.map((tab, index) => renderTab(tab, index))}
-    </View>
+    <>
+      <View style={styles.tabsContainer}>
+        {tabs.map((tab, index) => renderTab(tab, index))}
+      </View>
+      <LinearGradient
+        style={styles.gradientStyle}
+        colors={['white', 'rgba(255,255,255,0)']}
+      />
+    </>
   );
 };

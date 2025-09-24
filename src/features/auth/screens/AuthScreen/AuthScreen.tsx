@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/core';
 import navigation from '../../../../constants/navigation.ts';
 import { TextInput, useTheme } from 'react-native-paper';
 import { createStyles } from './AuthScreen.styles.ts';
-import { mockData } from '../../../../mockData.ts';
+import { MOCK_CREDENTIALS } from '../../../../mockData.ts';
 
 export const AuthScreen = () => {
   const Navigation = useNavigation();
@@ -17,7 +17,10 @@ export const AuthScreen = () => {
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
 
   const handleLogin = () => {
-    if (userName !== mockData.USER_NAME || password !== mockData.PASSWORD) {
+    if (
+      userName !== MOCK_CREDENTIALS.USER_NAME ||
+      password !== MOCK_CREDENTIALS.PASSWORD
+    ) {
       setIsErrorVisible(true);
       return;
     }

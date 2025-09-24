@@ -15,6 +15,8 @@ export const createStyles = () => {
       display: 'flex',
       flexDirection: 'row',
       gap: 6,
+      zIndex: 1,
+      marginBottom: 2,
     },
 
     tab,
@@ -28,5 +30,14 @@ export const createStyles = () => {
       ...tabText,
       fontWeight: 'bold',
     } as TextStyle,
+
+    gradientStyle: {
+      position: 'absolute',
+      top: 32,
+      left: 0,
+      width: '100%',
+      zIndex: 1,
+      height: 40,
+    },
   });
 };
