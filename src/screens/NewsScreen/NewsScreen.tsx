@@ -9,6 +9,16 @@ export const NewsScreen = () => {
   console.log(data);
 
   const renderSpinner = () => <ActivityIndicator size="large" />;
-
-  return <RegularLayout>{renderSpinner()}</RegularLayout>;
+  const renderNews = () => {
+    return (
+      <View>
+        {data?.data.map(item => (
+          <Text key={item.uuid}>{item.title}</Text>
+        ))}
+      </View>
+    );
+  };
+  return (
+    <RegularLayout>{isLoading ? renderSpinner() : renderNews()}</RegularLayout>
+  );
 };

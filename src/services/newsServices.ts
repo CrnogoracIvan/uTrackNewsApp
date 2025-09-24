@@ -3,7 +3,7 @@ import { INewsResponse } from '../types.ts';
 export const getNewsService = async (): Promise<INewsResponse> => {
   try {
     const response = await fetch(
-      'https://api.thenewsapi.com/v1/news/all?api_token=pkcKShKCbaEW2zitVU8leXmXMEm3ihm86NblMzfI&language=en&limit=6',
+      'https://api.thenewsapi.com/v1/news/all?api_token=pkcKShKCbaEW2zitVU8leXmXMEm3ihm86NblMzfI&language=en&limit=3',
     );
 
     if (!response.ok) {

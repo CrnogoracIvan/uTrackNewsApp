@@ -25,6 +25,13 @@ export const AuthScreen = () => {
     Navigation.navigate(navigation.NEWS);
   };
 
+  const renderLogo = () => (
+    <Image
+      style={styles.logo}
+      source={require('../../assets/images/logo.png')}
+    />
+  );
+
   const renderInputFields = () => {
     return (
       <View>
@@ -55,7 +62,7 @@ export const AuthScreen = () => {
             }
           />
         </View>
-        {isErrorVisible && renderErrorMessage()}
+        {renderErrorMessage()}
       </View>
     );
   };
@@ -67,16 +74,15 @@ export const AuthScreen = () => {
   );
 
   const renderErrorMessage = () => (
-    <Text style={styles.errorMessageText}>Incorrect email or password</Text>
+    <Text style={styles.errorMessageText}>
+      {isErrorVisible && 'Incorrect email or password'}
+    </Text>
   );
 
   return (
     <RegularLayout>
       <View style={styles.mainContainer}>
-        <Image
-          style={styles.logo}
-          source={require('../../assets/images/logo.png')}
-        />
+        {renderLogo()}
         {renderInputFields()}
         {renderButton()}
       </View>
