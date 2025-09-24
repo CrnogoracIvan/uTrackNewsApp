@@ -1,19 +1,27 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
+import { MD3Theme } from 'react-native-paper';
 
-
-const styles = StyleSheet.create({
-  inputContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    gap: 6,
-    width: 320,
-  },
-
-  input: {
-    borderColor: 'green'
-  }
-
-});
-
-export default styles;
+export const createStyles = (theme: MD3Theme) =>
+  StyleSheet.create({
+    inputContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      gap: 6,
+      width: 320,
+    },
+    input: {
+      marginBottom: 8,
+      // You can use theme properties here
+      backgroundColor: theme.colors.background,
+    },
+    errorMessageText: {
+      color: theme.colors.error,
+    },
+    button: {
+      marginTop: 10,
+      backgroundColor: theme.colors.primary,
+      padding: 10,
+      borderRadius: theme.roundness,
+    },
+  });

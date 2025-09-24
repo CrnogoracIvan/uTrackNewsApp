@@ -1,18 +1,33 @@
 import React from 'react';
-import { Button, View } from 'react-native';
+import { Button, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import navigation from '../../constants/navigation';
 import { TextInput, useTheme } from 'react-native-paper';
 import { RegularLayout } from '../../components/RegularLayout/RegularLayout.tsx';
-import AuthScreenStyles from './AuthScreen.styles.ts';
+import { createStyles } from './AuthScreen.styles.ts';
+import { mockData } from '../../mockData.ts';
 
 export const AuthScreen = () => {
   const Navigation = useNavigation();
-  const styles = AuthScreenStyles;
   const theme = useTheme();
+  const styles = createStyles(theme);
 
   const [userName, setUserName] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [isErrorVisible, setIsErrorVisible] = React.useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
+
+  const handleLogin = () => {
+    if (userName !== mockData.USER_NAME && password !== mockData.PASSWORD) {
+      setIsErrorVisible(true);
+      return;
+    }
+    Navigation.navigate(navigation.NEWS);
+  };
+
+  const renderErrorMessage = () => (
+    <Text style={styles.errorMessageText}>Incorrect email or password</Text>
+  );
 
   return (
     <RegularLayout>
@@ -24,18 +39,27 @@ export const AuthScreen = () => {
           mode="outlined"
           outlineColor={theme.colors.secondary} // Border color when not focused
           activeOutlineColor={theme.colors.primary}
+          error={isErrorVisible}
+          onChange={() => setIsErrorVisible(false)}
         />
         <TextInput
           label="Password"
           value={password}
           onChangeText={text => setPassword(text)}
           mode="outlined"
+          error={isErrorVisible}
+          onChange={() => setIsErrorVisible(false)}
+          secureTextEntry={!isPasswordVisible}
+          right={
+            <TextInput.Icon
+              icon={isPasswordVisible ? 'eye' : 'eye-off'}
+              onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+            />
+          }
         />
+        {isErrorVisible && renderErrorMessage()}
         <View style={{ marginTop: 60 }}>
-          <Button
-            title={'Go to NEws'}
-            onPress={() => Navigation.navigate(navigation.NEWS)}
-          />
+          <Button title={'go to news'} onPress={handleLogin} />
         </View>
       </View>
     </RegularLayout>
