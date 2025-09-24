@@ -1,18 +1,23 @@
-import { createStaticNavigation } from '@react-navigation/native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { PaperProvider } from 'react-native-paper';
 
-import { AuthScreen } from './src/screens/AuthScreen/AuthScreen.tsx';
-import { NewsScreen } from './src/screens/NewsScreen/NewsScreen.tsx';
+import { AuthScreen } from './src/screens/AuthScreen/AuthScreen';
+import { NewsScreen } from './src/screens/NewsScreen/NewsScreen';
 
+const Stack = createNativeStackNavigator();
 
-const RootStack = createNativeStackNavigator({
-  screens: {
-    Auth: AuthScreen ,
-    News: NewsScreen
-  },
-});
-
-const Navigation = createStaticNavigation(RootStack);
 export default function App() {
-  return <Navigation />;
+
+  return (
+    <PaperProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Auth">
+          <Stack.Screen name="Auth" component={AuthScreen} />
+          <Stack.Screen name="News" component={NewsScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
+  );
 }
