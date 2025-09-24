@@ -41,7 +41,7 @@ export const AuthScreen = () => {
             value={userName}
             onChangeText={text => setUserName(text)}
             mode="outlined"
-            outlineColor={theme.colors.secondary} // Border color when not focused
+            outlineColor={theme.colors.secondary}
             activeOutlineColor={theme.colors.primary}
             error={isErrorVisible}
             onChange={() => setIsErrorVisible(false)}
