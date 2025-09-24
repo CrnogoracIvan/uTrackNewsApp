@@ -7,7 +7,7 @@ interface IProps {
 
 export const RegularLayout = ({children}: IProps) => {
   return (
-    <View style={{flex: 1, borderWidth: 1, borderColor: 'red', justifyContent: 'center'}}>
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'}}>
       {children}
     </View>
   )
