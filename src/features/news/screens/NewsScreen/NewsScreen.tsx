@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import { useGetNews } from '../../queries/useNewsQuery.ts';
 import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
 import { NewsTabs } from '../../components/NewsTabs/NewsTabs.tsx';
@@ -27,7 +27,7 @@ export const NewsScreen = () => {
 
   const renderNews = () => {
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <NewsTabs
           tabs={NEWS_TABS}
           activeTabIndex={activeTabIndex}
@@ -35,13 +35,17 @@ export const NewsScreen = () => {
         />
         {filterDataByCategory?.length === 0 && renderEmptyScreen()}
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={filterDataByCategory}
-          renderItem={item => (
+          renderItem={({ item, index }) => (
             <SingleNewsCard
-              newsArticle={item.item}
-              key={`news-${item.item.uuid}`}
+              cardSize={index === 0 ? 'large' : 'small'}
+              newsArticle={item}
+              key={`news-${item.uuid}`}
             />
           )}
+          contentContainerStyle={{ paddingBottom: 80, paddingTop: 16 }}
+          keyExtractor={item => `news-${item.uuid}`}
         />
       </View>
     );

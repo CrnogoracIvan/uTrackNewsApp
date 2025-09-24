@@ -6,7 +6,8 @@ export const createStyles = () => {
       display: 'flex',
       flex: 1,
       backgroundColor: 'white',
-      padding: 16,
+      paddingLeft: 16,
+      paddingRight: 16,
     },
   });
 };

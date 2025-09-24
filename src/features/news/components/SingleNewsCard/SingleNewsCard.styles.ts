@@ -26,12 +26,29 @@ export const createStyles = () => {
       justifyContent: 'center',
       alignItems: 'center',
     },
+    smallImage: {
+      width: 200,
+      height: '100%',
+      resizeMode: 'cover',
+    },
+    smallImagePlaceholder: {
+      width: '100%',
+      height: 200,
+      backgroundColor: '#e0e0e0',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+
     placeholderText: {
       color: '#757575',
       fontWeight: '500',
     },
     contentContainer: {
       padding: 16,
+    },
+    smallContentContainer: {
+      padding: 16,
+      width: 200,
     },
     title: {
       fontSize: 18,

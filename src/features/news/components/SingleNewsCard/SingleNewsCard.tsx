@@ -2,13 +2,16 @@ import React from 'react';
 import { Image, Text, View } from 'react-native';
 import { INewsArticle } from '../../../../types';
 import { createStyles } from './SingleNewsCard.styles.ts';
+import { getFormattedDate } from '../../../../utils.ts';
 
 interface SingleNewsCardProps {
+  cardSize: 'small' | 'large';
   newsArticle: INewsArticle;
 }
 
 export const SingleNewsCard: React.FC<SingleNewsCardProps> = ({
   newsArticle,
+  cardSize,
 }) => {
   const styles = createStyles();
   const {
@@ -21,15 +24,8 @@ export const SingleNewsCard: React.FC<SingleNewsCardProps> = ({
     categories,
   } = newsArticle;
 
-  // Format the date
-  const formattedDate = new Date(published_at).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
-
-  return (
-    <View style={styles.container}>
+  const renderLargeCard = () => (
+    <>
       {image_url ? (
         <Image source={{ uri: image_url }} style={styles.image} />
       ) : (
@@ -49,7 +45,9 @@ export const SingleNewsCard: React.FC<SingleNewsCardProps> = ({
 
         <View style={styles.metaContainer}>
           <Text style={styles.source}>{source}</Text>
-          <Text style={styles.date}>{formattedDate}</Text>
+          <Text style={styles.date}>
+            {getFormattedDate(published_at as unknown as Date)}
+          </Text>
         </View>
 
         {categories && categories.length > 0 && (
@@ -62,6 +60,64 @@ export const SingleNewsCard: React.FC<SingleNewsCardProps> = ({
           </View>
         )}
       </View>
+    </>
+  );
+
+  const renderSmallCard = () => (
+    <View style={{ display: 'flex', flexDirection: 'row' }}>
+      <View style={styles.smallContentContainer}>
+        <Text style={styles.title}>{title}</Text>
+
+        {description && (
+          <Text
+            numberOfLines={2}
+            ellipsizeMode="tail"
+            style={styles.description}
+          >
+            {description}
+          </Text>
+        )}
+
+        {snippet && !description && (
+          <Text
+            numberOfLines={2}
+            ellipsizeMode="tail"
+            style={styles.description}
+          >
+            {snippet}
+          </Text>
+        )}
+
+        <View style={styles.metaContainer}>
+          <Text style={styles.source}>{source}</Text>
+          <Text style={styles.date}>
+            {getFormattedDate(published_at as unknown as Date)}
+          </Text>
+        </View>
+
+        {categories && categories.length > 0 && (
+          <View style={styles.categoriesContainer}>
+            {categories.map((category, index) => (
+              <View key={`cat-${index}`} style={styles.categoryBadge}>
+                <Text style={styles.categoryText}>{category}</Text>
+              </View>
+            ))}
+          </View>
+        )}
+      </View>
+      {image_url ? (
+        <Image source={{ uri: image_url }} style={styles.smallImage} />
+      ) : (
+        <View style={styles.smallImagePlaceholder}>
+          <Text style={styles.placeholderText}>No Image</Text>
+        </View>
+      )}
+    </View>
+  );
+
+  return (
+    <View style={styles.container}>
+      {cardSize === 'large' ? renderLargeCard() : renderSmallCard()}
     </View>
   );
 };

@@ -3,7 +3,6 @@ import { Button, Image, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import navigation from '../../../../constants/navigation.ts';
 import { TextInput, useTheme } from 'react-native-paper';
-import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
 import { createStyles } from './AuthScreen.styles.ts';
 import { mockData } from '../../../../mockData.ts';
 
