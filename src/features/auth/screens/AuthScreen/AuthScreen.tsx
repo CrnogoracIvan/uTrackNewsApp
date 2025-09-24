@@ -80,12 +80,12 @@ export const AuthScreen = () => {
   );
 
   return (
-    <RegularLayout>
+    <View style={styles.screenContainer}>
       <View style={styles.mainContainer}>
         {renderLogo()}
         {renderInputFields()}
         {renderButton()}
       </View>
-    </RegularLayout>
+    </View>
   );
 };

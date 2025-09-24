@@ -4,6 +4,7 @@ import { useGetNews } from '../../queries/useNewsQuery.ts';
 import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
 import { NewsTabs } from '../../components/NewsTabs/NewsTabs.tsx';
 import { NEWS_TABS } from '../../../../constants/tabs.ts';
+import { LoadingComponent } from '../../../../components/LoadingComponent/LoadingComponent.tsx';
 
 export const NewsScreen = () => {
   const [activeTabIndex, setActiveTabIndex] = React.useState(0);
@@ -19,7 +20,6 @@ export const NewsScreen = () => {
     );
   }, [activeTabIndex, data]);
 
-  const renderSpinner = () => <ActivityIndicator size="large" />;
   const renderEmptyScreen = () => <Text>No news found</Text>;
 
   const renderNews = () => {
@@ -38,6 +38,8 @@ export const NewsScreen = () => {
     );
   };
   return (
-    <RegularLayout>{isLoading ? renderSpinner() : renderNews()}</RegularLayout>
+    <RegularLayout>
+      {isLoading ? <LoadingComponent /> : renderNews()}
+    </RegularLayout>
   );
 };

@@ -1,14 +1,12 @@
-import {  View } from 'react-native';
-
+import { View } from 'react-native';
+import { createStyles } from './RegularLayout.styles.ts';
 
 interface IProps {
   children: React.ReactNode;
 }
 
-export const RegularLayout = ({children}: IProps) => {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'}}>
-      {children}
-    </View>
-  )
-}
+export const RegularLayout = ({ children }: IProps) => {
+  const styles = createStyles();
+
+  return <View style={styles.mainContainer}>{children}</View>;
+};

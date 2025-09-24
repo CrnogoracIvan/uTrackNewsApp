@@ -3,6 +3,12 @@ import { MD3Theme } from 'react-native-paper';
 
 export const createStyles = (theme: MD3Theme) =>
   StyleSheet.create({
+    screenContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'white',
+    },
     mainContainer: {
       display: 'flex',
       flex: 1,
