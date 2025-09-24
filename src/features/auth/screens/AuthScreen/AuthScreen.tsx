@@ -46,17 +46,18 @@ export const AuthScreen = () => {
             label="Email"
             value={userName}
             onChangeText={text => setUserName(text)}
+            onChange={() => setIsErrorVisible(false)}
             mode="outlined"
             autoCapitalize="none"
             outlineColor={theme.colors.secondary}
             activeOutlineColor={theme.colors.primary}
             error={isErrorVisible}
-            onChange={() => setIsErrorVisible(false)}
           />
           <TextInput
             label="Password"
             value={password}
             onChangeText={text => setPassword(text)}
+            onChange={() => setIsErrorVisible(false)}
             mode="outlined"
             autoCapitalize="none"
             error={isErrorVisible}
@@ -68,13 +69,10 @@ export const AuthScreen = () => {
               />
             }
           />
-        </View>
-
-        {isErrorVisible && (
           <Text style={styles.errorMessageText}>
-            {isErrorVisible && 'Incorrect email or password'}
+            {isErrorVisible ? 'Incorrect email or password' : ''}
           </Text>
-        )}
+        </View>
 
         <View style={styles.buttonContainer}>
           <Button mode={'contained'} textColor={'white'} onPress={handleLogin}>
