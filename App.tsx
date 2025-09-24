@@ -9,12 +9,15 @@ import { NewsScreen } from './src/screens/NewsScreen/NewsScreen';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
   return (
     <PaperProvider>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Auth">
-          <Stack.Screen name="Auth" component={AuthScreen} />
+          <Stack.Screen
+            name="Auth"
+            component={AuthScreen}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen name="News" component={NewsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
