@@ -7,10 +7,13 @@ import { NEWS_TABS } from '../../../../constants/tabs.ts';
 import { LoadingComponent } from '../../../../components/LoadingComponent/LoadingComponent.tsx';
 import { SingleArticleCard } from '../../components/SingleArticleCard/SingleArticleCard.tsx';
 import { NoArticlesFound } from '../../components/NoArticlesFound/NoArticlesFound.tsx';
+import { FAB } from 'react-native-paper';
+import { createStyles } from './NewsScreen.styles.ts';
 
 export const NewsScreen = () => {
   const [activeTabIndex, setActiveTabIndex] = React.useState(0);
   const { data, isLoading } = useGetNews();
+  const styles = createStyles();
 
   const filterDataByCategory = useMemo(() => {
     if (!data) return [];
@@ -23,6 +26,17 @@ export const NewsScreen = () => {
       ),
     );
   }, [activeTabIndex, data]);
+
+  const renderFab = () => (
+    <FAB
+      style={styles.fab}
+      icon="plus"
+      color="white"
+      onPress={() => {
+        console.log('FAB pressed');
+      }}
+    />
+  );
 
   const renderNews = () => {
     return (
@@ -49,6 +63,7 @@ export const NewsScreen = () => {
             keyExtractor={item => `news-${item.uuid}`}
           />
         )}
+        {renderFab()}
       </View>
     );
   };

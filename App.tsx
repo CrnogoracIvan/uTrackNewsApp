@@ -10,11 +10,12 @@ import { NewsScreen } from './src/features/news/screens/NewsScreen/NewsScreen';
 import { QueryClient } from '@tanstack/query-core';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { Image } from 'react-native';
+import { SingleArticleScreen } from './src/features/news/screens/SingleArticleScreen/SingleArticleScreen';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const { AUTH, NEWS } = constants;
+  const { AUTH, NEWS, ARTICLE } = constants;
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -46,6 +47,8 @@ export default function App() {
                 headerTitleAlign: 'center', // centers the image
               }}
             />
+            {/*@ts-expect-error - Expecting component type mismatch*/}
+            <Stack.Screen name={ARTICLE} component={SingleArticleScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>

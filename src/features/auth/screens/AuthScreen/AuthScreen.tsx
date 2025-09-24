@@ -1,13 +1,19 @@
 import React from 'react';
 import { Button, Image, Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/core';
-import navigation from '../../../../constants/navigation.ts';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TextInput, useTheme } from 'react-native-paper';
-import { createStyles } from './AuthScreen.styles.ts';
-import { MOCK_CREDENTIALS } from '../../../../mockData.ts';
+import { createStyles } from './AuthScreen.styles';
+import { MOCK_CREDENTIALS } from '../../../../mockData';
+import { TRootStackParamList } from '../../../../types';
+
+type TNewsScreenNavigationProp = NativeStackNavigationProp<
+  TRootStackParamList,
+  'News'
+>;
 
 export const AuthScreen = () => {
-  const Navigation = useNavigation();
+  const Navigation = useNavigation<TNewsScreenNavigationProp>();
   const theme = useTheme();
   const styles = createStyles(theme);
 
@@ -24,19 +30,17 @@ export const AuthScreen = () => {
       setIsErrorVisible(true);
       return;
     }
-    Navigation.navigate(navigation.NEWS);
+    Navigation.navigate('News'); // now typed correctly
   };
 
-  const renderLogo = () => (
-    <Image
-      style={styles.logo}
-      source={require('../../../../assets/images/logo.png')}
-    />
-  );
+  return (
+    <View style={styles.screenContainer}>
+      <View style={styles.mainContainer}>
+        <Image
+          style={styles.logo}
+          source={require('../../../../assets/images/logo.png')}
+        />
 
-  const renderInputFields = () => {
-    return (
-      <View>
         <View style={styles.inputContainer}>
           <TextInput
             label="Email"
@@ -64,29 +68,16 @@ export const AuthScreen = () => {
             }
           />
         </View>
-        {renderErrorMessage()}
-      </View>
-    );
-  };
 
-  const renderButton = () => (
-    <View style={styles.buttonContainer}>
-      <Button title={'go to news'} onPress={handleLogin} />
-    </View>
-  );
+        {isErrorVisible && (
+          <Text style={styles.errorMessageText}>
+            Incorrect email or password
+          </Text>
+        )}
 
-  const renderErrorMessage = () => (
-    <Text style={styles.errorMessageText}>
-      {isErrorVisible && 'Incorrect email or password'}
-    </Text>
-  );
-
-  return (
-    <View style={styles.screenContainer}>
-      <View style={styles.mainContainer}>
-        {renderLogo()}
-        {renderInputFields()}
-        {renderButton()}
+        <View style={styles.buttonContainer}>
+          <Button title={'go to news'} onPress={handleLogin} />
+        </View>
       </View>
     </View>
   );
