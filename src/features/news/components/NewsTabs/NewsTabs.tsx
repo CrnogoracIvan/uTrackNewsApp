@@ -17,7 +17,13 @@ export const NewsTabs = ({ tabs, activeTabIndex, onTabPress }: IProps) => {
           onTabPress(index);
         }}
       >
-        <Text>{tab}</Text>
+        <Text
+          style={
+            activeTabIndex === index ? styles.activeTabText : styles.tabText
+          }
+        >
+          {tab}
+        </Text>
       </Pressable>
     );
   };

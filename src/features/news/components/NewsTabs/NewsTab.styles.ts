@@ -1,9 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TextStyle } from 'react-native';
 
 export const createStyles = () => {
   const tab = {
     padding: 5,
+    minWidth: 40,
   };
+
+  const tabText = {
+    textTransform: 'uppercase',
+  } as TextStyle;
 
   return StyleSheet.create({
     tabsContainer: {
@@ -18,5 +23,10 @@ export const createStyles = () => {
       borderBottomWidth: 2,
       borderBottomColor: 'red',
     },
+    tabText,
+    activeTabText: {
+      ...tabText,
+      fontWeight: 'bold',
+    } as TextStyle,
   });
 };
