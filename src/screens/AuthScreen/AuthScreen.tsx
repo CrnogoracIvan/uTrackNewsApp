@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Text, View } from 'react-native';
+import { Button, Image, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import navigation from '../../constants/navigation';
 import { TextInput, useTheme } from 'react-native-paper';
@@ -27,38 +27,41 @@ export const AuthScreen = () => {
 
   const renderInputFields = () => {
     return (
-      <View style={styles.inputContainer}>
-        <TextInput
-          label="Email"
-          value={userName}
-          onChangeText={text => setUserName(text)}
-          mode="outlined"
-          outlineColor={theme.colors.secondary} // Border color when not focused
-          activeOutlineColor={theme.colors.primary}
-          error={isErrorVisible}
-          onChange={() => setIsErrorVisible(false)}
-        />
-        <TextInput
-          label="Password"
-          value={password}
-          onChangeText={text => setPassword(text)}
-          mode="outlined"
-          error={isErrorVisible}
-          onChange={() => setIsErrorVisible(false)}
-          secureTextEntry={!isPasswordVisible}
-          right={
-            <TextInput.Icon
-              icon={isPasswordVisible ? 'eye' : 'eye-off'}
-              onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-            />
-          }
-        />
+      <View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            label="Email"
+            value={userName}
+            onChangeText={text => setUserName(text)}
+            mode="outlined"
+            outlineColor={theme.colors.secondary} // Border color when not focused
+            activeOutlineColor={theme.colors.primary}
+            error={isErrorVisible}
+            onChange={() => setIsErrorVisible(false)}
+          />
+          <TextInput
+            label="Password"
+            value={password}
+            onChangeText={text => setPassword(text)}
+            mode="outlined"
+            error={isErrorVisible}
+            onChange={() => setIsErrorVisible(false)}
+            secureTextEntry={!isPasswordVisible}
+            right={
+              <TextInput.Icon
+                icon={isPasswordVisible ? 'eye' : 'eye-off'}
+                onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+              />
+            }
+          />
+        </View>
+        {isErrorVisible && renderErrorMessage()}
       </View>
     );
   };
 
   const renderButton = () => (
-    <View style={{ marginTop: 60, width: 240 }}>
+    <View style={styles.buttonContainer}>
       <Button title={'go to news'} onPress={handleLogin} />
     </View>
   );
@@ -69,9 +72,14 @@ export const AuthScreen = () => {
 
   return (
     <RegularLayout>
-      {renderInputFields()}
-      {isErrorVisible && renderErrorMessage()}
-      {renderButton()}
+      <View style={styles.mainContainer}>
+        <Image
+          style={styles.logo}
+          source={require('../../assets/images/logo.png')}
+        />
+        {renderInputFields()}
+        {renderButton()}
+      </View>
     </RegularLayout>
   );
 };
