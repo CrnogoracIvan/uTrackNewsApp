@@ -1,10 +1,11 @@
 import React from 'react';
-import { Image, Pressable, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { INewsArticle } from '../../../../types';
 import { createStyles } from './SingleArticleCard.styles.ts';
 import { getFormattedDate } from '../../../../utils.ts';
 import { useNavigation } from '@react-navigation/core';
 import navigation from '../../../../constants/routes.ts';
+import { Card } from 'react-native-paper';
 
 interface SingleNewsCardProps {
   cardSize: 'small' | 'large';
@@ -124,13 +125,13 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
   );
 
   return (
-    <Pressable
+    <Card
       style={styles.container}
       onPress={() => {
         handleCardPress(newsArticle);
       }}
     >
       {cardSize === 'large' ? renderLargeCard() : renderSmallCard()}
-    </Pressable>
+    </Card>
   );
 };
