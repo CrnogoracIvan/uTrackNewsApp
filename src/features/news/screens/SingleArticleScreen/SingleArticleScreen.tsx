@@ -1,14 +1,13 @@
+import React from 'react';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import WebView from 'react-native-webview';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { TRootStackParamList } from '../../../../types.ts';
-import { RouteProp } from '@react-navigation/core';
+import { TRootStackParamList } from '../../../../types';
 
-type TProps = {
-  route: RouteProp<TRootStackParamList, 'Article'>;
-  navigation: NativeStackNavigationProp<TRootStackParamList, 'Article'>;
-};
+type TProps = NativeStackScreenProps<TRootStackParamList, 'Article'>;
 
-export const SingleArticleScreen = ({ route }: TProps) => {
+export const SingleArticleScreen = (props: TProps) => {
+  const { route } = props;
   const { article } = route.params;
+
   return <WebView source={{ uri: article.url }} style={{ flex: 1 }} />;
 };

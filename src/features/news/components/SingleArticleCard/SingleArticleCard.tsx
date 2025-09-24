@@ -4,7 +4,7 @@ import { INewsArticle } from '../../../../types';
 import { createStyles } from './SingleArticleCard.styles.ts';
 import { getFormattedDate } from '../../../../utils.ts';
 import { useNavigation } from '@react-navigation/core';
-import navigation from '../../../../constants/navigation.ts';
+import navigation from '../../../../constants/routes.ts';
 
 interface SingleNewsCardProps {
   cardSize: 'small' | 'large';
@@ -30,7 +30,7 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
 
   const handleCardPress = (article: INewsArticle) =>
     // @ts-ignore
-    Navigation.navigate(navigation.ARTICLE, { article });
+    Navigation.navigate(navigation.ARTICLE, { article: article });
 
   const renderLargeCard = () => (
     <>
