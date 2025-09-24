@@ -18,19 +18,15 @@ export const AuthScreen = () => {
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
 
   const handleLogin = () => {
-    if (userName !== mockData.USER_NAME && password !== mockData.PASSWORD) {
+    if (userName !== mockData.USER_NAME || password !== mockData.PASSWORD) {
       setIsErrorVisible(true);
       return;
     }
     Navigation.navigate(navigation.NEWS);
   };
 
-  const renderErrorMessage = () => (
-    <Text style={styles.errorMessageText}>Incorrect email or password</Text>
-  );
-
-  return (
-    <RegularLayout>
+  const renderInputFields = () => {
+    return (
       <View style={styles.inputContainer}>
         <TextInput
           label="Email"
@@ -57,11 +53,25 @@ export const AuthScreen = () => {
             />
           }
         />
-        {isErrorVisible && renderErrorMessage()}
-        <View style={{ marginTop: 60 }}>
-          <Button title={'go to news'} onPress={handleLogin} />
-        </View>
       </View>
+    );
+  };
+
+  const renderButton = () => (
+    <View style={{ marginTop: 60, width: 240 }}>
+      <Button title={'go to news'} onPress={handleLogin} />
+    </View>
+  );
+
+  const renderErrorMessage = () => (
+    <Text style={styles.errorMessageText}>Incorrect email or password</Text>
+  );
+
+  return (
+    <RegularLayout>
+      {renderInputFields()}
+      {isErrorVisible && renderErrorMessage()}
+      {renderButton()}
     </RegularLayout>
   );
 };
