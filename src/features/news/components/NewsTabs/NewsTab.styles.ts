@@ -7,6 +7,7 @@ export const createStyles = () => {
   };
 
   const tabText = {
+    fontSize: 18,
     textTransform: 'uppercase',
   } as TextStyle;
 
@@ -17,6 +18,7 @@ export const createStyles = () => {
       gap: 6,
       zIndex: 1,
       marginBottom: 2,
+      paddingVertical: 12,
     },
 
     tab,
@@ -33,7 +35,7 @@ export const createStyles = () => {
 
     gradientStyle: {
       position: 'absolute',
-      top: Platform.OS === 'ios' ? 30 : 32,
+      top: Platform.OS === 'ios' ? 56 : 60,
       left: 0,
       width: '100%',
       zIndex: 1,
