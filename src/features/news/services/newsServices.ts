@@ -1,4 +1,4 @@
-import { INewsResponse } from '../types.ts';
+import { INewsResponse } from '../../../types.ts';
 
 export const getNewsService = async (): Promise<INewsResponse> => {
   try {

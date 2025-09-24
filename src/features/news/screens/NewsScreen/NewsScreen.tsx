@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { useGetNews } from '../../queries/useNewsQuery.ts';
-import { RegularLayout } from '../../components/RegularLayout/RegularLayout.tsx';
-import { NewsTabs } from '../../features/news/components/NewsTabs/NewsTabs.tsx';
-import { NEWS_TABS } from '../../constants/tabs.ts';
+import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
+import { NewsTabs } from '../../components/NewsTabs/NewsTabs.tsx';
+import { NEWS_TABS } from '../../../../constants/tabs.ts';
 
 export const NewsScreen = () => {
   const [activeTabIndex, setActiveTabIndex] = React.useState(0);

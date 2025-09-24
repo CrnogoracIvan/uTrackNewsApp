@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getNewsService } from '../services/newsServices';
-import { INewsResponse } from '../types';
+import { getNewsService } from '../services/newsServices.ts';
+import { INewsResponse } from '../../../types.ts';
 
 /**
  * React Query hook for fetching news data

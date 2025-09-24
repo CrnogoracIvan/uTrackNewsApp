@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button, Image, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-import navigation from '../../constants/navigation';
+import navigation from '../../../../constants/navigation.ts';
 import { TextInput, useTheme } from 'react-native-paper';
-import { RegularLayout } from '../../components/RegularLayout/RegularLayout.tsx';
+import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
 import { createStyles } from './AuthScreen.styles.ts';
-import { mockData } from '../../mockData.ts';
+import { mockData } from '../../../../mockData.ts';
 
 export const AuthScreen = () => {
   const Navigation = useNavigation();
@@ -28,7 +28,7 @@ export const AuthScreen = () => {
   const renderLogo = () => (
     <Image
       style={styles.logo}
-      source={require('../../assets/images/logo.png')}
+      source={require('../../../../assets/images/logo.png')}
     />
   );
 

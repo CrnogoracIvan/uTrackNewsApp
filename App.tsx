@@ -5,8 +5,8 @@ import { PaperProvider } from 'react-native-paper';
 
 import constants from './src/constants/navigation';
 
-import { AuthScreen } from './src/screens/AuthScreen/AuthScreen';
-import { NewsScreen } from './src/screens/NewsScreen/NewsScreen';
+import { AuthScreen } from './src/features/auth/screens/AuthScreen/AuthScreen';
+import { NewsScreen } from './src/features/news/screens/NewsScreen/NewsScreen';
 import { QueryClient } from '@tanstack/query-core';
 import { QueryClientProvider } from '@tanstack/react-query';
 
