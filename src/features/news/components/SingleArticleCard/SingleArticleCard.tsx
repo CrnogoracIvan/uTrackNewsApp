@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
 import { INewsArticle } from '../../../../types';
-import { createStyles } from './SingleNewsCard.styles.ts';
+import { createStyles } from './SingleArticleCard.styles.ts';
 import { getFormattedDate } from '../../../../utils.ts';
 
 interface SingleNewsCardProps {
@@ -9,7 +9,7 @@ interface SingleNewsCardProps {
   newsArticle: INewsArticle;
 }
 
-export const SingleNewsCard: React.FC<SingleNewsCardProps> = ({
+export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
   newsArticle,
   cardSize,
 }) => {
@@ -64,8 +64,8 @@ export const SingleNewsCard: React.FC<SingleNewsCardProps> = ({
   );
 
   const renderSmallCard = () => (
-    <View style={{ display: 'flex', flexDirection: 'row' }}>
-      <View style={styles.smallContentContainer}>
+    <View style={styles.smallContentContainer}>
+      <View style={styles.smallTextContentContainer}>
         <Text style={styles.title}>{title}</Text>
 
         {description && (
@@ -88,7 +88,7 @@ export const SingleNewsCard: React.FC<SingleNewsCardProps> = ({
           </Text>
         )}
 
-        <View style={styles.metaContainer}>
+        <View style={styles.smallMetaContainer}>
           <Text style={styles.source}>{source}</Text>
           <Text style={styles.date}>
             {getFormattedDate(published_at as unknown as Date)}

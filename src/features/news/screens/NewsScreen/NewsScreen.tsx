@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { useGetNews } from '../../queries/useNewsQuery.ts';
 import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
 import { NewsTabs } from '../../components/NewsTabs/NewsTabs.tsx';
 import { NEWS_TABS } from '../../../../constants/tabs.ts';
 import { LoadingComponent } from '../../../../components/LoadingComponent/LoadingComponent.tsx';
-import { SingleNewsCard } from '../../components/SingleNewsCard/SingleNewsCard.tsx';
+import { SingleArticleCard } from '../../components/SingleArticleCard/SingleArticleCard.tsx';
+import { NoArticlesFound } from '../../components/NoArticlesFound/NoArticlesFound.tsx';
 
 export const NewsScreen = () => {
   const [activeTabIndex, setActiveTabIndex] = React.useState(0);
@@ -23,8 +24,6 @@ export const NewsScreen = () => {
     );
   }, [activeTabIndex, data]);
 
-  const renderEmptyScreen = () => <Text>No news found</Text>;
-
   const renderNews = () => {
     return (
       <View style={{ flex: 1 }}>
@@ -33,20 +32,23 @@ export const NewsScreen = () => {
           activeTabIndex={activeTabIndex}
           onTabPress={setActiveTabIndex}
         />
-        {filterDataByCategory?.length === 0 && renderEmptyScreen()}
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={filterDataByCategory}
-          renderItem={({ item, index }) => (
-            <SingleNewsCard
-              cardSize={index === 0 ? 'large' : 'small'}
-              newsArticle={item}
-              key={`news-${item.uuid}`}
-            />
-          )}
-          contentContainerStyle={{ paddingBottom: 80, paddingTop: 16 }}
-          keyExtractor={item => `news-${item.uuid}`}
-        />
+        {filterDataByCategory?.length === 0 ? (
+          <NoArticlesFound />
+        ) : (
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={filterDataByCategory}
+            renderItem={({ item, index }) => (
+              <SingleArticleCard
+                cardSize={index === 0 ? 'large' : 'small'}
+                newsArticle={item}
+                key={`news-${item.uuid}`}
+              />
+            )}
+            contentContainerStyle={{ paddingBottom: 80, paddingTop: 16 }}
+            keyExtractor={item => `news-${item.uuid}`}
+          />
+        )}
       </View>
     );
   };

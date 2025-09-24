@@ -47,6 +47,10 @@ export const createStyles = () => {
       padding: 16,
     },
     smallContentContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+    },
+    smallTextContentContainer: {
       padding: 16,
       width: 200,
     },
@@ -65,6 +69,11 @@ export const createStyles = () => {
     metaContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
+      marginBottom: 8,
+    },
+    smallMetaContainer: {
+      flexDirection: 'column',
+      gap: 6,
       marginBottom: 8,
     },
     source: {
