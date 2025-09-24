@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, Text, View } from 'react-native';
 import { useGetNews } from '../../queries/useNewsQuery.ts';
 import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
 import { NewsTabs } from '../../components/NewsTabs/NewsTabs.tsx';
 import { NEWS_TABS } from '../../../../constants/tabs.ts';
 import { LoadingComponent } from '../../../../components/LoadingComponent/LoadingComponent.tsx';
+import { SingleNewsCard } from '../../components/SingleNewsCard/SingleNewsCard.tsx';
 
 export const NewsScreen = () => {
   const [activeTabIndex, setActiveTabIndex] = React.useState(0);
@@ -15,8 +16,10 @@ export const NewsScreen = () => {
     if (activeTabIndex === 0) {
       return data.data;
     }
-    return data.data.filter(
-      item => item.categories[0] === NEWS_TABS[activeTabIndex].toLowerCase(),
+    return data.data.filter(item =>
+      item.categories.some(
+        category => category === NEWS_TABS[activeTabIndex].toLowerCase(),
+      ),
     );
   }, [activeTabIndex, data]);
 
@@ -31,9 +34,15 @@ export const NewsScreen = () => {
           onTabPress={setActiveTabIndex}
         />
         {filterDataByCategory?.length === 0 && renderEmptyScreen()}
-        {filterDataByCategory?.map(item => (
-          <Text key={item.uuid}>{item.title}</Text>
-        ))}
+        <FlatList
+          data={filterDataByCategory}
+          renderItem={item => (
+            <SingleNewsCard
+              newsArticle={item.item}
+              key={`news-${item.item.uuid}`}
+            />
+          )}
+        />
       </View>
     );
   };

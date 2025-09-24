@@ -26,7 +26,6 @@ export const createStyles = (theme: MD3Theme) =>
     },
     input: {
       marginBottom: 8,
-      // You can use theme properties here
       backgroundColor: theme.colors.background,
     },
     errorMessageText: {
