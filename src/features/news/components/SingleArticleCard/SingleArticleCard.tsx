@@ -17,21 +17,60 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
   cardSize,
 }) => {
   const styles = createStyles();
-  const {
-    title,
-    description,
-    snippet,
-    image_url,
-    source,
-    published_at,
-    categories,
-  } = newsArticle;
+  const { title, description, image_url, source, published_at, categories } =
+    newsArticle;
 
   const Navigation = useNavigation();
 
   const handleCardPress = (article: INewsArticle) =>
     // @ts-ignore
     Navigation.navigate(navigation.ARTICLE, { article: article });
+
+  const renderDescription = () => {
+    if (!description) {
+      return null;
+    }
+    if (cardSize === 'large')
+      return <Text style={styles.description}>{description}</Text>;
+
+    return (
+      <Text numberOfLines={2} ellipsizeMode="tail" style={styles.description}>
+        {description}
+      </Text>
+    );
+  };
+
+  const renderMetaData = () => {
+    return (
+      <View
+        style={
+          cardSize === 'large'
+            ? styles.metaContainer
+            : styles.smallMetaContainer
+        }
+      >
+        <Text style={styles.source}>{source}</Text>
+        <Text style={styles.date}>
+          {getFormattedDate(published_at as unknown as Date)}
+        </Text>
+      </View>
+    );
+  };
+
+  const renderCategories = () => {
+    if (!categories || categories.length === 0) {
+      return null;
+    }
+    return (
+      <View style={styles.categoriesContainer}>
+        {categories.map((category, index) => (
+          <View key={`cat-${index}`} style={styles.categoryBadge}>
+            <Text style={styles.categoryText}>{category}</Text>
+          </View>
+        ))}
+      </View>
+    );
+  };
 
   const renderLargeCard = () => (
     <>
@@ -45,29 +84,9 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
 
       <View style={styles.contentContainer}>
         <Text style={styles.title}>{title}</Text>
-
-        {description && <Text style={styles.description}>{description}</Text>}
-
-        {snippet && !description && (
-          <Text style={styles.description}>{snippet}</Text>
-        )}
-
-        <View style={styles.metaContainer}>
-          <Text style={styles.source}>{source}</Text>
-          <Text style={styles.date}>
-            {getFormattedDate(published_at as unknown as Date)}
-          </Text>
-        </View>
-
-        {categories && categories.length > 0 && (
-          <View style={styles.categoriesContainer}>
-            {categories.map((category, index) => (
-              <View key={`cat-${index}`} style={styles.categoryBadge}>
-                <Text style={styles.categoryText}>{category}</Text>
-              </View>
-            ))}
-          </View>
-        )}
+        {renderDescription()}
+        {renderMetaData()}
+        {renderCategories()}
       </View>
     </>
   );
@@ -76,43 +95,9 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
     <View style={styles.smallContentContainer}>
       <View style={styles.smallTextContentContainer}>
         <Text style={styles.title}>{title}</Text>
-
-        {description && (
-          <Text
-            numberOfLines={2}
-            ellipsizeMode="tail"
-            style={styles.description}
-          >
-            {description}
-          </Text>
-        )}
-
-        {snippet && !description && (
-          <Text
-            numberOfLines={2}
-            ellipsizeMode="tail"
-            style={styles.description}
-          >
-            {snippet}
-          </Text>
-        )}
-
-        <View style={styles.smallMetaContainer}>
-          <Text style={styles.source}>{source}</Text>
-          <Text style={styles.date}>
-            {getFormattedDate(published_at as unknown as Date)}
-          </Text>
-        </View>
-
-        {categories && categories.length > 0 && (
-          <View style={styles.categoriesContainer}>
-            {categories.map((category, index) => (
-              <View key={`cat-${index}`} style={styles.categoryBadge}>
-                <Text style={styles.categoryText}>{category}</Text>
-              </View>
-            ))}
-          </View>
-        )}
+        {renderDescription()}
+        {renderMetaData()}
+        {renderCategories()}
       </View>
       {image_url ? (
         <Image source={{ uri: image_url }} style={styles.smallImage} />
