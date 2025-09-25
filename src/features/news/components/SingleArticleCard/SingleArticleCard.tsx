@@ -67,8 +67,19 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
     return (
       <View style={styles.categoriesContainer}>
         {categories.map((category, index) => (
-          <View key={`cat-${index}`} style={styles.categoryBadge}>
-            <Text style={styles.categoryText}>{category}</Text>
+          <View
+            key={`cat-${index}`}
+            style={
+              category === 'my' ? styles.myCategoryBadge : styles.categoryBadge
+            }
+          >
+            <Text
+              style={
+                category === 'my' ? styles.myCategoryText : styles.categoryText
+              }
+            >
+              {category}
+            </Text>
           </View>
         ))}
       </View>

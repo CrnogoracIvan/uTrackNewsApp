@@ -10,6 +10,7 @@ export interface INewsArticle {
   language?: string;
   snippet?: string;
   relevance_score?: number;
+  isMyArticle?: boolean;
 }
 
 export interface INewsResponse {

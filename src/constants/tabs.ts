@@ -5,4 +5,5 @@ export const NEWS_CATEGORIES: INewsCategory[] = [
   { value: 'tech', label: 'Tech' },
   { value: 'sports', label: 'Sports' },
   { value: 'business', label: 'Business' },
+  { value: 'my', label: 'My News' },
 ];

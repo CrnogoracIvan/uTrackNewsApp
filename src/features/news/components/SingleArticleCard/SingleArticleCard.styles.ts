@@ -1,6 +1,19 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TextStyle } from 'react-native';
 
 export const createStyles = () => {
+  const categoryBadge = {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 4,
+    marginRight: 6,
+    marginBottom: 6,
+  };
+
+  const categoryText = {
+    fontSize: 10,
+    textTransform: 'capitalize',
+  };
+
   return StyleSheet.create({
     container: {
       backgroundColor: '#fff',
@@ -91,17 +104,22 @@ export const createStyles = () => {
       marginTop: 4,
     },
     categoryBadge: {
+      ...categoryBadge,
       backgroundColor: '#f0f0f0',
-      paddingHorizontal: 8,
-      paddingVertical: 4,
-      borderRadius: 4,
-      marginRight: 6,
-      marginBottom: 6,
+    },
+    myCategoryBadge: {
+      ...categoryBadge,
+      backgroundColor: 'red',
+      color: 'white',
     },
     categoryText: {
-      fontSize: 10,
+      ...categoryText,
       color: '#666',
-      textTransform: 'capitalize',
-    },
+    } as TextStyle,
+
+    myCategoryText: {
+      ...categoryText,
+      color: '#fff',
+    } as TextStyle,
   });
 };

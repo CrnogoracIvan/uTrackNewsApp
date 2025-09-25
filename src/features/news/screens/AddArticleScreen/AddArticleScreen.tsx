@@ -32,7 +32,7 @@ export const AddArticleScreen = () => {
   } = useNewsContext();
 
   const dropDownData = NEWS_CATEGORIES.filter(
-    category => category.value !== 'all',
+    category => !['all', 'my'].includes(category.value),
   );
 
   const handleSaveArticle = () => {

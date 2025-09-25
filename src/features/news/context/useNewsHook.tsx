@@ -27,7 +27,7 @@ export const useNewsHook = () => {
       image_url: newArticleImage?.uri,
       published_at: '',
       source: newArticleSource,
-      categories: newArticleCategories,
+      categories: [...newArticleCategories, 'my'],
     };
   }, [
     newArticleCategories,
@@ -36,7 +36,6 @@ export const useNewsHook = () => {
     newArticleSource,
     newArticleTitle,
   ]);
-
   const isAddNewArticleButtonDisabled =
     newArticleTitle.length === 0 ||
     newArticleCategories.length === 0 ||
@@ -56,19 +55,11 @@ export const useNewsHook = () => {
     );
   }, [activeTabIndex, allData]);
 
-  const handleAddingArticleSourceUrl = (sourceUrl: string) => {
-    if (['http://', 'https://'].includes(sourceUrl)) {
-      return sourceUrl;
-    }
-    return `https://${sourceUrl}`;
-  };
-
   const handleAddArticle = () => {
     const newArticleData = {
       ...newArticle,
       uuid: uuid.v4(),
       published_at: new Date().toISOString(),
-      source: handleAddingArticleSourceUrl(newArticleSource),
     };
     setAllData([newArticleData, ...allData]);
     handleClearNewArticle();
