@@ -48,7 +48,7 @@ export const useNewsHook = () => {
     newArticleSource.length === 0;
 
   const filteredDataByCategory = useMemo(() => {
-    if (allData.length === 0) return allData;
+    if (allData.length === 0) return [];
     if (activeTabIndex === 0) {
       return allData;
     }
@@ -70,7 +70,7 @@ export const useNewsHook = () => {
 
     const myArticleData = filterMyArticles(newArticles);
     setArticlesToStorage(myArticleData);
-    handleClearNewArticle();
+    handleClearNewArticleForm();
   };
 
   const handleDeleteArticle = (articleUuid: string) => {
@@ -82,7 +82,7 @@ export const useNewsHook = () => {
     setArticlesToStorage(myArticleData);
   };
 
-  const handleClearNewArticle = () => {
+  const handleClearNewArticleForm = () => {
     setNewArticleTitle('');
     setNewArticleDescription('');
     setNewArticleImage(null);
@@ -130,7 +130,7 @@ export const useNewsHook = () => {
     setNewArticleCategories,
 
     handleAddArticle,
-    handleClearNewArticle,
+    handleClearNewArticle: handleClearNewArticleForm,
     handleDeleteArticle,
   };
 };
