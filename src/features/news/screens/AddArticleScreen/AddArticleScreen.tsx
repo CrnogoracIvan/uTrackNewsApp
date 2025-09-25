@@ -1,4 +1,4 @@
-import { Image, Pressable, Text, View } from 'react-native';
+import { Image, Platform, Pressable, Text, View } from 'react-native';
 import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
 import { Button, TextInput, useTheme } from 'react-native-paper';
 import React from 'react';
@@ -8,6 +8,7 @@ import { NEWS_CATEGORIES } from '../../../../constants/tabs.ts';
 import { Icon } from 'react-native-paper/src';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { useNavigation } from '@react-navigation/native';
+import { requestPermissions } from '../../../../utils.ts';
 
 export const AddArticleScreen = () => {
   const [isErrorVisible, setIsErrorVisible] = React.useState(false);
@@ -46,6 +47,11 @@ export const AddArticleScreen = () => {
 
   const handleImagePickerPress = async () => {
     try {
+      const hasPermission = await requestPermissions();
+      if (!hasPermission && Platform.OS === 'android') {
+        console.log('Permission denied');
+        return;
+      }
       const result = await launchImageLibrary({ mediaType: 'photo' });
       if (result.didCancel) {
         return;
@@ -53,9 +59,7 @@ export const AddArticleScreen = () => {
       if (!result.assets || result.assets.length === 0) {
         return;
       }
-      console.log('result.assets[0] is: ', result.assets[0]);
       setNewArticleImage(result.assets[0]);
-      console.log('result is: ', result);
     } catch (e) {}
   };
 
