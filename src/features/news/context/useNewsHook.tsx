@@ -1,8 +1,12 @@
 import React, { useEffect, useMemo } from 'react';
 import { useGetNews } from '../queries/useNewsQuery.ts';
-import { NEWS_CATEGORIES } from '../../../constants/tabs.ts';
+import { NEWS_CATEGORIES } from '../../../constants.ts';
 import { INewsArticle } from '../../../types.ts';
 import uuid from 'react-native-uuid';
+import {
+  getArticlesFromStorage,
+  setArticlesToStorage,
+} from '../../../utils.ts';
 
 export const useNewsHook = () => {
   const [allData, setAllData] = React.useState<INewsArticle[]>([]);
@@ -60,7 +64,13 @@ export const useNewsHook = () => {
       uuid: uuid.v4(),
       published_at: new Date().toISOString(),
     };
-    setAllData([newArticleData, ...allData]);
+    const newArticles = [newArticleData, ...allData];
+    setAllData(newArticles);
+
+    const myArticleData = newArticles.filter(item =>
+      item.categories.includes('my'),
+    );
+    setArticlesToStorage(myArticleData);
     handleClearNewArticle();
   };
 

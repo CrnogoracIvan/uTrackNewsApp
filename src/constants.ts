@@ -1,4 +1,4 @@
-import { INewsCategory } from '../types.ts';
+import { INewsCategory } from './types.ts';
 
 export const NEWS_CATEGORIES: INewsCategory[] = [
   { value: 'all', label: 'All' },
@@ -7,3 +7,7 @@ export const NEWS_CATEGORIES: INewsCategory[] = [
   { value: 'business', label: 'Business' },
   { value: 'my', label: 'My News' },
 ];
+
+export const STORAGE_KEYS = {
+  ARTICLES: 'ARTICLES',
+};

@@ -4,7 +4,7 @@ import { Button, TextInput, useTheme } from 'react-native-paper';
 import React from 'react';
 import { useNewsContext } from '../../context/NewsContextProvider.tsx';
 import { Dropdown } from '../../../../components/Dropdown/Dropdown.tsx';
-import { NEWS_CATEGORIES } from '../../../../constants/tabs.ts';
+import { NEWS_CATEGORIES } from '../../../../constants.ts';
 import { Icon } from 'react-native-paper/src';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { useNavigation } from '@react-navigation/native';
