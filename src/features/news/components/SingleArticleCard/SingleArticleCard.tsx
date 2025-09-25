@@ -136,7 +136,8 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
 
   const SmallCard = ({ article }: CardProps) => (
     <View style={styles.smallContentContainer}>
-      {article?.categories?.includes('my') && renderDeleteArticleButton()}
+      {article?.categories?.includes('my') &&
+        renderDeleteArticleButton(article.uuid)}
       <View style={styles.smallTextContentContainer}>
         <Text style={styles.title}>{title}</Text>
         {renderDescription()}

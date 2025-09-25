@@ -65,6 +65,13 @@ export const useNewsHook = () => {
     handleClearNewArticle();
   };
 
+  const handleDeleteArticle = (articleUuid: string) => {
+    const newArticleData = allData.filter(
+      newsArticle => newsArticle.uuid !== articleUuid,
+    );
+    setAllData(newArticleData);
+  };
+
   const handleClearNewArticle = () => {
     setNewArticleTitle('');
     setNewArticleDescription('');
@@ -101,5 +108,6 @@ export const useNewsHook = () => {
 
     handleAddArticle,
     handleClearNewArticle,
+    handleDeleteArticle,
   };
 };
