@@ -92,8 +92,11 @@ export const useNewsHook = () => {
 
   useEffect(() => {
     const getDataFromStorage = async () => {
-      const data = await getArticlesFromStorage();
-      setAllData(data);
+      const dataFromStorage = await getArticlesFromStorage();
+      if (!dataFromStorage) {
+        return;
+      }
+      setAllData(dataFromStorage);
     };
     getDataFromStorage();
   }, []);

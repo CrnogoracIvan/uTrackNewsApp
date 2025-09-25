@@ -1,9 +1,11 @@
+import { INewsResponse } from './types.ts';
+
 export const MOCK_CREDENTIALS = {
   USER_NAME: 'ivan',
   PASSWORD: 'ivan',
 };
 
-export const NEWS_DATA_MOCK = {
+export const NEWS_DATA_MOCK: INewsResponse = {
   meta: {
     found: 53756388,
     returned: 10,

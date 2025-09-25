@@ -9,7 +9,8 @@ export interface INewsArticle {
   categories: string[];
   language?: string;
   snippet?: string;
-  relevance_score?: number;
+  relevance_score?: number | null;
+  keywords?: string;
 }
 
 export interface INewsResponse {
