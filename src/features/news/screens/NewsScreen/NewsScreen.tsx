@@ -1,6 +1,5 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { FlatList, View } from 'react-native';
-import { useGetNews } from '../../queries/useNewsQuery.ts';
 import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
 import { NewsTabs } from '../../components/NewsTabs/NewsTabs.tsx';
 import { NEWS_TABS } from '../../../../constants/tabs.ts';
@@ -12,6 +11,7 @@ import { createStyles } from './NewsScreen.styles.ts';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TRootStackParamList } from '../../../../types.ts';
+import { useNewsContext } from '../../context/NewsContextProvider.tsx';
 
 type TNavigationProps = NativeStackNavigationProp<
   TRootStackParamList,
@@ -20,21 +20,13 @@ type TNavigationProps = NativeStackNavigationProp<
 
 export const NewsScreen = () => {
   const Navigation = useNavigation<TNavigationProps>();
-  const [activeTabIndex, setActiveTabIndex] = React.useState(0);
-  const { data, isLoading } = useGetNews();
+  const {
+    activeTabIndex,
+    setActiveTabIndex,
+    filteredDataByCategory,
+    isLoading,
+  } = useNewsContext();
   const styles = createStyles();
-
-  const filterDataByCategory = useMemo(() => {
-    if (!data) return [];
-    if (activeTabIndex === 0) {
-      return data.data;
-    }
-    return data.data.filter(item =>
-      item.categories.some(
-        category => category === NEWS_TABS[activeTabIndex].toLowerCase(),
-      ),
-    );
-  }, [activeTabIndex, data]);
 
   const renderFab = () => (
     <FAB
@@ -55,12 +47,12 @@ export const NewsScreen = () => {
           activeTabIndex={activeTabIndex}
           onTabPress={setActiveTabIndex}
         />
-        {filterDataByCategory?.length === 0 ? (
+        {filteredDataByCategory?.length === 0 ? (
           <NoArticlesFound />
         ) : (
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={filterDataByCategory}
+            data={filteredDataByCategory}
             renderItem={({ item, index }) => (
               <SingleArticleCard
                 cardSize={index === 0 ? 'large' : 'small'}

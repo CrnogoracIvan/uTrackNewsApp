@@ -5,6 +5,7 @@ import { QueryClient } from '@tanstack/query-core';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppNavigator } from './src/components/AppNavigator/AppNavigator.tsx';
+import { NewsContextProvider } from './src/features/news/context/NewsContextProvider.tsx';
 
 export default function App() {
   const queryClient = new QueryClient({
@@ -17,9 +18,11 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <QueryClientProvider client={queryClient}>
-        <PaperProvider>
-          <AppNavigator />
-        </PaperProvider>
+        <NewsContextProvider>
+          <PaperProvider>
+            <AppNavigator />
+          </PaperProvider>
+        </NewsContextProvider>
       </QueryClientProvider>
     </SafeAreaProvider>
   );
