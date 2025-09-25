@@ -48,8 +48,7 @@ export const AddArticleScreen = () => {
   const handleImagePickerPress = async () => {
     try {
       const hasPermission = await requestPermissions();
-      if (!hasPermission && Platform.OS === 'android') {
-        console.log('Permission denied');
+      if (!hasPermission) {
         return;
       }
       const result = await launchImageLibrary({ mediaType: 'photo' });
@@ -63,14 +62,12 @@ export const AddArticleScreen = () => {
     } catch (e) {}
   };
 
-  // Handler for category selection
   const handleCategorySelect = (selectedCategories: string[]) => {
     setNewArticleCategories(selectedCategories);
     setIsErrorVisible(false);
   };
 
   const renderImagePreview = () => {
-    console.log('newArticleImage is: ', newArticleImage);
     if (!newArticleImage) {
       return (
         <View

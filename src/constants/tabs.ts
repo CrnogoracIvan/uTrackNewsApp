@@ -1,6 +1,6 @@
-import { ITab } from '../types.ts';
+import { INewsCategory } from '../types.ts';
 
-export const NEWS_CATEGORIES: ITab[] = [
+export const NEWS_CATEGORIES: INewsCategory[] = [
   { value: 'all', label: 'All' },
   { value: 'tech', label: 'Tech' },
   { value: 'sports', label: 'Sports' },

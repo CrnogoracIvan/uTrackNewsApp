@@ -22,7 +22,7 @@ export interface INewsResponse {
   data: INewsArticle[];
 }
 
-export interface ITab {
+export interface INewsCategory {
   value: string;
   label: string;
 }

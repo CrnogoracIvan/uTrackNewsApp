@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { MultiSelectDropdown } from 'react-native-paper-dropdown';
 import { useTheme } from 'react-native-paper';
-import { ITab } from '../../types.ts';
+import { INewsCategory } from '../../types.ts';
 
 interface IProps {
   value?: string[];
   onSelect?: (values: string[]) => void;
   label?: string;
   placeholder?: string;
-  options: ITab[];
+  options: INewsCategory[];
   error?: boolean;
 }
 
@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   list: {
-    // Match your application's styling
     backgroundColor: 'white',
   },
 });
