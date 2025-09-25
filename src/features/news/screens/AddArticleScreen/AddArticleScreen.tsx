@@ -25,6 +25,7 @@ export const AddArticleScreen = () => {
     setNewArticleSource,
     newArticleCategories,
     setNewArticleCategories,
+    handleAddArticle,
   } = useNewsContext();
 
   const dropDownData = NEWS_CATEGORIES.filter(
@@ -33,6 +34,8 @@ export const AddArticleScreen = () => {
 
   const handleSaveArticle = () => {
     console.log('Saving article...');
+    handleAddArticle();
+    // handleCancel();
   };
 
   const handleCancel = () => {

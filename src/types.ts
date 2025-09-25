@@ -2,14 +2,14 @@ export interface INewsArticle {
   uuid: string;
   title: string;
   description: string;
-  snippet: string;
   url: string;
   image_url: string;
-  language: string;
   published_at: string;
   source: string;
   categories: string[];
-  relevance_score: number;
+  language?: string;
+  snippet?: string;
+  relevance_score?: number;
 }
 
 export interface INewsResponse {
