@@ -42,8 +42,8 @@ export const AddArticleScreen = () => {
   };
 
   const handleCancel = () => {
-    setIsErrorVisible(false);
     handleClearNewArticle();
+    setIsErrorVisible(false);
     Navigation.goBack();
   };
 

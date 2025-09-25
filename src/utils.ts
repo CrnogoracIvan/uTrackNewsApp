@@ -11,14 +11,12 @@ export const getFormattedDate = (date: Date) => {
 export const requestPermissions = async () => {
   if (Platform.OS === 'android') {
     try {
-      // For Android 13+
       if (Platform.Version >= 33) {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES,
         );
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } else {
-        // For lower Android versions
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
         );

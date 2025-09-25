@@ -19,14 +19,15 @@ type TNavigationProps = NativeStackNavigationProp<
 >;
 
 export const NewsScreen = () => {
+  const styles = createStyles();
   const Navigation = useNavigation<TNavigationProps>();
+
   const {
     activeTabIndex,
     setActiveTabIndex,
-    filteredDataByCategory,
     areNewsLoading,
+    filteredDataByCategory,
   } = useNewsContext();
-  const styles = createStyles();
 
   const renderFab = () => (
     <FAB
@@ -38,8 +39,6 @@ export const NewsScreen = () => {
       }}
     />
   );
-
-  console.log('filteredDataByCategory', filteredDataByCategory);
 
   const renderNews = () => {
     return (

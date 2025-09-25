@@ -25,7 +25,7 @@ export default function App() {
           </PaperProvider>
         </NewsContextProvider>
       </QueryClientProvider>
-      <ToastContainer position="bottom" duration={3000} />
+      <ToastContainer position="bottom" duration={1500} />
     </SafeAreaProvider>
   );
 }
