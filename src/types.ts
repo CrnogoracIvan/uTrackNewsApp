@@ -22,6 +22,11 @@ export interface INewsResponse {
   data: INewsArticle[];
 }
 
+export interface ITab {
+  value: string;
+  label: string;
+}
+
 export type TRootStackParamList = {
   Auth: undefined;
   News: undefined;

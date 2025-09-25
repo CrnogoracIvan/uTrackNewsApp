@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useGetNews } from '../queries/useNewsQuery.ts';
-import { NEWS_TABS } from '../../../constants/tabs.ts';
+import { NEWS_CATEGORIES } from '../../../constants/tabs.ts';
 
 export const useNewsHook = () => {
   const [activeTabIndex, setActiveTabIndex] = React.useState(0);
@@ -19,7 +19,7 @@ export const useNewsHook = () => {
     }
     return data.data.filter(item =>
       item.categories.some(
-        category => category === NEWS_TABS[activeTabIndex].toLowerCase(),
+        category => category === NEWS_CATEGORIES[activeTabIndex].value,
       ),
     );
   }, [activeTabIndex, data]);

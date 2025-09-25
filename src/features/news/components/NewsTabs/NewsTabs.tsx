@@ -1,15 +1,16 @@
 import { Pressable, Text, View } from 'react-native';
 import { createStyles } from './NewsTab.styles.ts';
 import LinearGradient from 'react-native-linear-gradient';
+import { ITab } from '../../../../types.ts';
 
 interface IProps {
-  tabs: string[];
+  tabs: ITab[];
   activeTabIndex: number;
   onTabPress: (index: number) => void;
 }
 export const NewsTabs = ({ tabs, activeTabIndex, onTabPress }: IProps) => {
   const styles = createStyles();
-  const renderTab = (tab: string, tabIndex: number) => {
+  const renderTab = (tab: ITab, tabIndex: number) => {
     return (
       <Pressable
         key={`tab-${tabIndex}`}
@@ -23,7 +24,7 @@ export const NewsTabs = ({ tabs, activeTabIndex, onTabPress }: IProps) => {
             activeTabIndex === tabIndex ? styles.activeTabText : styles.tabText
           }
         >
-          {tab}
+          {tab.label}
         </Text>
       </Pressable>
     );

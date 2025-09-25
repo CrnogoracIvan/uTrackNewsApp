@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, View } from 'react-native';
 import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
 import { NewsTabs } from '../../components/NewsTabs/NewsTabs.tsx';
-import { NEWS_TABS } from '../../../../constants/tabs.ts';
+import { NEWS_CATEGORIES } from '../../../../constants/tabs.ts';
 import { LoadingComponent } from '../../../../components/LoadingComponent/LoadingComponent.tsx';
 import { SingleArticleCard } from '../../components/SingleArticleCard/SingleArticleCard.tsx';
 import { NoArticlesFound } from '../../components/NoArticlesFound/NoArticlesFound.tsx';
@@ -43,7 +43,7 @@ export const NewsScreen = () => {
     return (
       <View style={{ flex: 1 }}>
         <NewsTabs
-          tabs={NEWS_TABS}
+          tabs={NEWS_CATEGORIES}
           activeTabIndex={activeTabIndex}
           onTabPress={setActiveTabIndex}
         />
