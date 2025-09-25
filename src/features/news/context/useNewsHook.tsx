@@ -1,9 +1,14 @@
-import { useGetNews } from '../queries/useNewsQuery.ts';
 import React, { useMemo } from 'react';
+import { useGetNews } from '../queries/useNewsQuery.ts';
 import { NEWS_TABS } from '../../../constants/tabs.ts';
 
 export const useNewsHook = () => {
   const [activeTabIndex, setActiveTabIndex] = React.useState(0);
+  const [newArticleTitle, setNewArticleTitle] = React.useState('');
+  const [newArticleDescription, setNewArticleDescription] = React.useState('');
+  const [newArticleImage, setNewArticleImage] = React.useState('');
+  const [newArticleSource, setNewArticleSource] = React.useState('');
+  const [newArticleCategories, setNewArticleCategories] = React.useState('');
 
   const { data, isLoading } = useGetNews();
 
@@ -20,9 +25,21 @@ export const useNewsHook = () => {
   }, [activeTabIndex, data]);
 
   return {
-    areNewsLoading: isLoading,
-    filteredDataByCategory,
     activeTabIndex,
     setActiveTabIndex,
+
+    areNewsLoading: isLoading,
+    filteredDataByCategory,
+
+    newArticleTitle,
+    setNewArticleTitle,
+    newArticleDescription,
+    setNewArticleDescription,
+    newArticleImage,
+    setNewArticleImage,
+    newArticleSource,
+    setNewArticleSource,
+    newArticleCategories,
+    setNewArticleCategories,
   };
 };
