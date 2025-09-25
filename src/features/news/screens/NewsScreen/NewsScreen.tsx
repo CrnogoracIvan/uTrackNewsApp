@@ -24,7 +24,7 @@ export const NewsScreen = () => {
     activeTabIndex,
     setActiveTabIndex,
     filteredDataByCategory,
-    isLoading,
+    areNewsLoading,
   } = useNewsContext();
   const styles = createStyles();
 
@@ -69,7 +69,7 @@ export const NewsScreen = () => {
   };
   return (
     <RegularLayout>
-      {isLoading ? <LoadingComponent /> : renderNews()}
+      {areNewsLoading ? <LoadingComponent /> : renderNews()}
     </RegularLayout>
   );
 };

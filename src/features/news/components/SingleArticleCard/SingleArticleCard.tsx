@@ -75,7 +75,7 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
     );
   };
 
-  const renderLargeCard = () => (
+  const LargeCard = () => (
     <View>
       {image_url ? (
         <Image source={{ uri: image_url }} style={styles.image} />
@@ -94,7 +94,7 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
     </View>
   );
 
-  const renderSmallCard = () => (
+  const SmallCard = () => (
     <View style={styles.smallContentContainer}>
       <View style={styles.smallTextContentContainer}>
         <Text style={styles.title}>{title}</Text>
@@ -119,7 +119,7 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
         handleCardPress(newsArticle);
       }}
     >
-      {cardSize === 'large' ? renderLargeCard() : renderSmallCard()}
+      {cardSize === 'large' ? <LargeCard /> : <SmallCard />}
     </Card>
   );
 };

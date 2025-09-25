@@ -20,8 +20,8 @@ export const useNewsHook = () => {
   }, [activeTabIndex, data]);
 
   return {
+    areNewsLoading: isLoading,
     filteredDataByCategory,
-    isLoading,
     activeTabIndex,
     setActiveTabIndex,
   };
