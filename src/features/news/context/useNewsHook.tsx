@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useGetNews } from '../queries/useNewsQuery.ts';
 import { NEWS_CATEGORIES } from '../../../constants.ts';
 import { INewsArticle } from '../../../types.ts';
@@ -10,15 +10,15 @@ import {
 } from '../../../utils.ts';
 
 export const useNewsHook = () => {
-  const [allData, setAllData] = React.useState<INewsArticle[]>([]);
-  const [activeTabIndex, setActiveTabIndex] = React.useState(0);
-  const [newArticleTitle, setNewArticleTitle] = React.useState('');
-  const [newArticleDescription, setNewArticleDescription] = React.useState('');
-  const [newArticleImage, setNewArticleImage] = React.useState(null);
-  const [newArticleSource, setNewArticleSource] = React.useState('');
-  const [newArticleCategories, setNewArticleCategories] = React.useState<
-    string[]
-  >([]);
+  const [allData, setAllData] = useState<INewsArticle[]>([]);
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const [newArticleTitle, setNewArticleTitle] = useState('');
+  const [newArticleDescription, setNewArticleDescription] = useState('');
+  const [newArticleImage, setNewArticleImage] = useState(null);
+  const [newArticleSource, setNewArticleSource] = useState('');
+  const [newArticleCategories, setNewArticleCategories] = useState<string[]>(
+    [],
+  );
 
   const { data, isLoading } = useGetNews();
 
@@ -91,24 +91,19 @@ export const useNewsHook = () => {
   };
 
   useEffect(() => {
-    const getDataFromStorage = async () => {
+    const newsDataSetup = async () => {
+      let tempData: INewsArticle[] = [];
       const dataFromStorage = await getArticlesFromStorage();
-      if (!dataFromStorage) {
-        return;
+      if (dataFromStorage) {
+        tempData = [...dataFromStorage];
       }
-      setAllData(dataFromStorage);
+      if (data?.data) {
+        tempData = [...tempData, ...data?.data];
+      }
+      setAllData(tempData);
     };
-    getDataFromStorage();
-  }, []);
-
-  useEffect(() => {
-    if (!data?.data) {
-      return;
-    }
-    setAllData(prevState => {
-      return [...prevState, ...data.data];
-    });
-  }, [data]);
+    newsDataSetup();
+  }, [data?.data]);
 
   return {
     activeTabIndex,
@@ -130,7 +125,7 @@ export const useNewsHook = () => {
     setNewArticleCategories,
 
     handleAddArticle,
-    handleClearNewArticle: handleClearNewArticleForm,
+    handleClearNewArticleForm,
     handleDeleteArticle,
   };
 };

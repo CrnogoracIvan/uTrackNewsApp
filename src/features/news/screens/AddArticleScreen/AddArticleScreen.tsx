@@ -27,7 +27,7 @@ export const AddArticleScreen = () => {
     newArticleCategories,
     setNewArticleCategories,
     handleAddArticle,
-    handleClearNewArticle,
+    handleClearNewArticleForm,
     isAddNewArticleButtonDisabled,
   } = useNewsContext();
 
@@ -42,7 +42,7 @@ export const AddArticleScreen = () => {
   };
 
   const handleCancel = () => {
-    handleClearNewArticle();
+    handleClearNewArticleForm();
     setIsErrorVisible(false);
     Navigation.goBack();
   };
