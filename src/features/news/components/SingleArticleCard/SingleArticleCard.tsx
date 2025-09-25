@@ -76,7 +76,7 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
   };
 
   const renderLargeCard = () => (
-    <>
+    <View>
       {image_url ? (
         <Image source={{ uri: image_url }} style={styles.image} />
       ) : (
@@ -91,7 +91,7 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
         {renderMetaData()}
         {renderCategories()}
       </View>
-    </>
+    </View>
   );
 
   const renderSmallCard = () => (

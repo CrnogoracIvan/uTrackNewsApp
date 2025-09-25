@@ -9,18 +9,18 @@ interface IProps {
 }
 export const NewsTabs = ({ tabs, activeTabIndex, onTabPress }: IProps) => {
   const styles = createStyles();
-  const renderTab = (tab: string, index: number) => {
+  const renderTab = (tab: string, tabIndex: number) => {
     return (
       <Pressable
-        key={`tab-${index}`}
-        style={activeTabIndex === index ? styles.activeTab : styles.tab}
+        key={`tab-${tabIndex}`}
+        style={activeTabIndex === tabIndex ? styles.activeTab : styles.tab}
         onPress={() => {
-          onTabPress(index);
+          onTabPress(tabIndex);
         }}
       >
         <Text
           style={
-            activeTabIndex === index ? styles.activeTabText : styles.tabText
+            activeTabIndex === tabIndex ? styles.activeTabText : styles.tabText
           }
         >
           {tab}

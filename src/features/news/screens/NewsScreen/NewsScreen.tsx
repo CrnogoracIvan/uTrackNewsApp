@@ -57,7 +57,6 @@ export const NewsScreen = () => {
               <SingleArticleCard
                 cardSize={index === 0 ? 'large' : 'small'}
                 newsArticle={item}
-                key={`news-${item.uuid}`}
               />
             )}
             contentContainerStyle={{ paddingBottom: 80, paddingTop: 16 }}
