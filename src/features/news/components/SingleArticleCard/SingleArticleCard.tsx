@@ -8,6 +8,7 @@ import { Card } from 'react-native-paper';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Icon } from 'react-native-paper/src';
 import { useNewsContext } from '../../context/NewsContextProvider.tsx';
+import { DeleteArticle } from '../DeleteArticle/DeleteArticle.tsx';
 
 interface SingleNewsCardProps {
   cardSize: 'small' | 'large';
@@ -93,29 +94,29 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
     );
   };
 
-  const renderDeleteArticleButton = (uuid: string) => (
-    <Pressable
-      onPress={() => handleDeleteArticle(uuid)}
-      style={{
-        position: 'absolute',
-        top: 8,
-        right: 8,
-        zIndex: 10,
-        backgroundColor: 'rgba(255, 0, 0, 0.7)',
-        borderRadius: 4,
-        padding: 2,
-      }}
-    >
-      <Icon source={'trash-can-outline'} size={24} color={'white'} />
-    </Pressable>
-  );
+  // const renderDeleteArticleButton = (uuid: string) => (
+  //   <Pressable
+  //     onPress={() => handleDeleteArticle(uuid)}
+  //     style={{
+  //       position: 'absolute',
+  //       top: 8,
+  //       right: 8,
+  //       zIndex: 10,
+  //       backgroundColor: 'rgba(255, 0, 0, 0.7)',
+  //       borderRadius: 4,
+  //       padding: 2,
+  //     }}
+  //   >
+  //     <Icon source={'trash-can-outline'} size={24} color={'white'} />
+  //   </Pressable>
+  // );
 
   const LargeCard = ({ article }: CardProps) => {
     return (
       <View>
-        {article?.categories?.includes('my') &&
-          renderDeleteArticleButton(article.uuid)}
-
+        {article?.categories?.includes('my') && (
+          <DeleteArticle article={article} />
+        )}
         {image_url ? (
           <Image source={{ uri: image_url }} style={styles.image} />
         ) : (
@@ -136,8 +137,9 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
 
   const SmallCard = ({ article }: CardProps) => (
     <View style={styles.smallContentContainer}>
-      {article?.categories?.includes('my') &&
-        renderDeleteArticleButton(article.uuid)}
+      {article?.categories?.includes('my') && (
+        <DeleteArticle article={article} />
+      )}
       <View style={styles.smallTextContentContainer}>
         <Text style={styles.title}>{title}</Text>
         {renderDescription()}

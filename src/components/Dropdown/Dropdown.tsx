@@ -40,6 +40,7 @@ export const Dropdown = ({
       onSelect={handleSelect}
       mode="outlined"
       error={error}
+      // @ts-ignore
       inputProps={{
         style: styles.input,
         outlineColor: error ? theme.colors.error : theme.colors.outline,
