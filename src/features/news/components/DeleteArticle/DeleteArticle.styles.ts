@@ -16,10 +16,10 @@ export const createStyles = () => {
       alignItems: 'center',
       backgroundColor: 'white',
       padding: 20,
-      height: 200, // adjust as needed
-      width: 300, // adjust as needed
+      height: 200,
+      width: 300,
       margin: 20,
-      alignSelf: 'center', // Centers the modal itself
+      alignSelf: 'center',
       borderRadius: 10,
       gap: 16,
     },
