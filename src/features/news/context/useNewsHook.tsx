@@ -40,8 +40,7 @@ export const useNewsHook = () => {
     newArticleTitle.length === 0 ||
     newArticleCategories.length === 0 ||
     newArticleDescription.length === 0 ||
-    newArticleSource.length === 0 ||
-    newArticleImage === null;
+    newArticleSource.length === 0;
 
   const filteredDataByCategory = useMemo(() => {
     if (allData.length === 0) return allData;
