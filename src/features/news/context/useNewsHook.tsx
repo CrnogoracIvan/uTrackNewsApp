@@ -4,6 +4,7 @@ import { NEWS_CATEGORIES } from '../../../constants.ts';
 import { INewsArticle } from '../../../types.ts';
 import uuid from 'react-native-uuid';
 import {
+  filterMyArticles,
   getArticlesFromStorage,
   setArticlesToStorage,
 } from '../../../utils.ts';
@@ -67,9 +68,7 @@ export const useNewsHook = () => {
     const newArticles = [newArticleData, ...allData];
     setAllData(newArticles);
 
-    const myArticleData = newArticles.filter(item =>
-      item.categories.includes('my'),
-    );
+    const myArticleData = filterMyArticles(newArticles);
     setArticlesToStorage(myArticleData);
     handleClearNewArticle();
   };
@@ -79,6 +78,8 @@ export const useNewsHook = () => {
       newsArticle => newsArticle.uuid !== articleUuid,
     );
     setAllData(newArticleData);
+    const myArticleData = filterMyArticles(newArticleData);
+    setArticlesToStorage(myArticleData);
   };
 
   const handleClearNewArticle = () => {
@@ -90,10 +91,20 @@ export const useNewsHook = () => {
   };
 
   useEffect(() => {
+    const getDataFromStorage = async () => {
+      const data = await getArticlesFromStorage();
+      setAllData(data);
+    };
+    getDataFromStorage();
+  }, []);
+
+  useEffect(() => {
     if (!data?.data) {
       return;
     }
-    setAllData(data.data || []);
+    setAllData(prevState => {
+      return [...prevState, ...data.data];
+    });
   }, [data]);
 
   return {

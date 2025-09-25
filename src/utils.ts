@@ -1,6 +1,7 @@
 import { PermissionsAndroid, Platform } from 'react-native';
 import { STORAGE_KEYS } from './constants.ts';
-import asyncStorage from '@react-native-async-storage/async-storage/src/AsyncStorage.ts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { INewsArticle } from './types.ts';
 
 export const getFormattedDate = (date: Date) => {
@@ -33,17 +34,21 @@ export const requestPermissions = async () => {
   return true;
 };
 
+export const filterMyArticles = (articles: INewsArticle[]) => {
+  const myArticleData = articles.filter(item => item.categories.includes('my'));
+  return myArticleData;
+};
+
 export const setArticlesToStorage = (articles: INewsArticle[]) => {
   const { ARTICLES } = STORAGE_KEYS;
   const stringifiedArticles = JSON.stringify(articles);
-  asyncStorage.setItem(ARTICLES, stringifiedArticles);
+  AsyncStorage.setItem(ARTICLES, stringifiedArticles);
 };
 
 export const getArticlesFromStorage = async () => {
   const { ARTICLES } = STORAGE_KEYS;
   try {
-    const stringifiedArticles = await asyncStorage?.getItem(ARTICLES);
-    console.log(stringifiedArticles);
+    const stringifiedArticles = await AsyncStorage.getItem(ARTICLES);
     if (!stringifiedArticles) {
       return [];
     }
