@@ -7,13 +7,10 @@ import { createStyles } from './AuthScreen.styles';
 import { MOCK_CREDENTIALS } from '../../../../mockData';
 import { TRootStackParamList } from '../../../../types';
 
-type TNewsScreenNavigationProp = NativeStackNavigationProp<
-  TRootStackParamList,
-  'News'
->;
+type TNavigationProps = NativeStackNavigationProp<TRootStackParamList, 'News'>;
 
 export const AuthScreen = () => {
-  const Navigation = useNavigation<TNewsScreenNavigationProp>();
+  const Navigation = useNavigation<TNavigationProps>();
   const theme = useTheme();
   const styles = createStyles(theme);
 
@@ -30,7 +27,7 @@ export const AuthScreen = () => {
       setIsErrorVisible(true);
       return;
     }
-    Navigation.navigate('News'); // now typed correctly
+    Navigation.navigate('News');
   };
 
   return (

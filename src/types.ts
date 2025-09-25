@@ -25,5 +25,6 @@ export interface INewsResponse {
 export type TRootStackParamList = {
   Auth: undefined;
   News: undefined;
-  Article: { article: INewsArticle }; // add all params here
+  Article: { article: INewsArticle };
+  NewArticle: undefined;
 };

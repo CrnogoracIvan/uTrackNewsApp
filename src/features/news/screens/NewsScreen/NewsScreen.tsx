@@ -9,8 +9,17 @@ import { SingleArticleCard } from '../../components/SingleArticleCard/SingleArti
 import { NoArticlesFound } from '../../components/NoArticlesFound/NoArticlesFound.tsx';
 import { FAB } from 'react-native-paper';
 import { createStyles } from './NewsScreen.styles.ts';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { TRootStackParamList } from '../../../../types.ts';
+
+type TNavigationProps = NativeStackNavigationProp<
+  TRootStackParamList,
+  'NewArticle'
+>;
 
 export const NewsScreen = () => {
+  const Navigation = useNavigation<TNavigationProps>();
   const [activeTabIndex, setActiveTabIndex] = React.useState(0);
   const { data, isLoading } = useGetNews();
   const styles = createStyles();
@@ -33,7 +42,7 @@ export const NewsScreen = () => {
       icon="plus"
       color="white"
       onPress={() => {
-        console.log('FAB pressed');
+        Navigation.navigate('NewArticle');
       }}
     />
   );

@@ -6,27 +6,24 @@ import { Image } from 'react-native';
 import { SingleArticleScreen } from '../../features/news/screens/SingleArticleScreen/SingleArticleScreen.tsx';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { TRootStackParamList } from '../../types.ts';
-import routes from '../../constants/routes.ts';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { AddArticleScreen } from '../../features/news/screens/AddArticleScreen/AddArticleScreen.tsx';
 
 export const AppNavigator = () => {
   const Stack = createNativeStackNavigator<TRootStackParamList>();
-  const { AUTH, NEWS, ARTICLE } = routes;
-  const insets = useSafeAreaInsets();
-  console.log('insets', insets);
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={AUTH}>
+      <Stack.Navigator initialRouteName={'Auth'}>
         <Stack.Screen
-          name={AUTH}
+          name={'Auth'}
           component={AuthScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name={NEWS}
+          name={'News'}
           component={NewsScreen}
           options={{
-            headerTitleAlign: 'center', // centers the image
+            headerTitleAlign: 'center',
             headerTitle: () => (
               <Image
                 source={require('../../assets/images/logo.png')}
@@ -37,10 +34,17 @@ export const AppNavigator = () => {
           }}
         />
         <Stack.Screen
-          name={ARTICLE}
+          name={'Article'}
           component={SingleArticleScreen}
           options={{
             headerTitle: 'Article Details',
+          }}
+        />
+        <Stack.Screen
+          name={'NewArticle'}
+          component={AddArticleScreen}
+          options={{
+            headerTitle: 'New Article',
           }}
         />
       </Stack.Navigator>

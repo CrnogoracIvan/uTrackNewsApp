@@ -1,16 +1,20 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
-import { INewsArticle } from '../../../../types';
+import { INewsArticle, TRootStackParamList } from '../../../../types';
 import { createStyles } from './SingleArticleCard.styles.ts';
 import { getFormattedDate } from '../../../../utils.ts';
 import { useNavigation } from '@react-navigation/core';
-import navigation from '../../../../constants/routes.ts';
 import { Card } from 'react-native-paper';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 interface SingleNewsCardProps {
   cardSize: 'small' | 'large';
   newsArticle: INewsArticle;
 }
+type TNavigationProps = NativeStackNavigationProp<
+  TRootStackParamList,
+  'Article'
+>;
 
 export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
   newsArticle,
@@ -20,11 +24,10 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
   const { title, description, image_url, source, published_at, categories } =
     newsArticle;
 
-  const Navigation = useNavigation();
+  const Navigation = useNavigation<TNavigationProps>();
 
   const handleCardPress = (article: INewsArticle) =>
-    // @ts-ignore
-    Navigation.navigate(navigation.ARTICLE, { article: article });
+    Navigation.navigate('Article', { article: article });
 
   const renderDescription = () => {
     if (!description) {
