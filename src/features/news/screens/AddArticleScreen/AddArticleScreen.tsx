@@ -1,4 +1,4 @@
-import { Image, Platform, Pressable, Text, View } from 'react-native';
+import { Image, Pressable, Text, View } from 'react-native';
 import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
 import { Button, TextInput, useTheme } from 'react-native-paper';
 import React from 'react';
@@ -9,6 +9,7 @@ import { Icon } from 'react-native-paper/src';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import { requestPermissions } from '../../../../utils.ts';
+import { Toast } from 'toastify-react-native';
 
 export const AddArticleScreen = () => {
   const [isErrorVisible, setIsErrorVisible] = React.useState(false);
@@ -26,6 +27,8 @@ export const AddArticleScreen = () => {
     newArticleCategories,
     setNewArticleCategories,
     handleAddArticle,
+    handleClearNewArticle,
+    isAddNewArticleButtonDisabled,
   } = useNewsContext();
 
   const dropDownData = NEWS_CATEGORIES.filter(
@@ -33,18 +36,14 @@ export const AddArticleScreen = () => {
   );
 
   const handleSaveArticle = () => {
-    console.log('Saving article...');
     handleAddArticle();
-    // handleCancel();
+    Toast.success('Article has been added successfully.');
+    Navigation.goBack();
   };
 
   const handleCancel = () => {
     setIsErrorVisible(false);
-    setNewArticleTitle('');
-    setNewArticleDescription('');
-    setNewArticleImage('');
-    setNewArticleSource('');
-    setNewArticleCategories([]);
+    handleClearNewArticle();
     Navigation.goBack();
   };
 
@@ -131,6 +130,7 @@ export const AddArticleScreen = () => {
             onChange={() => setIsErrorVisible(false)}
             mode="outlined"
             error={isErrorVisible}
+            autoCapitalize="none"
           />
 
           <Dropdown
@@ -166,6 +166,7 @@ export const AddArticleScreen = () => {
             textColor={'white'}
             onPress={handleSaveArticle}
             style={{ marginTop: 16 }}
+            disabled={isAddNewArticleButtonDisabled}
           >
             SAVE ARTICLE
           </Button>

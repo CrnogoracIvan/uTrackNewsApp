@@ -6,6 +6,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppNavigator } from './src/components/AppNavigator/AppNavigator.tsx';
 import { NewsContextProvider } from './src/features/news/context/NewsContextProvider.tsx';
+import ToastContainer from 'toastify-react-native';
 
 export default function App() {
   const queryClient = new QueryClient({
@@ -24,6 +25,7 @@ export default function App() {
           </PaperProvider>
         </NewsContextProvider>
       </QueryClientProvider>
+      <ToastContainer position="bottom" duration={3000} />
     </SafeAreaProvider>
   );
 }

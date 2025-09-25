@@ -9,11 +9,11 @@ export const useNewsHook = () => {
   const [activeTabIndex, setActiveTabIndex] = React.useState(0);
   const [newArticleTitle, setNewArticleTitle] = React.useState('');
   const [newArticleDescription, setNewArticleDescription] = React.useState('');
-  const [newArticleImage, setNewArticleImage] = React.useState(undefined);
+  const [newArticleImage, setNewArticleImage] = React.useState(null);
   const [newArticleSource, setNewArticleSource] = React.useState('');
   const [newArticleCategories, setNewArticleCategories] = React.useState<
     string[]
-  >(['']);
+  >([]);
 
   const { data, isLoading } = useGetNews();
 
@@ -23,7 +23,8 @@ export const useNewsHook = () => {
       title: newArticleTitle,
       description: newArticleDescription,
       url: newArticleSource,
-      image_url: newArticleImage?.url,
+      // @ts-ignore
+      image_url: newArticleImage?.uri,
       published_at: '',
       source: newArticleSource,
       categories: newArticleCategories,
@@ -35,6 +36,13 @@ export const useNewsHook = () => {
     newArticleSource,
     newArticleTitle,
   ]);
+
+  const isAddNewArticleButtonDisabled =
+    newArticleTitle.length === 0 ||
+    newArticleCategories.length === 0 ||
+    newArticleDescription.length === 0 ||
+    newArticleSource.length === 0 ||
+    newArticleImage === null;
 
   const filteredDataByCategory = useMemo(() => {
     if (allData.length === 0) return allData;
@@ -48,13 +56,30 @@ export const useNewsHook = () => {
     );
   }, [activeTabIndex, allData]);
 
+  const handleAddingArticleSourceUrl = (sourceUrl: string) => {
+    if (['http://', 'https://'].includes(sourceUrl)) {
+      return sourceUrl;
+    }
+    return `https://${sourceUrl}`;
+  };
+
   const handleAddArticle = () => {
     const newArticleData = {
       ...newArticle,
       uuid: uuid.v4(),
       published_at: new Date().toISOString(),
+      source: handleAddingArticleSourceUrl(newArticleSource),
     };
-    setAllData([...allData, newArticleData]);
+    setAllData([newArticleData, ...allData]);
+    handleClearNewArticle();
+  };
+
+  const handleClearNewArticle = () => {
+    setNewArticleTitle('');
+    setNewArticleDescription('');
+    setNewArticleImage(null);
+    setNewArticleSource('');
+    setNewArticleCategories([]);
   };
 
   useEffect(() => {
@@ -70,6 +95,7 @@ export const useNewsHook = () => {
 
     areNewsLoading: isLoading,
     filteredDataByCategory,
+    isAddNewArticleButtonDisabled,
 
     newArticleTitle,
     setNewArticleTitle,
@@ -83,5 +109,6 @@ export const useNewsHook = () => {
     setNewArticleCategories,
 
     handleAddArticle,
+    handleClearNewArticle,
   };
 };

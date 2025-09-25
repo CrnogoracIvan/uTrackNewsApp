@@ -39,6 +39,8 @@ export const NewsScreen = () => {
     />
   );
 
+  console.log('filteredDataByCategory', filteredDataByCategory);
+
   const renderNews = () => {
     return (
       <View style={{ flex: 1 }}>

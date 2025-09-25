@@ -8,6 +8,9 @@ type TProps = NativeStackScreenProps<TRootStackParamList, 'Article'>;
 export const SingleArticleScreen = (props: TProps) => {
   const { route } = props;
   const { article } = route.params;
+  console.log('article', article);
 
-  return <WebView source={{ uri: article.url }} style={{ flex: 1 }} />;
+  return (
+    <WebView source={{ uri: `https://${article.url}` }} style={{ flex: 1 }} />
+  );
 };
