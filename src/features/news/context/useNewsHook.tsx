@@ -6,7 +6,7 @@ export const useNewsHook = () => {
   const [activeTabIndex, setActiveTabIndex] = React.useState(0);
   const [newArticleTitle, setNewArticleTitle] = React.useState('');
   const [newArticleDescription, setNewArticleDescription] = React.useState('');
-  const [newArticleImage, setNewArticleImage] = React.useState('');
+  const [newArticleImage, setNewArticleImage] = React.useState(null);
   const [newArticleSource, setNewArticleSource] = React.useState('');
   const [newArticleCategories, setNewArticleCategories] = React.useState('');
 

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { MultiSelectDropdown } from 'react-native-paper-dropdown';
 import { useTheme } from 'react-native-paper';
-import { NEWS_CATEGORIES } from '../../constants/tabs.ts';
 import { ITab } from '../../types.ts';
 
 interface IProps {
@@ -10,7 +9,7 @@ interface IProps {
   onSelect?: (values: string[]) => void;
   label?: string;
   placeholder?: string;
-  options?: ITab[];
+  options: ITab[];
   error?: boolean;
 }
 
