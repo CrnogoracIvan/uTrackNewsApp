@@ -1,4 +1,4 @@
-import { Image, Pressable, Text, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
 import { Button, TextInput, useTheme } from 'react-native-paper';
 import React from 'react';
@@ -10,10 +10,12 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import { requestPermissions } from '../../../../utils.ts';
 import { Toast } from 'toastify-react-native';
+import { createStyles } from './AddArticleScreen.styles.ts';
 
 export const AddArticleScreen = () => {
   const [isErrorVisible, setIsErrorVisible] = React.useState(false);
   const theme = useTheme();
+  const styles = createStyles(theme);
   const Navigation = useNavigation();
   const {
     newArticleTitle,
@@ -72,9 +74,7 @@ export const AddArticleScreen = () => {
   const renderImagePreview = () => {
     if (!newArticleImage) {
       return (
-        <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
+        <View style={styles.imageContainer}>
           <Icon
             size={64}
             source={'image-outline'}
@@ -90,22 +90,15 @@ export const AddArticleScreen = () => {
       <Image
         resizeMode="cover"
         source={{ uri: newArticleImage.uri }}
-        style={{ width: '100%', height: 200 }}
+        style={styles.image}
       />
     );
   };
 
   return (
     <RegularLayout>
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          paddingBottom: 40,
-        }}
-      >
-        <View style={{ gap: 8 }}>
+      <View style={styles.container}>
+        <View style={styles.form}>
           <TextInput
             label="Title"
             value={newArticleTitle}
@@ -142,22 +135,12 @@ export const AddArticleScreen = () => {
             error={isErrorVisible}
           />
 
-          <Pressable
-            style={{
-              alignItems: 'center',
-              width: '100%',
-              height: 200,
-              borderWidth: 1,
-              borderColor: theme.colors.outline,
-              borderRadius: theme.roundness,
-              backgroundColor: theme.colors.background,
-              marginTop: 8,
-              overflow: 'hidden',
-            }}
+          <TouchableOpacity
+            style={styles.chooseImage}
             onPress={handleImagePickerPress}
           >
             {renderImagePreview()}
-          </Pressable>
+          </TouchableOpacity>
         </View>
 
         <View>
@@ -165,7 +148,7 @@ export const AddArticleScreen = () => {
             mode={'contained'}
             textColor={'white'}
             onPress={handleSaveArticle}
-            style={{ marginTop: 16 }}
+            style={styles.saveButton}
             disabled={isAddNewArticleButtonDisabled}
           >
             SAVE ARTICLE
@@ -173,7 +156,7 @@ export const AddArticleScreen = () => {
           <Button
             mode={'outlined'}
             onPress={handleCancel}
-            style={{ marginTop: 8 }}
+            style={styles.cancelButton}
           >
             CANCEL
           </Button>

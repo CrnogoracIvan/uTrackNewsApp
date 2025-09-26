@@ -1,4 +1,4 @@
-import { Pressable, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { TextInput, useTheme } from 'react-native-paper';
 import React from 'react';
 import { useNewsContext } from '../../context/NewsContextProvider.tsx';
@@ -19,9 +19,9 @@ export const NewsSearch = () => {
         style={styles.input}
       />
 
-      <Pressable onPress={handleClearSearch}>
+      <TouchableOpacity onPress={handleClearSearch}>
         <Icon source="close" size={36} color={theme.colors.primary} />
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 };

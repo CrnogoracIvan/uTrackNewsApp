@@ -1,4 +1,4 @@
-import { Pressable, Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { createStyles } from './NewsTab.styles.ts';
 import { INewsCategory } from '../../../../types.ts';
 import { useNewsContext } from '../../context/NewsContextProvider.tsx';
@@ -10,7 +10,7 @@ export const NewsTabs = () => {
 
   const renderTab = (tab: INewsCategory, tabIndex: number) => {
     return (
-      <Pressable
+      <TouchableOpacity
         key={`tab-${tabIndex}`}
         style={activeTabIndex === tabIndex ? styles.activeTab : styles.tab}
         onPress={() => {
@@ -24,7 +24,7 @@ export const NewsTabs = () => {
         >
           {tab.label}
         </Text>
-      </Pressable>
+      </TouchableOpacity>
     );
   };
   return (

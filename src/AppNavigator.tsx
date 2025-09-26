@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { LoginScreen } from './features/auth/screens/LoginScreen/LoginScreen.tsx';
 import { NewsScreen } from './features/news/screens/NewsScreen/NewsScreen.tsx';
-import { Image, Pressable } from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
 import { SingleArticleScreen } from './features/news/screens/SingleArticleScreen/SingleArticleScreen.tsx';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { TRootStackParamList } from './types.ts';
@@ -57,9 +57,9 @@ export const AppNavigator = () => {
             gestureEnabled: false,
             headerTitleAlign: 'center',
             headerLeft: () => (
-              <Pressable onPress={handleSearchToggle}>
+              <TouchableOpacity onPress={handleSearchToggle}>
                 <Icon source="magnify" size={30} color={theme.colors.primary} />
-              </Pressable>
+              </TouchableOpacity>
             ),
             headerTitle: () => (
               <Image
@@ -69,13 +69,13 @@ export const AppNavigator = () => {
             ),
             title: '',
             headerRight: () => (
-              <Pressable onPress={() => navigation.navigate('Profile')}>
+              <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
                 <Icon
                   source="account-outline"
                   size={36}
                   color={theme.colors.primary}
                 />
-              </Pressable>
+              </TouchableOpacity>
             ),
           })}
         />

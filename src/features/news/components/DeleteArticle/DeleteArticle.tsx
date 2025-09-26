@@ -1,4 +1,4 @@
-import { Pressable, Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-paper/src';
 import React from 'react';
 import { INewsArticle } from '../../../../types.ts';
@@ -23,13 +23,13 @@ export const DeleteArticle = ({ article }: IProps) => {
   };
 
   const renderDeleteArticleButton = () => (
-    <Pressable
+    <TouchableOpacity
       onPress={() => setIsModalVisible(true)}
       style={styles.trigger}
       testID="delete-article-button"
     >
       <Icon source={'trash-can-outline'} size={24} color={'white'} />
-    </Pressable>
+    </TouchableOpacity>
   );
 
   const renderModal = () => (
