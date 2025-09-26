@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useAuthContext } from '../../../auth/context/AuthContextProvider.tsx';
 import { createStyles } from './ProfileScreen.styles.ts';
+import { DeleteAccount } from '../../components/DeleteAccount/DeleteAccount.tsx';
 
 type TNavigationProps = NativeStackNavigationProp<TRootStackParamList, 'Auth'>;
 
@@ -40,14 +41,7 @@ export const ProfileScreen = () => {
 
   const renderButtons = () => (
     <View style={styles.buttonContainer}>
-      <Button
-        mode={'outlined'}
-        textColor={theme.colors.primary}
-        onPress={handleLogoutAndDelete}
-        style={styles.button}
-      >
-        LOGOUT AND DELETE ACCOUNT
-      </Button>
+      <DeleteAccount onConfirm={handleLogoutAndDelete} />
       <Button
         mode={'contained'}
         textColor={'white'}
