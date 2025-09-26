@@ -23,6 +23,7 @@ export const createStyles = (theme: MD3Theme) => {
       minWidth: 60,
       fontSize: 16,
       fontStyle: 'italic',
+      color: theme.colors.onSurface,
     },
     infoText: {
       minWidth: 80,

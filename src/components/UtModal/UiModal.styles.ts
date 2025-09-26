@@ -18,13 +18,16 @@ export const createStyles = (theme: MD3Theme) => {
     titleText: {
       fontWeight: 'bold',
       fontSize: 20,
+      color: theme.colors.onSurface,
     },
     contentText: {
       textAlign: 'center',
       lineHeight: 22,
+      color: theme.colors.onSurface,
     },
     contentTextBold: {
       fontWeight: 'bold',
+      color: theme.colors.onSurface,
     },
     buttonContainer: {
       flexDirection: 'row',

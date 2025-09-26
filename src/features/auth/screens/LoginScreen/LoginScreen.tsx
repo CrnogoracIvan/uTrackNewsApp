@@ -96,19 +96,10 @@ export const LoginScreen = () => {
           </Button>
         </View>
       </View>
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginBottom: 50,
-          gap: 12,
-        }}
-      >
-        <Text>Don't have an account?</Text>
+      <View style={styles.registerHintContainer}>
+        <Text style={styles.registerHintText}>Don't have an account?</Text>
         <Button onPress={handleRegisterHere}>
-          <Text style={{ fontWeight: 'bold', fontSize: 16 }}>
-            Register here
-          </Text>
+          <Text style={styles.registerHintButtonText}>Register here</Text>
         </Button>
       </View>
     </View>

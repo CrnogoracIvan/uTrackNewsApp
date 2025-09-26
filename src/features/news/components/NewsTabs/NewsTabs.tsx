@@ -3,9 +3,11 @@ import { createStyles } from './NewsTab.styles.ts';
 import { INewsCategory } from '../../../../types.ts';
 import { useNewsContext } from '../../context/NewsContextProvider.tsx';
 import { NEWS_CATEGORIES } from '../../../../constants.ts';
+import { useTheme } from 'react-native-paper';
 
 export const NewsTabs = () => {
-  const styles = createStyles();
+  const theme = useTheme();
+  const styles = createStyles(theme);
   const { activeTabIndex, setActiveTabIndex } = useNewsContext();
 
   const renderTab = (tab: INewsCategory, tabIndex: number) => {

@@ -47,4 +47,18 @@ export const createStyles = (theme: MD3Theme) =>
       width: 240,
       height: 80,
     },
+
+    registerHintContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: 50,
+      gap: 12,
+    },
+    registerHintText: {
+      color: theme.colors.onSurface,
+    },
+    registerHintButtonText: {
+      fontWeight: 'bold',
+      fontSize: 16,
+    },
   });

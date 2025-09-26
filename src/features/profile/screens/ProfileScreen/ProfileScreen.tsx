@@ -19,8 +19,6 @@ export const ProfileScreen = () => {
   const styles = createStyles(theme);
 
   const { themeType, toggleTheme } = useThemeContext();
-  console.log('themeType: ', themeType);
-  console.log('theme: ', theme);
   const {
     logoutAndDeleteRemoveUserFromUsersInStorage,
     logoutRemoveUserFromStorage,

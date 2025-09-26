@@ -17,11 +17,11 @@ export const createStyles = (theme: MD3Theme) => {
 
   return StyleSheet.create({
     container: {
-      backgroundColor: theme.colors.surfaceVariant,
+      backgroundColor: theme.colors.surface,
       borderRadius: 8,
       marginVertical: 8,
       marginHorizontal: 8,
-      shadowColor: theme.colors.shadow,
+      shadowColor: theme.colors.outline,
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.1,
       shadowRadius: 4,
@@ -107,7 +107,7 @@ export const createStyles = (theme: MD3Theme) => {
     },
     categoryBadge: {
       ...categoryBadge,
-      backgroundColor: theme.colors.surface,
+      backgroundColor: theme.colors.surfaceVariant,
     },
     myCategoryBadge: {
       ...categoryBadge,

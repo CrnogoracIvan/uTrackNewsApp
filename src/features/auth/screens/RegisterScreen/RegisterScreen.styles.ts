@@ -38,13 +38,22 @@ export const createStyles = (theme: MD3Theme) =>
       borderRadius: theme.roundness,
     },
 
-    loginButtonText: {
-      fontWeight: 'bold',
-      fontSize: 16,
-    },
-
     logo: {
       width: 240,
       height: 80,
+    },
+
+    loginHintContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: 50,
+      gap: 12,
+    },
+    loginHintText: {
+      color: theme.colors.onSurface,
+    },
+    loginHintButtonText: {
+      fontWeight: 'bold',
+      fontSize: 16,
     },
   });

@@ -31,9 +31,11 @@ export const createStyles = (theme: MD3Theme) => {
     contentText: {
       textAlign: 'center',
       lineHeight: 22,
+      color: theme.colors.onSurface,
     },
     contentTextBold: {
       fontWeight: 'bold',
+      color: theme.colors.onSurface,
     },
     buttonContainer: {
       flexDirection: 'row',

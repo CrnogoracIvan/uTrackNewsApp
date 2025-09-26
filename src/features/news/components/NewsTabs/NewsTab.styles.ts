@@ -1,6 +1,7 @@
 import { StyleSheet, TextStyle } from 'react-native';
+import { MD3Theme } from 'react-native-paper';
 
-export const createStyles = () => {
+export const createStyles = (theme: MD3Theme) => {
   const tab = {
     padding: 5,
     minWidth: 40,
@@ -9,6 +10,7 @@ export const createStyles = () => {
   const tabText = {
     fontSize: 18,
     textTransform: 'uppercase',
+    color: theme.colors.onSurface,
   } as TextStyle;
 
   return StyleSheet.create({

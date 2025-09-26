@@ -24,7 +24,7 @@ export const NewsHeader = () => {
       {renderActiveHeaderComponent()}
       <LinearGradient
         style={styles.gradientStyle}
-        colors={[theme.colors.background, 'rgba(255,255,255,0)']}
+        colors={[theme.colors.background, theme.colors.backgroundTransparent]}
       />
     </View>
   );

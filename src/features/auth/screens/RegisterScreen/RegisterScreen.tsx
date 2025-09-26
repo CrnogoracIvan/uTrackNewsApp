@@ -151,17 +151,10 @@ export const RegisterScreen = () => {
   );
 
   const renderGoBack = () => (
-    <View
-      style={{
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 50,
-        gap: 6,
-      }}
-    >
-      <Text>Have an account?</Text>
+    <View style={styles.loginHintContainer}>
+      <Text style={styles.loginHintText}>Have an account?</Text>
       <Button onPress={handleGoBack}>
-        <Text style={styles.loginButtonText}>Login</Text>
+        <Text style={styles.loginHintButtonText}>Login</Text>
       </Button>
     </View>
   );

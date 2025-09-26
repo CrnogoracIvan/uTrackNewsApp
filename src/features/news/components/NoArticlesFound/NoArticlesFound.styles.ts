@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
+import { MD3Theme } from 'react-native-paper';
 
-export const createStyles = () => {
+export const createStyles = (theme: MD3Theme) => {
   return StyleSheet.create({
     container: {
       flex: 1,
@@ -9,5 +10,6 @@ export const createStyles = () => {
       alignItems: 'center',
       gap: 12,
     },
+    text: { color: theme.colors.onSurface },
   });
 };
