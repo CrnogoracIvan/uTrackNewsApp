@@ -1,4 +1,4 @@
-import { TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-paper/src';
 import React from 'react';
 import { INewsArticle } from '../../../../types.ts';
@@ -43,7 +43,12 @@ export const DeleteArticle = ({ article }: IProps) => {
         onConfirm={handleDelete}
         confirmLabel={'YES'}
         title={'Delete Article'}
-        content={` Are you sure you want to remove the article titled "${article.title}"?`}
+        content={
+          <Text style={styles.contentText}>
+            Are you sure you want to remove the article titled{' '}
+            <Text style={styles.contentTextBold}>"{article.title}"?</Text>
+          </Text>
+        }
       />
     </>
   );

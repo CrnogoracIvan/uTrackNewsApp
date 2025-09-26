@@ -1,6 +1,6 @@
 import { Button, Modal, Portal } from 'react-native-paper';
 import { Text, View } from 'react-native';
-import React from 'react';
+import React, { JSX } from 'react';
 import { createStyles } from './UiModal.styles.ts';
 
 interface IProps {
@@ -9,7 +9,7 @@ interface IProps {
   onCancel: () => void;
   onConfirm: () => void;
   title: string;
-  content: string;
+  content: string | React.JSX.Element;
   cancelLabel: string;
   confirmLabel: string;
 }
@@ -25,6 +25,13 @@ export const UtModal = ({
   cancelLabel,
 }: IProps) => {
   const styles = createStyles();
+  const renderContent = () => {
+    if (typeof content === 'string') {
+      return <Text style={styles.contentText}>{content}</Text>;
+    }
+    return content;
+  };
+
   return (
     <Portal>
       <Modal
@@ -33,7 +40,7 @@ export const UtModal = ({
         contentContainerStyle={styles.modalContainer}
       >
         <Text style={styles.titleText}>{title}</Text>
-        <Text style={styles.contentText}>{content}</Text>
+        {renderContent()}
         <View style={styles.buttonContainer}>
           <Button
             mode={'contained'}
