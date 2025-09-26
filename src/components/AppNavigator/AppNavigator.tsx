@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { LoginScreen } from '../../features/auth/screens/LoginScreen/LoginScreen.tsx';
 import { NewsScreen } from '../../features/news/screens/NewsScreen/NewsScreen.tsx';
 import { Image, Pressable } from 'react-native';
@@ -11,13 +11,31 @@ import { RegisterScreen } from '../../features/auth/screens/RegisterScreen/Regis
 import { Icon } from 'react-native-paper/src';
 import { useTheme } from 'react-native-paper';
 import { ProfileScreen } from '../../features/profile/screens/ProfileScreen/ProfileScreen.tsx';
+import { isUserLoggedIn } from '../../utils.ts';
+import { LoadingComponent } from '../LoadingComponent/LoadingComponent.tsx';
 
 export const AppNavigator = () => {
   const theme = useTheme();
   const Stack = createNativeStackNavigator<TRootStackParamList>();
+
+  const [initialRoute, setInitialRoute] = useState<keyof TRootStackParamList>();
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      const userIsLogedIn = await isUserLoggedIn();
+      setInitialRoute(userIsLogedIn ? 'News' : 'Auth');
+    };
+
+    checkLoginStatus();
+  }, []);
+
+  if (!initialRoute) {
+    return <LoadingComponent />;
+  }
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={'Auth'}>
+      <Stack.Navigator initialRouteName={initialRoute}>
         <Stack.Screen
           name={'Auth'}
           component={LoginScreen}
