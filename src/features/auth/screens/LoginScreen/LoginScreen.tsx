@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Image, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -18,6 +18,10 @@ export const LoginScreen = () => {
   const [password, setPassword] = React.useState('');
   const [isErrorVisible, setIsErrorVisible] = React.useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
+
+  const passwordlRef = useRef<any>(null);
+
+  const isGoToNewsButtonDisable = !userName || !password;
 
   const handleLogin = () => {
     if (
@@ -53,8 +57,10 @@ export const LoginScreen = () => {
             outlineColor={theme.colors.secondary}
             activeOutlineColor={theme.colors.primary}
             error={isErrorVisible}
+            onSubmitEditing={() => passwordlRef.current?.focus()}
           />
           <TextInput
+            ref={passwordlRef}
             label="Password"
             value={password}
             onChangeText={text => setPassword(text)}
@@ -63,6 +69,7 @@ export const LoginScreen = () => {
             autoCapitalize="none"
             error={isErrorVisible}
             secureTextEntry={!isPasswordVisible}
+            onSubmitEditing={() => !isGoToNewsButtonDisable && handleLogin()}
             right={
               <TextInput.Icon
                 icon={isPasswordVisible ? 'eye' : 'eye-off'}
@@ -76,7 +83,12 @@ export const LoginScreen = () => {
         </View>
 
         <View style={styles.buttonContainer}>
-          <Button mode={'contained'} textColor={'white'} onPress={handleLogin}>
+          <Button
+            mode={'contained'}
+            textColor={'white'}
+            onPress={handleLogin}
+            disabled={isGoToNewsButtonDisable}
+          >
             GO TO NEWS
           </Button>
         </View>
@@ -89,7 +101,7 @@ export const LoginScreen = () => {
           gap: 12,
         }}
       >
-        <Text>You do not have account?</Text>
+        <Text>Don't have an account?</Text>
         <Button onPress={handleRegisterHere}>
           <Text style={{ fontWeight: 'bold', fontSize: 16 }}>
             Register here

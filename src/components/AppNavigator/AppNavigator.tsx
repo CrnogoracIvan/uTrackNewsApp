@@ -23,7 +23,7 @@ export const AppNavigator = () => {
         <Stack.Screen
           name={'Register'}
           component={RegisterScreen}
-          options={{ headerShown: true }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name={'News'}
