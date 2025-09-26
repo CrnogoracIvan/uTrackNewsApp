@@ -38,6 +38,7 @@ export const createStyles = () => {
       backgroundColor: '#e0e0e0',
       justifyContent: 'center',
       alignItems: 'center',
+      gap: 6,
     },
     smallImage: {
       width: 200,
@@ -45,7 +46,7 @@ export const createStyles = () => {
       resizeMode: 'cover',
     },
     smallImagePlaceholder: {
-      width: '100%',
+      width: '45%',
       height: 200,
       backgroundColor: '#e0e0e0',
       justifyContent: 'center',
@@ -65,7 +66,7 @@ export const createStyles = () => {
     },
     smallTextContentContainer: {
       padding: 16,
-      width: 200,
+      width: '55%',
     },
     title: {
       fontSize: 18,

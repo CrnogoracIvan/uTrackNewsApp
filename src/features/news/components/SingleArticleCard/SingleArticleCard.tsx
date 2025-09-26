@@ -8,6 +8,7 @@ import { Card } from 'react-native-paper';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { DeleteArticle } from '../DeleteArticle/DeleteArticle.tsx';
 import { useAuthContext } from '../../../auth/context/AuthContextProvider.tsx';
+import { Icon } from 'react-native-paper/src';
 
 interface SingleNewsCardProps {
   cardSize: 'small' | 'large';
@@ -117,6 +118,7 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
           <Image source={{ uri: image_url }} style={styles.image} />
         ) : (
           <View style={styles.imagePlaceholder}>
+            <Icon size={36} source={'image-off-outline'} />
             <Text style={styles.placeholderText}>No Image</Text>
           </View>
         )}
@@ -144,6 +146,7 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
         <Image source={{ uri: image_url }} style={styles.smallImage} />
       ) : (
         <View style={styles.smallImagePlaceholder}>
+          <Icon size={36} source={'image-off-outline'} />
           <Text style={styles.placeholderText}>No Image</Text>
         </View>
       )}

@@ -12,7 +12,7 @@ export const NewsSearch = () => {
   return (
     <View style={styles.container}>
       <TextInput
-        label="Search by content"
+        label="Search by content..."
         value={searchTerm}
         onChangeText={text => setSearchTerm(text)}
         mode="outlined"

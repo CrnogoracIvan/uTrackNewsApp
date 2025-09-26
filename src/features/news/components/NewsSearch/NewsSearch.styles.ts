@@ -15,7 +15,7 @@ export const createStyles = () => {
 
     input: {
       width: '90%',
-      fontSize: 12,
+      fontSize: 16,
     },
   });
 };
