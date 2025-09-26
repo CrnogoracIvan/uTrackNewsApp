@@ -1,11 +1,11 @@
-import { Text, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-paper/src';
 import React from 'react';
 import { INewsArticle } from '../../../../types.ts';
 import { useNewsContext } from '../../context/NewsContextProvider.tsx';
 import { createStyles } from './DeleteArticle.styles.ts';
-import { Button, Modal, Portal } from 'react-native-paper';
 import { Toast } from 'toastify-react-native';
+import { UtModal } from '../../../../components/UtModal/UtModal.tsx';
 
 interface IProps {
   article: INewsArticle;
@@ -32,43 +32,19 @@ export const DeleteArticle = ({ article }: IProps) => {
     </TouchableOpacity>
   );
 
-  const renderModal = () => (
-    <Portal>
-      <Modal
-        visible={isModalVisible}
-        onDismiss={() => setIsModalVisible(false)}
-        contentContainerStyle={styles.modalContainer}
-      >
-        <Text style={styles.titleText}>Delete Article</Text>
-        <Text style={styles.contentText}>
-          Are you sure you want to remove the article titled{' '}
-          <Text style={styles.contentTextBold}>"{article.title}"</Text>?
-        </Text>
-        <View style={styles.buttonContainer}>
-          <Button
-            mode={'contained'}
-            textColor={'white'}
-            onPress={handleDelete}
-            testID="yes-button"
-          >
-            YES
-          </Button>
-          <Button
-            mode={'outlined'}
-            onPress={() => setIsModalVisible(false)}
-            testID="no-button"
-          >
-            NO
-          </Button>
-        </View>
-      </Modal>
-    </Portal>
-  );
-
   return (
     <>
       {renderDeleteArticleButton()}
-      {renderModal()}
+      <UtModal
+        visible={isModalVisible}
+        onDismiss={() => setIsModalVisible(false)}
+        onCancel={() => setIsModalVisible(false)}
+        cancelLabel={'NO'}
+        onConfirm={handleDelete}
+        confirmLabel={'YES'}
+        title={'Delete Article'}
+        content={` Are you sure you want to remove the article titled "${article.title}"?`}
+      />
     </>
   );
 };
