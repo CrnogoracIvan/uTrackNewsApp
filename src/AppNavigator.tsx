@@ -1,18 +1,18 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { LoginScreen } from '../../features/auth/screens/LoginScreen/LoginScreen.tsx';
-import { NewsScreen } from '../../features/news/screens/NewsScreen/NewsScreen.tsx';
+import { LoginScreen } from './features/auth/screens/LoginScreen/LoginScreen.tsx';
+import { NewsScreen } from './features/news/screens/NewsScreen/NewsScreen.tsx';
 import { Image, Pressable } from 'react-native';
-import { SingleArticleScreen } from '../../features/news/screens/SingleArticleScreen/SingleArticleScreen.tsx';
+import { SingleArticleScreen } from './features/news/screens/SingleArticleScreen/SingleArticleScreen.tsx';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { TRootStackParamList } from '../../types.ts';
-import { AddArticleScreen } from '../../features/news/screens/AddArticleScreen/AddArticleScreen.tsx';
-import { RegisterScreen } from '../../features/auth/screens/RegisterScreen/RegisterScreen.tsx';
+import { TRootStackParamList } from './types.ts';
+import { AddArticleScreen } from './features/news/screens/AddArticleScreen/AddArticleScreen.tsx';
+import { RegisterScreen } from './features/auth/screens/RegisterScreen/RegisterScreen.tsx';
 import { Icon } from 'react-native-paper/src';
 import { useTheme } from 'react-native-paper';
-import { ProfileScreen } from '../../features/profile/screens/ProfileScreen/ProfileScreen.tsx';
-import { getActiveUserFromStorage } from '../../utils.ts';
-import { LoadingComponent } from '../LoadingComponent/LoadingComponent.tsx';
+import { ProfileScreen } from './features/profile/screens/ProfileScreen/ProfileScreen.tsx';
+import { getActiveUserFromStorage } from './utils.ts';
+import { LoadingComponent } from './components/LoadingComponent/LoadingComponent.tsx';
 
 export const AppNavigator = () => {
   const theme = useTheme();
@@ -56,7 +56,7 @@ export const AppNavigator = () => {
             headerTitleAlign: 'center',
             headerTitle: () => (
               <Image
-                source={require('../../assets/images/logo.png')}
+                source={require('./assets/images/logo.png')}
                 style={{ width: 120, height: 30, resizeMode: 'contain' }}
               />
             ),

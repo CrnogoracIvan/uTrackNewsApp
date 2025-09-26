@@ -35,9 +35,6 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
     newsArticle;
 
   const isArticleMy = (article: INewsArticle) => {
-    console.log(article);
-    console.log(activeUser);
-
     return article.userId === activeUser?.id;
   };
 

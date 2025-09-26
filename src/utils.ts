@@ -52,7 +52,6 @@ export const getAllDataFromStorage = async () => {
       return acc;
     }, {} as Record<string, any>);
 
-    console.log(data);
     return data;
   } catch (e) {
     console.error('Error reading storage', e);

@@ -54,7 +54,6 @@ export const RegisterScreen = () => {
       password,
     });
     Navigation.navigate('News');
-    console.log('register');
   };
 
   const renderErrorMessage = (errorText: string, errorVisible: boolean) => (
