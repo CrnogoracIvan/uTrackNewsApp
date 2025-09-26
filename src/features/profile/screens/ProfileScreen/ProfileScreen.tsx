@@ -1,27 +1,26 @@
 import { Text, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { IUser, TRootStackParamList } from '../../../../types.ts';
-import { getAllDataFromStorage } from '../../../../utils.ts';
+import React from 'react';
+import { TRootStackParamList } from '../../../../types.ts';
 import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
 import { Button, useTheme } from 'react-native-paper';
 import { LoadingComponent } from '../../../../components/LoadingComponent/LoadingComponent.tsx';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useAuthContext } from '../../../auth/context/AuthContextProvider.tsx';
+import { createStyles } from './ProfileScreen.styles.ts';
 
 type TNavigationProps = NativeStackNavigationProp<TRootStackParamList, 'Auth'>;
 
 export const ProfileScreen = () => {
   const Navigation = useNavigation<TNavigationProps>();
   const theme = useTheme();
+  const styles = createStyles(theme);
 
   const {
     logoutAndDeleteRemoveUserFromUsersInStorage,
     logoutRemoveUserFromStorage,
-    loginUserGetFromStorage,
+    activeUser,
   } = useAuthContext();
-
-  const [userData, setUserData] = useState<IUser>();
 
   const handleLogout = async () => {
     await logoutRemoveUserFromStorage();
@@ -39,25 +38,13 @@ export const ProfileScreen = () => {
     });
   };
 
-  useEffect(() => {
-    const getUserData = async () => {
-      getAllDataFromStorage();
-      const loginData = await loginUserGetFromStorage();
-      console.log('data: ', loginData);
-      if (loginData) {
-        setUserData(loginData);
-      }
-    };
-    getUserData();
-  }, []);
-
   const renderButtons = () => (
-    <View style={{ gap: 12, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={styles.buttonContainer}>
       <Button
         mode={'outlined'}
         textColor={theme.colors.primary}
         onPress={handleLogoutAndDelete}
-        style={{ width: 300 }}
+        style={styles.button}
       >
         LOGOUT AND DELETE ACCOUNT
       </Button>
@@ -65,7 +52,7 @@ export const ProfileScreen = () => {
         mode={'contained'}
         textColor={'white'}
         onPress={handleLogout}
-        style={{ width: 300 }}
+        style={styles.button}
       >
         LOG OUT
       </Button>
@@ -73,36 +60,19 @@ export const ProfileScreen = () => {
   );
 
   const renderRow = (label: string, info: string) => (
-    <View
-      style={{
-        flexDirection: 'row',
-        marginVertical: 8,
-        alignItems: 'flex-end',
-      }}
-    >
-      <Text style={{ minWidth: 60, fontSize: 16, fontStyle: 'italic' }}>
-        {label}:
-      </Text>
-      <Text
-        style={{
-          minWidth: 80,
-          fontSize: 20,
-          color: theme.colors.primary,
-          fontWeight: 'bold',
-        }}
-      >
-        {info}
-      </Text>
+    <View style={styles.row}>
+      <Text style={styles.labelText}>{label}:</Text>
+      <Text style={styles.infoText}>{info}</Text>
     </View>
   );
 
   return (
     <RegularLayout>
-      {userData ? (
-        <View style={{ gap: 60 }}>
+      {activeUser ? (
+        <View style={styles.container}>
           <View>
-            {renderRow('Name', userData.name)}
-            {renderRow('Email', userData.email)}
+            {activeUser.name && renderRow('Name', activeUser.name)}
+            {activeUser.email && renderRow('Email', activeUser.email)}
           </View>
           {renderButtons()}
         </View>
