@@ -3,10 +3,11 @@ import { Button, TextInput, useTheme } from 'react-native-paper';
 import React, { useRef } from 'react';
 import { createStyles } from './RegisterScreen.styles.ts';
 import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
-import { isEmailValidRegex, registerUserToStorage } from '../../../../utils.ts';
+import { isEmailValidRegex } from '../../../../utils.ts';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TRootStackParamList } from '../../../../types.ts';
+import { useAuthContext } from '../../context/AuthContextProvider.tsx';
 
 type TNavigationProps = NativeStackNavigationProp<TRootStackParamList, 'News'>;
 
@@ -14,6 +15,7 @@ export const RegisterScreen = () => {
   const Navigation = useNavigation<TNavigationProps>();
   const theme = useTheme();
   const styles = createStyles(theme);
+  const { registerUserToStorage } = useAuthContext();
 
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');

@@ -46,28 +46,8 @@ const useAuthHook = () => {
       return false;
     }
     const stringifiedUser = JSON.stringify(findUser);
-    AsyncStorage.setItem(ACTIVE_USER, stringifiedUser);
-    return true;
-  };
-
-  const loginUserSetToStorage = async (user: IUser) => {
-    const { ACTIVE_USER, REGISTERED_USERS } = STORAGE_KEYS;
-    const registeredUsersStringified = await AsyncStorage.getItem(
-      REGISTERED_USERS,
-    );
-    if (!registeredUsersStringified) {
-      return false;
-    }
-    const registeredUsers = JSON.parse(registeredUsersStringified);
-    const findUser = registeredUsers.find(
-      (registeredUser: IUser) => registeredUser.email === user.email,
-    );
-    if (!findUser) {
-      return false;
-    }
-
-    const stringifiedUser = JSON.stringify(findUser);
-    AsyncStorage.setItem(ACTIVE_USER, stringifiedUser);
+    await AsyncStorage.setItem(ACTIVE_USER, stringifiedUser);
+    handleSetActiveUser();
     return true;
   };
 
@@ -103,14 +83,14 @@ const useAuthHook = () => {
     };
     if (!alreadyRegisteredUsers) {
       const stringifiedUser = JSON.stringify([updatedUserWithId]);
-      AsyncStorage.setItem(REGISTERED_USERS, stringifiedUser);
+      await AsyncStorage.setItem(REGISTERED_USERS, stringifiedUser);
     } else {
       const parsed = JSON.parse(alreadyRegisteredUsers);
       parsed.push(updatedUserWithId);
       const stringifiedUsers = JSON.stringify(parsed);
-      AsyncStorage.setItem(REGISTERED_USERS, stringifiedUsers);
+      await AsyncStorage.setItem(REGISTERED_USERS, stringifiedUsers);
     }
-    loginUserSetToStorage(user);
+    loginUserSuccessufully(user);
   };
 
   const logoutAndDeleteRemoveUserFromUsersInStorage = async () => {
@@ -141,7 +121,6 @@ const useAuthHook = () => {
     handleSetActiveUser,
     registerUserToStorage,
     logoutRemoveUserFromStorage,
-    loginUserSetToStorage,
     loginUserGetFromStorage,
     logoutAndDeleteRemoveUserFromUsersInStorage,
     loginUserSuccessufully,

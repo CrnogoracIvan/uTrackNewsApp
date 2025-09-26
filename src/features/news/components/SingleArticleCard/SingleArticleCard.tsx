@@ -83,7 +83,7 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
       <View style={styles.categoriesContainer}>
         {categories.map((category, index) => {
           if (category === 'my') {
-            if (newsArticle.userId !== activeUser.id) {
+            if (newsArticle.userId !== activeUser?.id) {
               return null;
             }
           }

@@ -1,23 +1,26 @@
 import { Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { IUser, TRootStackParamList } from '../../../../types.ts';
-import {
-  logoutRemoveUserFromStorage,
-  loginUserGetFromStorage,
-  getAllDataFromStorage,
-  logoutAndDeleteRemoveUserFromUsersInStorage,
-} from '../../../../utils.ts';
+import { getAllDataFromStorage } from '../../../../utils.ts';
 import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
 import { Button, useTheme } from 'react-native-paper';
 import { LoadingComponent } from '../../../../components/LoadingComponent/LoadingComponent.tsx';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useAuthContext } from '../../../auth/context/AuthContextProvider.tsx';
 
 type TNavigationProps = NativeStackNavigationProp<TRootStackParamList, 'Auth'>;
 
 export const ProfileScreen = () => {
   const Navigation = useNavigation<TNavigationProps>();
   const theme = useTheme();
+
+  const {
+    logoutAndDeleteRemoveUserFromUsersInStorage,
+    logoutRemoveUserFromStorage,
+    loginUserGetFromStorage,
+  } = useAuthContext();
+
   const [userData, setUserData] = useState<IUser>();
 
   const handleLogout = async () => {
