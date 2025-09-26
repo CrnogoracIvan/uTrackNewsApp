@@ -40,6 +40,7 @@ export const RegisterScreen = () => {
   const handleRegister = () => {
     if (!isEmailValidRegex.test(email)) {
       setIsEmailErrorVisible(true);
+      return;
     }
     if (password !== confirmPassword) {
       setIsPasswordErrorVisible(true);

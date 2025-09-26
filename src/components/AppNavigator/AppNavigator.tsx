@@ -2,16 +2,19 @@ import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { LoginScreen } from '../../features/auth/screens/LoginScreen/LoginScreen.tsx';
 import { NewsScreen } from '../../features/news/screens/NewsScreen/NewsScreen.tsx';
-import { Image } from 'react-native';
+import { Image, Pressable } from 'react-native';
 import { SingleArticleScreen } from '../../features/news/screens/SingleArticleScreen/SingleArticleScreen.tsx';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { TRootStackParamList } from '../../types.ts';
 import { AddArticleScreen } from '../../features/news/screens/AddArticleScreen/AddArticleScreen.tsx';
 import { RegisterScreen } from '../../features/auth/screens/RegisterScreen/RegisterScreen.tsx';
+import { Icon } from 'react-native-paper/src';
+import { useTheme } from 'react-native-paper';
+import { ProfileScreen } from '../../features/profile/screens/ProfileScreen/ProfileScreen.tsx';
 
 export const AppNavigator = () => {
+  const theme = useTheme();
   const Stack = createNativeStackNavigator<TRootStackParamList>();
-
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={'Auth'}>
@@ -25,10 +28,11 @@ export const AppNavigator = () => {
           component={RegisterScreen}
           options={{ headerShown: false }}
         />
+        <Stack.Screen name={'Profile'} component={ProfileScreen} />
         <Stack.Screen
           name={'News'}
           component={NewsScreen}
-          options={{
+          options={({ navigation }) => ({
             headerBackVisible: true,
             gestureEnabled: false,
             headerTitleAlign: 'center',
@@ -39,7 +43,16 @@ export const AppNavigator = () => {
               />
             ),
             title: '',
-          }}
+            headerRight: () => (
+              <Pressable onPress={() => navigation.navigate('Profile')}>
+                <Icon
+                  source="account-outline"
+                  size={36}
+                  color={theme.colors.primary}
+                />
+              </Pressable>
+            ),
+          })}
         />
         <Stack.Screen
           name={'Article'}

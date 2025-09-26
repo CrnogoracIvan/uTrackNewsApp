@@ -37,6 +37,7 @@ export interface IUser {
 export type TRootStackParamList = {
   Auth: undefined;
   Register: undefined;
+  Profile: undefined;
   News: undefined;
   Article: { article: INewsArticle };
   NewArticle: undefined;
