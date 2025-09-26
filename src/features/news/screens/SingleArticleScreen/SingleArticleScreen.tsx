@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import WebView from 'react-native-webview';
 import { TRootStackParamList } from '../../../../types';
@@ -9,12 +9,19 @@ export const SingleArticleScreen = (props: TProps) => {
   const { route } = props;
   const { article } = route.params;
 
-  const getArticleUrl = () => {
-    if (['http://', 'https://'].includes(article.url)) {
+  const customArticleUrl = useMemo(() => {
+    if (
+      article.url.startsWith('http://') ||
+      article.url.startsWith('https://')
+    ) {
       return article.url;
     }
     return `https://${article.url}`;
-  };
+  }, [article.url]);
 
-  return <WebView source={{ uri: getArticleUrl() }} style={{ flex: 1 }} />;
+  if (!customArticleUrl) {
+    return null;
+  }
+
+  return <WebView source={{ uri: customArticleUrl }} style={{ flex: 1 }} />;
 };

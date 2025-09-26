@@ -3,7 +3,7 @@ import { NEWS_DATA_MOCK } from '../../../mockData.ts';
 
 export const getNewsService = async (): Promise<INewsResponse> => {
   try {
-    // return NEWS_DATA_MOCK;
+    return NEWS_DATA_MOCK;
     const response = await fetch(
       'https://api.thenewsapi.com/v1/news/all?api_token=pkcKShKCbaEW2zitVU8leXmXMEm3ihm86NblMzfI&language=en&&categories=bussines,tech,sports&limit=3',
     );

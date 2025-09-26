@@ -28,8 +28,15 @@ export interface INewsCategory {
   label: string;
 }
 
+export interface IUser {
+  name: string;
+  email: string;
+  password: string;
+}
+
 export type TRootStackParamList = {
   Auth: undefined;
+  Register: undefined;
   News: undefined;
   Article: { article: INewsArticle };
   NewArticle: undefined;

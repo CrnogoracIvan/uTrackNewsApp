@@ -10,4 +10,5 @@ export const NEWS_CATEGORIES: INewsCategory[] = [
 
 export const STORAGE_KEYS = {
   ARTICLES: 'ARTICLES',
+  USER: 'USER',
 };

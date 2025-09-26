@@ -2,7 +2,7 @@ import { PermissionsAndroid, Platform } from 'react-native';
 import { STORAGE_KEYS } from './constants.ts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { INewsArticle } from './types.ts';
+import { INewsArticle, IUser } from './types.ts';
 
 export const getFormattedDate = (date: Date) => {
   return new Date(date).toLocaleDateString('en-US', {
@@ -11,6 +11,8 @@ export const getFormattedDate = (date: Date) => {
     day: 'numeric',
   });
 };
+
+export const isEmailValidRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const requestPermissions = async () => {
   if (Platform.OS === 'android') {
@@ -56,5 +58,25 @@ export const getArticlesFromStorage = async () => {
     return parsed;
   } catch (e) {
     console.log('error getArticlesFromStorage', e);
+  }
+};
+
+export const setUserToStorage = (user: IUser) => {
+  const { USER } = STORAGE_KEYS;
+  const stringifiedUser = JSON.stringify(user);
+  AsyncStorage.setItem(USER, stringifiedUser);
+};
+
+export const getUserFromStorage = async () => {
+  const { USER } = STORAGE_KEYS;
+  try {
+    const stringifiedUser = await AsyncStorage.getItem(USER);
+    if (!stringifiedUser) {
+      return [];
+    }
+    const parsed = JSON.parse(stringifiedUser);
+    return parsed;
+  } catch (e) {
+    console.log('error getUserFromStorage', e);
   }
 };

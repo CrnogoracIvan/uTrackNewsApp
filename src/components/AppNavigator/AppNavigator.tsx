@@ -1,12 +1,13 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import { AuthScreen } from '../../features/auth/screens/AuthScreen/AuthScreen.tsx';
+import { LoginScreen } from '../../features/auth/screens/LoginScreen/LoginScreen.tsx';
 import { NewsScreen } from '../../features/news/screens/NewsScreen/NewsScreen.tsx';
 import { Image } from 'react-native';
 import { SingleArticleScreen } from '../../features/news/screens/SingleArticleScreen/SingleArticleScreen.tsx';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { TRootStackParamList } from '../../types.ts';
 import { AddArticleScreen } from '../../features/news/screens/AddArticleScreen/AddArticleScreen.tsx';
+import { RegisterScreen } from '../../features/auth/screens/RegisterScreen/RegisterScreen.tsx';
 
 export const AppNavigator = () => {
   const Stack = createNativeStackNavigator<TRootStackParamList>();
@@ -16,13 +17,20 @@ export const AppNavigator = () => {
       <Stack.Navigator initialRouteName={'Auth'}>
         <Stack.Screen
           name={'Auth'}
-          component={AuthScreen}
+          component={LoginScreen}
           options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={'Register'}
+          component={RegisterScreen}
+          options={{ headerShown: true }}
         />
         <Stack.Screen
           name={'News'}
           component={NewsScreen}
           options={{
+            headerBackVisible: true,
+            gestureEnabled: false,
             headerTitleAlign: 'center',
             headerTitle: () => (
               <Image

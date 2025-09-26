@@ -3,13 +3,13 @@ import { Image, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TextInput, useTheme, Button } from 'react-native-paper';
-import { createStyles } from './AuthScreen.styles';
+import { createStyles } from './LoginScreen.styles.ts';
 import { MOCK_CREDENTIALS } from '../../../../mockData';
 import { TRootStackParamList } from '../../../../types';
 
 type TNavigationProps = NativeStackNavigationProp<TRootStackParamList, 'News'>;
 
-export const AuthScreen = () => {
+export const LoginScreen = () => {
   const Navigation = useNavigation<TNavigationProps>();
   const theme = useTheme();
   const styles = createStyles(theme);
@@ -28,6 +28,10 @@ export const AuthScreen = () => {
       return;
     }
     Navigation.navigate('News');
+  };
+
+  const handleRegisterHere = () => {
+    Navigation.navigate('Register');
   };
 
   return (
@@ -76,6 +80,21 @@ export const AuthScreen = () => {
             GO TO NEWS
           </Button>
         </View>
+      </View>
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginBottom: 50,
+          gap: 12,
+        }}
+      >
+        <Text>You do not have account?</Text>
+        <Button onPress={handleRegisterHere}>
+          <Text style={{ fontWeight: 'bold', fontSize: 16 }}>
+            Register here
+          </Text>
+        </Button>
       </View>
     </View>
   );
