@@ -3,6 +3,7 @@ import { STORAGE_KEYS } from './constants.ts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { INewsArticle, IUser } from './types.ts';
+import uuid from 'react-native-uuid';
 
 export const getFormattedDate = (date: Date) => {
   return new Date(date).toLocaleDateString('en-US', {
@@ -41,6 +42,25 @@ export const filterMyArticles = (articles: INewsArticle[]) => {
   return myArticleData;
 };
 
+// For testing purposes only
+export const getAllDataFromStorage = async () => {
+  try {
+    const keys = await AsyncStorage.getAllKeys();
+    const result = await AsyncStorage.multiGet(keys);
+
+    const data = result.reduce((acc, [key, value]) => {
+      acc[key] = value != null ? JSON.parse(value) : null;
+      return acc;
+    }, {} as Record<string, any>);
+
+    console.log(data);
+    return data;
+  } catch (e) {
+    console.error('Error reading storage', e);
+    return {};
+  }
+};
+
 export const setArticlesToStorage = (articles: INewsArticle[]) => {
   const { ARTICLES } = STORAGE_KEYS;
   const stringifiedArticles = JSON.stringify(articles);
@@ -57,26 +77,114 @@ export const getArticlesFromStorage = async () => {
     const parsed = JSON.parse(stringifiedArticles);
     return parsed;
   } catch (e) {
-    console.log('error getArticlesFromStorage', e);
+    console.warn('error getArticlesFromStorage', e);
   }
 };
 
-export const setUserToStorage = (user: IUser) => {
-  const { USER } = STORAGE_KEYS;
-  const stringifiedUser = JSON.stringify(user);
-  AsyncStorage.setItem(USER, stringifiedUser);
+export const loginUserSuccessufully = async (user: IUser) => {
+  const { ACTIVE_USER, REGISTERED_USERS } = STORAGE_KEYS;
+  const registeredUsersStringified = await AsyncStorage.getItem(
+    REGISTERED_USERS,
+  );
+  if (!registeredUsersStringified) {
+    return false;
+  }
+  const registeredUsers = JSON.parse(registeredUsersStringified);
+  const findUser = registeredUsers.find(
+    (registeredUser: IUser) =>
+      registeredUser.email === user.email &&
+      registeredUser.password === user.password,
+  );
+  if (!findUser) {
+    return false;
+  }
+  const stringifiedUser = JSON.stringify(findUser);
+  AsyncStorage.setItem(ACTIVE_USER, stringifiedUser);
+  return true;
 };
 
-export const getUserFromStorage = async () => {
-  const { USER } = STORAGE_KEYS;
+export const loginUserSetToStorage = async (user: IUser) => {
+  const { ACTIVE_USER, REGISTERED_USERS } = STORAGE_KEYS;
+  const registeredUsersStringified = await AsyncStorage.getItem(
+    REGISTERED_USERS,
+  );
+  if (!registeredUsersStringified) {
+    return false;
+  }
+  const registeredUsers = JSON.parse(registeredUsersStringified);
+  const findUser = registeredUsers.find(
+    (registeredUser: IUser) => registeredUser.email === user.email,
+  );
+  if (!findUser) {
+    return false;
+  }
+
+  const stringifiedUser = JSON.stringify(findUser);
+  AsyncStorage.setItem(ACTIVE_USER, stringifiedUser);
+  return true;
+};
+
+export const loginUserGetFromStorage = async () => {
+  const { ACTIVE_USER } = STORAGE_KEYS;
   try {
-    const stringifiedUser = await AsyncStorage.getItem(USER);
+    const stringifiedUser = await AsyncStorage.getItem(ACTIVE_USER);
     if (!stringifiedUser) {
       return [];
     }
     const parsed = JSON.parse(stringifiedUser);
     return parsed;
   } catch (e) {
-    console.log('error getUserFromStorage', e);
+    console.warn('error getUserFromStorage', e);
   }
+};
+
+export const logoutRemoveUserFromStorage = async () => {
+  const { ACTIVE_USER } = STORAGE_KEYS;
+  try {
+    await AsyncStorage.removeItem(ACTIVE_USER);
+  } catch (e) {
+    console.warn('error getUserFromStorage', e);
+  }
+};
+
+export const registerUserToStorage = async (user: IUser) => {
+  const { REGISTERED_USERS } = STORAGE_KEYS;
+  loginUserSetToStorage(user);
+  const alreadyRegisteredUsers = await AsyncStorage.getItem(REGISTERED_USERS);
+  const updatedUserWithId = {
+    ...user,
+    id: uuid.v4(),
+  };
+  if (!alreadyRegisteredUsers) {
+    const stringifiedUser = JSON.stringify([updatedUserWithId]);
+    AsyncStorage.setItem(REGISTERED_USERS, stringifiedUser);
+  } else {
+    const parsed = JSON.parse(alreadyRegisteredUsers);
+    parsed.push(updatedUserWithId);
+    const stringifiedUsers = JSON.stringify(parsed);
+    AsyncStorage.setItem(REGISTERED_USERS, stringifiedUsers);
+  }
+};
+
+export const logoutAndDeleteRemoveUserFromUsersInStorage = async () => {
+  const { ACTIVE_USER, REGISTERED_USERS } = STORAGE_KEYS;
+  const activeUserStringified = await AsyncStorage.getItem(ACTIVE_USER);
+  const registeredUsersStringified = await AsyncStorage.getItem(
+    REGISTERED_USERS,
+  );
+  if (!activeUserStringified || !registeredUsersStringified) {
+    return;
+  }
+  const activeUser = JSON.parse(activeUserStringified);
+  const registeredUsers = JSON.parse(registeredUsersStringified);
+  const updatedRegisteredUsers = registeredUsers.filter(
+    (regUser: IUser) => regUser.id !== activeUser.id,
+  );
+  const updatedRegisteredUsersStringified = JSON.stringify(
+    updatedRegisteredUsers,
+  );
+  await AsyncStorage.setItem(
+    REGISTERED_USERS,
+    updatedRegisteredUsersStringified,
+  );
 };

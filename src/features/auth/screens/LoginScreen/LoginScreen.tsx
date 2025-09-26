@@ -4,8 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TextInput, useTheme, Button } from 'react-native-paper';
 import { createStyles } from './LoginScreen.styles.ts';
-import { MOCK_CREDENTIALS } from '../../../../mockData';
 import { TRootStackParamList } from '../../../../types';
+import { loginUserSuccessufully } from '../../../../utils.ts';
 
 type TNavigationProps = NativeStackNavigationProp<TRootStackParamList, 'News'>;
 
@@ -23,11 +23,13 @@ export const LoginScreen = () => {
 
   const isGoToNewsButtonDisable = !userName || !password;
 
-  const handleLogin = () => {
-    if (
-      userName !== MOCK_CREDENTIALS.USER_NAME ||
-      password !== MOCK_CREDENTIALS.PASSWORD
-    ) {
+  const handleLogin = async () => {
+    const loginSuccessful: boolean = await loginUserSuccessufully({
+      email: userName,
+      password: password,
+    });
+
+    if (!loginSuccessful) {
       setIsErrorVisible(true);
       return;
     }

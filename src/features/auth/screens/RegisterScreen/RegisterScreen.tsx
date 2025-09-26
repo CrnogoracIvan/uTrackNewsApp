@@ -3,7 +3,7 @@ import { Button, TextInput, useTheme } from 'react-native-paper';
 import React, { useRef } from 'react';
 import { createStyles } from './RegisterScreen.styles.ts';
 import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
-import { isEmailValidRegex, setUserToStorage } from '../../../../utils.ts';
+import { isEmailValidRegex, registerUserToStorage } from '../../../../utils.ts';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TRootStackParamList } from '../../../../types.ts';
@@ -46,7 +46,7 @@ export const RegisterScreen = () => {
       setIsPasswordErrorVisible(true);
       return;
     }
-    setUserToStorage({
+    registerUserToStorage({
       name,
       email,
       password,
