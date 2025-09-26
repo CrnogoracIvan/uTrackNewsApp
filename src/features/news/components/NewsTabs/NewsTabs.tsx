@@ -1,22 +1,20 @@
 import { Pressable, Text, View } from 'react-native';
 import { createStyles } from './NewsTab.styles.ts';
-import LinearGradient from 'react-native-linear-gradient';
 import { INewsCategory } from '../../../../types.ts';
+import { useNewsContext } from '../../context/NewsContextProvider.tsx';
+import { NEWS_CATEGORIES } from '../../../../constants.ts';
 
-interface IProps {
-  tabs: INewsCategory[];
-  activeTabIndex: number;
-  onTabPress: (index: number) => void;
-}
-export const NewsTabs = ({ tabs, activeTabIndex, onTabPress }: IProps) => {
+export const NewsTabs = () => {
   const styles = createStyles();
+  const { activeTabIndex, setActiveTabIndex } = useNewsContext();
+
   const renderTab = (tab: INewsCategory, tabIndex: number) => {
     return (
       <Pressable
         key={`tab-${tabIndex}`}
         style={activeTabIndex === tabIndex ? styles.activeTab : styles.tab}
         onPress={() => {
-          onTabPress(tabIndex);
+          setActiveTabIndex(tabIndex);
         }}
       >
         <Text
@@ -30,14 +28,8 @@ export const NewsTabs = ({ tabs, activeTabIndex, onTabPress }: IProps) => {
     );
   };
   return (
-    <>
-      <View style={styles.tabsContainer}>
-        {tabs.map((tab, index) => renderTab(tab, index))}
-      </View>
-      <LinearGradient
-        style={styles.gradientStyle}
-        colors={['white', 'rgba(255,255,255,0)']}
-      />
-    </>
+    <View style={styles.tabsContainer}>
+      {NEWS_CATEGORIES.map((tab, index) => renderTab(tab, index))}
+    </View>
   );
 };

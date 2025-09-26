@@ -24,6 +24,8 @@ const useNewsHook = () => {
   const [newArticleCategories, setNewArticleCategories] = useState<string[]>(
     [],
   );
+  const [isSearchVisible, setIsSearchVisible] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const { data, isLoading } = useGetNews();
   const { activeUser } = useAuthContext();
@@ -69,6 +71,20 @@ const useNewsHook = () => {
     });
   }, [activeTabIndex, allData, activeUser]);
 
+  const filteredBySearch = useMemo(() => {
+    const filteredData = allData.filter(item => {
+      return (
+        item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.source.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+    if (filteredData.length) {
+      return filteredData;
+    }
+    return allData;
+  }, [allData, searchTerm]);
+
   const handleAddArticle = async () => {
     const activeUser = await getActiveUserFromStorage();
     const newArticleData = {
@@ -102,6 +118,16 @@ const useNewsHook = () => {
     setNewArticleCategories([]);
   };
 
+  const handleSearchToggle = () => {
+    setIsSearchVisible(prevState => !prevState);
+    setActiveTabIndex(0);
+  };
+
+  const handleClearSearch = () => {
+    setSearchTerm('');
+    setIsSearchVisible(false);
+  };
+
   useEffect(() => {
     const newsDataSetup = async () => {
       let tempData: INewsArticle[] = [];
@@ -120,6 +146,12 @@ const useNewsHook = () => {
   return {
     activeTabIndex,
     setActiveTabIndex,
+    isSearchVisible,
+    handleSearchToggle,
+    searchTerm,
+    setSearchTerm,
+    handleClearSearch,
+    filteredBySearch,
 
     areNewsLoading: isLoading,
     filteredDataByCategory,

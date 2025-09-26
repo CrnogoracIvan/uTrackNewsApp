@@ -13,10 +13,12 @@ import { useTheme } from 'react-native-paper';
 import { ProfileScreen } from './features/profile/screens/ProfileScreen/ProfileScreen.tsx';
 import { getActiveUserFromStorage } from './utils.ts';
 import { LoadingComponent } from './components/LoadingComponent/LoadingComponent.tsx';
+import { useNewsContext } from './features/news/context/NewsContextProvider.tsx';
 
 export const AppNavigator = () => {
   const theme = useTheme();
   const Stack = createNativeStackNavigator<TRootStackParamList>();
+  const { handleSearchToggle } = useNewsContext();
 
   const [initialRoute, setInitialRoute] = useState<keyof TRootStackParamList>();
 
@@ -54,6 +56,11 @@ export const AppNavigator = () => {
             headerBackVisible: false,
             gestureEnabled: false,
             headerTitleAlign: 'center',
+            headerLeft: () => (
+              <Pressable onPress={handleSearchToggle}>
+                <Icon source="magnify" size={30} color={theme.colors.primary} />
+              </Pressable>
+            ),
             headerTitle: () => (
               <Image
                 source={require('./assets/images/logo.png')}

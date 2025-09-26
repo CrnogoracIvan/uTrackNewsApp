@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { FlatList, View } from 'react-native';
 import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
-import { NewsTabs } from '../../components/NewsTabs/NewsTabs.tsx';
-import { NEWS_CATEGORIES } from '../../../../constants.ts';
 import { LoadingComponent } from '../../../../components/LoadingComponent/LoadingComponent.tsx';
 import { SingleArticleCard } from '../../components/SingleArticleCard/SingleArticleCard.tsx';
 import { NoArticlesFound } from '../../components/NoArticlesFound/NoArticlesFound.tsx';
@@ -13,6 +11,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TRootStackParamList } from '../../../../types.ts';
 import { useNewsContext } from '../../context/NewsContextProvider.tsx';
 import { useAuthContext } from '../../../auth/context/AuthContextProvider.tsx';
+import { NewsHeader } from '../../components/NewsHeader/NewsHeader.tsx';
 
 type TNavigationProps = NativeStackNavigationProp<
   TRootStackParamList,
@@ -24,10 +23,10 @@ export const NewsScreen = () => {
   const Navigation = useNavigation<TNavigationProps>();
 
   const {
-    activeTabIndex,
-    setActiveTabIndex,
     areNewsLoading,
     filteredDataByCategory,
+    filteredBySearch,
+    isSearchVisible,
   } = useNewsContext();
 
   const { handleSetActiveUser } = useAuthContext();
@@ -50,17 +49,13 @@ export const NewsScreen = () => {
   const renderNews = () => {
     return (
       <View style={{ flex: 1 }}>
-        <NewsTabs
-          tabs={NEWS_CATEGORIES}
-          activeTabIndex={activeTabIndex}
-          onTabPress={setActiveTabIndex}
-        />
+        <NewsHeader />
         {filteredDataByCategory?.length === 0 ? (
           <NoArticlesFound />
         ) : (
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={filteredDataByCategory}
+            data={isSearchVisible ? filteredBySearch : filteredDataByCategory}
             renderItem={({ item, index }) => (
               <SingleArticleCard
                 cardSize={index === 0 ? 'large' : 'small'}
