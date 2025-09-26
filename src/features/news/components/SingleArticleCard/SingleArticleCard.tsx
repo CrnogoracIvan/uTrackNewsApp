@@ -1,14 +1,13 @@
 import React from 'react';
-import { Image, Pressable, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { INewsArticle, TRootStackParamList } from '../../../../types';
 import { createStyles } from './SingleArticleCard.styles.ts';
 import { getFormattedDate } from '../../../../utils.ts';
 import { useNavigation } from '@react-navigation/core';
 import { Card } from 'react-native-paper';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Icon } from 'react-native-paper/src';
-import { useNewsContext } from '../../context/NewsContextProvider.tsx';
 import { DeleteArticle } from '../DeleteArticle/DeleteArticle.tsx';
+import { useAuthContext } from '../../../auth/context/AuthContextProvider.tsx';
 
 interface SingleNewsCardProps {
   cardSize: 'small' | 'large';
@@ -27,12 +26,20 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
   newsArticle,
   cardSize,
 }) => {
-  const { handleDeleteArticle } = useNewsContext();
   const styles = createStyles();
   const Navigation = useNavigation<TNavigationProps>();
 
+  const { activeUser } = useAuthContext();
+
   const { title, description, image_url, source, published_at, categories } =
     newsArticle;
+
+  const isArticleMy = (article: INewsArticle) => {
+    console.log(article);
+    console.log(activeUser);
+
+    return article.userId === activeUser?.id;
+  };
 
   const handleCardPress = (article: INewsArticle) =>
     Navigation.navigate('Article', { article: article });
@@ -74,49 +81,41 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
     }
     return (
       <View style={styles.categoriesContainer}>
-        {categories.map((category, index) => (
-          <View
-            key={`cat-${index}`}
-            style={
-              category === 'my' ? styles.myCategoryBadge : styles.categoryBadge
+        {categories.map((category, index) => {
+          if (category === 'my') {
+            if (newsArticle.userId !== activeUser.id) {
+              return null;
             }
-          >
-            <Text
+          }
+          return (
+            <View
+              key={`cat-${index}`}
               style={
-                category === 'my' ? styles.myCategoryText : styles.categoryText
+                category === 'my'
+                  ? styles.myCategoryBadge
+                  : styles.categoryBadge
               }
             >
-              {category}
-            </Text>
-          </View>
-        ))}
+              <Text
+                style={
+                  category === 'my'
+                    ? styles.myCategoryText
+                    : styles.categoryText
+                }
+              >
+                {category}
+              </Text>
+            </View>
+          );
+        })}
       </View>
     );
   };
 
-  // const renderDeleteArticleButton = (uuid: string) => (
-  //   <Pressable
-  //     onPress={() => handleDeleteArticle(uuid)}
-  //     style={{
-  //       position: 'absolute',
-  //       top: 8,
-  //       right: 8,
-  //       zIndex: 10,
-  //       backgroundColor: 'rgba(255, 0, 0, 0.7)',
-  //       borderRadius: 4,
-  //       padding: 2,
-  //     }}
-  //   >
-  //     <Icon source={'trash-can-outline'} size={24} color={'white'} />
-  //   </Pressable>
-  // );
-
   const LargeCard = ({ article }: CardProps) => {
     return (
       <View>
-        {article?.categories?.includes('my') && (
-          <DeleteArticle article={article} />
-        )}
+        {isArticleMy(article) && <DeleteArticle article={article} />}
         {image_url ? (
           <Image source={{ uri: image_url }} style={styles.image} />
         ) : (
@@ -137,9 +136,7 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
 
   const SmallCard = ({ article }: CardProps) => (
     <View style={styles.smallContentContainer}>
-      {article?.categories?.includes('my') && (
-        <DeleteArticle article={article} />
-      )}
+      {isArticleMy(article) && <DeleteArticle article={article} />}
       <View style={styles.smallTextContentContainer}>
         <Text style={styles.title}>{title}</Text>
         {renderDescription()}

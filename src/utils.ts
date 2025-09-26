@@ -81,9 +81,13 @@ export const getArticlesFromStorage = async () => {
   }
 };
 
-export const isUserLoggedIn = async () => {
+export const getActiveUserFromStorage = async () => {
   const { ACTIVE_USER } = STORAGE_KEYS;
-  return await AsyncStorage.getItem(ACTIVE_USER);
+  const stringifiedUser = await AsyncStorage.getItem(ACTIVE_USER);
+  if (!stringifiedUser) {
+    return false;
+  }
+  return JSON.parse(stringifiedUser);
 };
 
 export const loginUserSuccessufully = async (user: IUser) => {

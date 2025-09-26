@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlatList, View } from 'react-native';
 import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
 import { NewsTabs } from '../../components/NewsTabs/NewsTabs.tsx';
@@ -12,6 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TRootStackParamList } from '../../../../types.ts';
 import { useNewsContext } from '../../context/NewsContextProvider.tsx';
+import { useAuthContext } from '../../../auth/context/AuthContextProvider.tsx';
 
 type TNavigationProps = NativeStackNavigationProp<
   TRootStackParamList,
@@ -28,6 +29,12 @@ export const NewsScreen = () => {
     areNewsLoading,
     filteredDataByCategory,
   } = useNewsContext();
+
+  const { handleSetActiveUser } = useAuthContext();
+
+  useEffect(() => {
+    handleSetActiveUser();
+  }, []);
 
   const renderFab = () => (
     <FAB

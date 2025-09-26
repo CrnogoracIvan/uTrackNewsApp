@@ -7,6 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppNavigator } from './src/components/AppNavigator/AppNavigator.tsx';
 import { NewsContextProvider } from './src/features/news/context/NewsContextProvider.tsx';
 import ToastContainer from 'toastify-react-native';
+import { AuthContextProvider } from './src/features/auth/context/AuthContextProvider.tsx';
 
 export default function App() {
   const queryClient = new QueryClient({
@@ -19,11 +20,13 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <QueryClientProvider client={queryClient}>
-        <NewsContextProvider>
-          <PaperProvider>
-            <AppNavigator />
-          </PaperProvider>
-        </NewsContextProvider>
+        <AuthContextProvider>
+          <NewsContextProvider>
+            <PaperProvider>
+              <AppNavigator />
+            </PaperProvider>
+          </NewsContextProvider>
+        </AuthContextProvider>
       </QueryClientProvider>
       <ToastContainer position="bottom" duration={1500} />
     </SafeAreaProvider>

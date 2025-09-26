@@ -1,5 +1,6 @@
 export interface INewsArticle {
   uuid: string;
+  userId?: string;
   title: string;
   description: string;
   url: string;

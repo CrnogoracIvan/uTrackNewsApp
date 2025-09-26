@@ -5,7 +5,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TextInput, useTheme, Button } from 'react-native-paper';
 import { createStyles } from './LoginScreen.styles.ts';
 import { TRootStackParamList } from '../../../../types';
-import { loginUserSuccessufully } from '../../../../utils.ts';
+import { useAuthContext } from '../../context/AuthContextProvider.tsx';
 
 type TNavigationProps = NativeStackNavigationProp<TRootStackParamList, 'News'>;
 
@@ -13,6 +13,7 @@ export const LoginScreen = () => {
   const Navigation = useNavigation<TNavigationProps>();
   const theme = useTheme();
   const styles = createStyles(theme);
+  const { loginUserSuccessufully } = useAuthContext();
 
   const [userName, setUserName] = React.useState('');
   const [password, setPassword] = React.useState('');

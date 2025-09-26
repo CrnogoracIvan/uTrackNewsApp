@@ -11,7 +11,7 @@ import { RegisterScreen } from '../../features/auth/screens/RegisterScreen/Regis
 import { Icon } from 'react-native-paper/src';
 import { useTheme } from 'react-native-paper';
 import { ProfileScreen } from '../../features/profile/screens/ProfileScreen/ProfileScreen.tsx';
-import { isUserLoggedIn } from '../../utils.ts';
+import { getActiveUserFromStorage } from '../../utils.ts';
 import { LoadingComponent } from '../LoadingComponent/LoadingComponent.tsx';
 
 export const AppNavigator = () => {
@@ -22,8 +22,8 @@ export const AppNavigator = () => {
 
   useEffect(() => {
     const checkLoginStatus = async () => {
-      const userIsLogedIn = await isUserLoggedIn();
-      setInitialRoute(userIsLogedIn ? 'News' : 'Auth');
+      const userIsLoggedIn = await getActiveUserFromStorage();
+      setInitialRoute(userIsLoggedIn ? 'News' : 'Auth');
     };
 
     checkLoginStatus();

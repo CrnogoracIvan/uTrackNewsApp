@@ -6,8 +6,10 @@ import uuid from 'react-native-uuid';
 import {
   filterMyArticles,
   getArticlesFromStorage,
+  getActiveUserFromStorage,
   setArticlesToStorage,
 } from '../../../utils.ts';
+import { useAuthContext } from '../../auth/context/AuthContextProvider.tsx';
 
 export const useNewsHook = () => {
   const [allData, setAllData] = useState<INewsArticle[]>([]);
@@ -21,6 +23,7 @@ export const useNewsHook = () => {
   );
 
   const { data, isLoading } = useGetNews();
+  const { activeUser } = useAuthContext();
 
   const newArticle = useMemo<INewsArticle>(() => {
     return {
@@ -52,18 +55,24 @@ export const useNewsHook = () => {
     if (activeTabIndex === 0) {
       return allData;
     }
-    return allData.filter(item =>
-      item.categories.some(
-        category => category === NEWS_CATEGORIES[activeTabIndex].value,
-      ),
-    );
-  }, [activeTabIndex, allData]);
+    return allData.filter(item => {
+      if (NEWS_CATEGORIES[activeTabIndex].value === 'my') {
+        return (
+          item.categories.includes(NEWS_CATEGORIES[activeTabIndex].value) &&
+          item.userId === activeUser.id
+        );
+      }
+      return item.categories.includes(NEWS_CATEGORIES[activeTabIndex].value);
+    });
+  }, [activeTabIndex, allData, activeUser]);
 
-  const handleAddArticle = () => {
+  const handleAddArticle = async () => {
+    const activeUser = await getActiveUserFromStorage();
     const newArticleData = {
       ...newArticle,
       uuid: uuid.v4(),
       published_at: new Date().toISOString(),
+      userId: activeUser.id,
     };
     const newArticles = [newArticleData, ...allData];
     setAllData(newArticles);
