@@ -33,7 +33,7 @@ export const AppNavigator = () => {
           name={'News'}
           component={NewsScreen}
           options={({ navigation }) => ({
-            headerBackVisible: true,
+            headerBackVisible: false,
             gestureEnabled: false,
             headerTitleAlign: 'center',
             headerTitle: () => (

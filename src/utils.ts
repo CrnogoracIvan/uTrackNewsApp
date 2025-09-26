@@ -149,7 +149,6 @@ export const logoutRemoveUserFromStorage = async () => {
 
 export const registerUserToStorage = async (user: IUser) => {
   const { REGISTERED_USERS } = STORAGE_KEYS;
-  loginUserSetToStorage(user);
   const alreadyRegisteredUsers = await AsyncStorage.getItem(REGISTERED_USERS);
   const updatedUserWithId = {
     ...user,
@@ -164,6 +163,7 @@ export const registerUserToStorage = async (user: IUser) => {
     const stringifiedUsers = JSON.stringify(parsed);
     AsyncStorage.setItem(REGISTERED_USERS, stringifiedUsers);
   }
+  loginUserSetToStorage(user);
 };
 
 export const logoutAndDeleteRemoveUserFromUsersInStorage = async () => {
