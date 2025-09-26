@@ -23,7 +23,11 @@ export const DeleteArticle = ({ article }: IProps) => {
   };
 
   const renderDeleteArticleButton = () => (
-    <Pressable onPress={() => setIsModalVisible(true)} style={styles.trigger}>
+    <Pressable
+      onPress={() => setIsModalVisible(true)}
+      style={styles.trigger}
+      testID="delete-article-button"
+    >
       <Icon source={'trash-can-outline'} size={24} color={'white'} />
     </Pressable>
   );
@@ -41,10 +45,19 @@ export const DeleteArticle = ({ article }: IProps) => {
           <Text style={styles.contentTextBold}>"{article.title}"</Text>?
         </Text>
         <View style={styles.buttonContainer}>
-          <Button mode={'contained'} textColor={'white'} onPress={handleDelete}>
+          <Button
+            mode={'contained'}
+            textColor={'white'}
+            onPress={handleDelete}
+            testID="yes-button"
+          >
             YES
           </Button>
-          <Button mode={'outlined'} onPress={() => setIsModalVisible(false)}>
+          <Button
+            mode={'outlined'}
+            onPress={() => setIsModalVisible(false)}
+            testID="no-button"
+          >
             NO
           </Button>
         </View>
