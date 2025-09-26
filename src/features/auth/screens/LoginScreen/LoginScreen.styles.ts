@@ -7,7 +7,7 @@ export const createStyles = (theme: MD3Theme) =>
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'white',
+      backgroundColor: theme.colors.background,
     },
     mainContainer: {
       display: 'flex',

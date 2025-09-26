@@ -4,7 +4,7 @@ import { INewsArticle, TRootStackParamList } from '../../../../types';
 import { createStyles } from './SingleArticleCard.styles.ts';
 import { getFormattedDate } from '../../../../utils.ts';
 import { useNavigation } from '@react-navigation/core';
-import { Card } from 'react-native-paper';
+import { Card, useTheme } from 'react-native-paper';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { DeleteArticle } from '../DeleteArticle/DeleteArticle.tsx';
 import { useAuthContext } from '../../../auth/context/AuthContextProvider.tsx';
@@ -27,7 +27,8 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
   newsArticle,
   cardSize,
 }) => {
-  const styles = createStyles();
+  const theme = useTheme();
+  const styles = createStyles(theme);
   const Navigation = useNavigation<TNavigationProps>();
 
   const { activeUser } = useAuthContext();

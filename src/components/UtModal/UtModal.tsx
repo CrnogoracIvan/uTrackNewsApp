@@ -1,6 +1,6 @@
-import { Button, Modal, Portal } from 'react-native-paper';
+import { Button, Modal, Portal, useTheme } from 'react-native-paper';
 import { Text, View } from 'react-native';
-import React, { JSX } from 'react';
+import React from 'react';
 import { createStyles } from './UiModal.styles.ts';
 
 interface IProps {
@@ -24,7 +24,9 @@ export const UtModal = ({
   confirmLabel,
   cancelLabel,
 }: IProps) => {
-  const styles = createStyles();
+  const theme = useTheme();
+
+  const styles = createStyles(theme);
   const renderContent = () => {
     if (typeof content === 'string') {
       return <Text style={styles.contentText}>{content}</Text>;

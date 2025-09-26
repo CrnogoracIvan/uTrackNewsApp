@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 import { MultiSelectDropdown } from 'react-native-paper-dropdown';
 import { useTheme } from 'react-native-paper';
 import { INewsCategory } from '../../types.ts';
+import { createStyles } from './UtDropdown.styles.ts';
 
 interface IProps {
   value?: string[];
@@ -23,6 +24,7 @@ export const UtDropdown = ({
 }: IProps) => {
   const [selectedValues, setSelectedValues] = useState<string[]>(value);
   const theme = useTheme();
+  const styles = createStyles(theme);
 
   const handleSelect = (values: string[]) => {
     setSelectedValues(values);
@@ -52,12 +54,3 @@ export const UtDropdown = ({
     />
   );
 };
-
-const styles = StyleSheet.create({
-  input: {
-    marginBottom: 8,
-  },
-  list: {
-    backgroundColor: 'white',
-  },
-});

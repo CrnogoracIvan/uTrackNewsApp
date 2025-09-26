@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
+import { MD3Theme } from 'react-native-paper';
 
-export const createStyles = () => {
+export const createStyles = (theme: MD3Theme) => {
   return StyleSheet.create({
     trigger: {
       position: 'absolute',
@@ -14,7 +15,7 @@ export const createStyles = () => {
     modalContainer: {
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'white',
+      backgroundColor: theme.colors.background,
       padding: 20,
       height: 200,
       width: 300,

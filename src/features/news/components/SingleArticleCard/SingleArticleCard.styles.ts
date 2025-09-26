@@ -1,6 +1,7 @@
 import { StyleSheet, TextStyle } from 'react-native';
+import { MD3Theme } from 'react-native-paper';
 
-export const createStyles = () => {
+export const createStyles = (theme: MD3Theme) => {
   const categoryBadge = {
     paddingHorizontal: 8,
     paddingVertical: 4,
@@ -16,11 +17,11 @@ export const createStyles = () => {
 
   return StyleSheet.create({
     container: {
-      backgroundColor: '#fff',
+      backgroundColor: theme.colors.surfaceVariant,
       borderRadius: 8,
       marginVertical: 8,
       marginHorizontal: 8,
-      shadowColor: '#000',
+      shadowColor: theme.colors.shadow,
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.1,
       shadowRadius: 4,
@@ -35,7 +36,7 @@ export const createStyles = () => {
     imagePlaceholder: {
       width: '100%',
       height: 200,
-      backgroundColor: '#e0e0e0',
+      backgroundColor: theme.colors.surfaceVariant,
       justifyContent: 'center',
       alignItems: 'center',
       gap: 6,
@@ -54,7 +55,7 @@ export const createStyles = () => {
     },
 
     placeholderText: {
-      color: '#757575',
+      color: theme.colors.onSurfaceVariant,
       fontWeight: '500',
     },
     contentContainer: {
@@ -72,11 +73,11 @@ export const createStyles = () => {
       fontSize: 18,
       fontWeight: 'bold',
       marginBottom: 8,
-      color: '#333',
+      color: theme.colors.onSurface,
     },
     description: {
       fontSize: 14,
-      color: '#666',
+      color: theme.colors.onSurfaceVariant,
       marginBottom: 12,
       lineHeight: 20,
     },
@@ -92,12 +93,12 @@ export const createStyles = () => {
     },
     source: {
       fontSize: 12,
-      color: '#888',
+      color: theme.colors.outline,
       fontWeight: '500',
     },
     date: {
       fontSize: 12,
-      color: '#888',
+      color: theme.colors.outline,
     },
     categoriesContainer: {
       flexDirection: 'row',
@@ -106,21 +107,21 @@ export const createStyles = () => {
     },
     categoryBadge: {
       ...categoryBadge,
-      backgroundColor: '#f0f0f0',
+      backgroundColor: theme.colors.surface,
     },
     myCategoryBadge: {
       ...categoryBadge,
-      backgroundColor: 'red',
-      color: 'white',
+      backgroundColor: theme.colors.primary,
+      color: theme.colors.onPrimary,
     },
     categoryText: {
       ...categoryText,
-      color: '#666',
+      color: theme.colors.onSurfaceVariant,
     } as TextStyle,
 
     myCategoryText: {
       ...categoryText,
-      color: '#fff',
+      color: theme.colors.onPrimary,
     } as TextStyle,
   });
 };

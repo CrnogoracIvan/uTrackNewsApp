@@ -6,6 +6,7 @@ import { useNewsContext } from '../../context/NewsContextProvider.tsx';
 import { createStyles } from './DeleteArticle.styles.ts';
 import { Toast } from 'toastify-react-native';
 import { UtModal } from '../../../../components/UtModal/UtModal.tsx';
+import { useTheme } from 'react-native-paper';
 
 interface IProps {
   article: INewsArticle;
@@ -14,7 +15,8 @@ interface IProps {
 export const DeleteArticle = ({ article }: IProps) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const { handleDeleteArticle } = useNewsContext();
-  const styles = createStyles();
+  const theme = useTheme();
+  const styles = createStyles(theme);
 
   const handleDelete = () => {
     handleDeleteArticle(article.uuid);
