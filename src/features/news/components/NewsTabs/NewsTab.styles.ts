@@ -1,4 +1,4 @@
-import { Platform, StyleSheet, TextStyle } from 'react-native';
+import { StyleSheet, TextStyle } from 'react-native';
 
 export const createStyles = () => {
   const tab = {
@@ -32,14 +32,5 @@ export const createStyles = () => {
       ...tabText,
       fontWeight: 'bold',
     } as TextStyle,
-
-    gradientStyle: {
-      position: 'absolute',
-      top: Platform.OS === 'ios' ? 56 : 60,
-      left: 0,
-      width: '100%',
-      zIndex: 1,
-      height: 40,
-    },
   });
 };

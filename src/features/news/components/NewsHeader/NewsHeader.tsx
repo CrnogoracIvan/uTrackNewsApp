@@ -2,8 +2,8 @@ import { useNewsContext } from '../../context/NewsContextProvider.tsx';
 import { View } from 'react-native';
 import { NewsTabs } from '../NewsTabs/NewsTabs.tsx';
 import LinearGradient from 'react-native-linear-gradient';
-import { createStyles } from '../NewsTabs/NewsTab.styles.ts';
 import { NewsSearch } from '../NewsSearch/NewsSearch.tsx';
+import { createStyles } from './NewsHeader.styles.ts';
 
 export const NewsHeader = () => {
   const styles = createStyles();
