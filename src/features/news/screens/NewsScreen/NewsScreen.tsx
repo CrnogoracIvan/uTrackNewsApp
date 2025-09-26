@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { FlatList, View } from 'react-native';
-import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
-import { LoadingComponent } from '../../../../components/LoadingComponent/LoadingComponent.tsx';
+import { UtRegularLayout } from '../../../../components/UtRegularLayout/UtRegularLayout.tsx';
+import { UtLoadingComponent } from '../../../../components/UtLoadingComponent/UtLoadingComponent.tsx';
 import { SingleArticleCard } from '../../components/SingleArticleCard/SingleArticleCard.tsx';
 import { NoArticlesFound } from '../../components/NoArticlesFound/NoArticlesFound.tsx';
 import { FAB } from 'react-native-paper';
@@ -71,8 +71,8 @@ export const NewsScreen = () => {
     );
   };
   return (
-    <RegularLayout>
-      {areNewsLoading ? <LoadingComponent /> : renderNews()}
-    </RegularLayout>
+    <UtRegularLayout>
+      {areNewsLoading ? <UtLoadingComponent /> : renderNews()}
+    </UtRegularLayout>
   );
 };

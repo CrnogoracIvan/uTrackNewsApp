@@ -38,6 +38,11 @@ export const createStyles = (theme: MD3Theme) =>
       borderRadius: theme.roundness,
     },
 
+    loginButtonText: {
+      fontWeight: 'bold',
+      fontSize: 16,
+    },
+
     logo: {
       width: 240,
       height: 80,

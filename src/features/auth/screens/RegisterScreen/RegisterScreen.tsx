@@ -2,7 +2,7 @@ import { Image, Text, View } from 'react-native';
 import { Button, TextInput, useTheme } from 'react-native-paper';
 import React, { useRef } from 'react';
 import { createStyles } from './RegisterScreen.styles.ts';
-import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
+import { UtRegularLayout } from '../../../../components/UtRegularLayout/UtRegularLayout.tsx';
 import { isEmailValidRegex } from '../../../../utils.ts';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -161,13 +161,13 @@ export const RegisterScreen = () => {
     >
       <Text>Have an account?</Text>
       <Button onPress={handleGoBack}>
-        <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Login</Text>
+        <Text style={styles.loginButtonText}>Login</Text>
       </Button>
     </View>
   );
 
   return (
-    <RegularLayout>
+    <UtRegularLayout>
       <View style={styles.screenContainer}>
         <Image
           style={styles.logo}
@@ -177,6 +177,6 @@ export const RegisterScreen = () => {
         {renderRegisterButton()}
       </View>
       {renderGoBack()}
-    </RegularLayout>
+    </UtRegularLayout>
   );
 };

@@ -1,9 +1,9 @@
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
+import { UtRegularLayout } from '../../../../components/UtRegularLayout/UtRegularLayout.tsx';
 import { Button, TextInput, useTheme } from 'react-native-paper';
 import React from 'react';
 import { useNewsContext } from '../../context/NewsContextProvider.tsx';
-import { Dropdown } from '../../../../components/Dropdown/Dropdown.tsx';
+import { UtDropdown } from '../../../../components/UtDropdown/UtDropdown.tsx';
 import { NEWS_CATEGORIES } from '../../../../constants.ts';
 import { Icon } from 'react-native-paper/src';
 import { launchImageLibrary } from 'react-native-image-picker';
@@ -96,7 +96,7 @@ export const AddArticleScreen = () => {
   };
 
   return (
-    <RegularLayout>
+    <UtRegularLayout>
       <View style={styles.container}>
         <View style={styles.form}>
           <TextInput
@@ -126,7 +126,7 @@ export const AddArticleScreen = () => {
             autoCapitalize="none"
           />
 
-          <Dropdown
+          <UtDropdown
             label="Categories"
             placeholder="Select Categories"
             options={dropDownData}
@@ -162,6 +162,6 @@ export const AddArticleScreen = () => {
           </Button>
         </View>
       </View>
-    </RegularLayout>
+    </UtRegularLayout>
   );
 };

@@ -1,6 +1,6 @@
 import { ActivityIndicator, Text, View } from 'react-native';
 
-export const LoadingComponent = () => {
+export const UtLoadingComponent = () => {
   return (
     <View
       style={{

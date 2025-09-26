@@ -13,7 +13,7 @@ interface IProps {
   error?: boolean;
 }
 
-export const Dropdown = ({
+export const UtDropdown = ({
   value = [],
   onSelect,
   label = 'Categories',

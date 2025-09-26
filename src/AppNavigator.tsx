@@ -12,7 +12,7 @@ import { Icon } from 'react-native-paper/src';
 import { useTheme } from 'react-native-paper';
 import { ProfileScreen } from './features/profile/screens/ProfileScreen/ProfileScreen.tsx';
 import { getActiveUserFromStorage } from './utils.ts';
-import { LoadingComponent } from './components/LoadingComponent/LoadingComponent.tsx';
+import { UtLoadingComponent } from './components/UtLoadingComponent/UtLoadingComponent.tsx';
 import { useNewsContext } from './features/news/context/NewsContextProvider.tsx';
 
 export const AppNavigator = () => {
@@ -32,7 +32,7 @@ export const AppNavigator = () => {
   }, []);
 
   if (!initialRoute) {
-    return <LoadingComponent />;
+    return <UtLoadingComponent />;
   }
 
   return (

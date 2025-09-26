@@ -1,9 +1,9 @@
 import { Text, View } from 'react-native';
 import React from 'react';
 import { TRootStackParamList } from '../../../../types.ts';
-import { RegularLayout } from '../../../../components/RegularLayout/RegularLayout.tsx';
+import { UtRegularLayout } from '../../../../components/UtRegularLayout/UtRegularLayout.tsx';
 import { Button, useTheme } from 'react-native-paper';
-import { LoadingComponent } from '../../../../components/LoadingComponent/LoadingComponent.tsx';
+import { UtLoadingComponent } from '../../../../components/UtLoadingComponent/UtLoadingComponent.tsx';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useAuthContext } from '../../../auth/context/AuthContextProvider.tsx';
@@ -67,7 +67,7 @@ export const ProfileScreen = () => {
   );
 
   return (
-    <RegularLayout>
+    <UtRegularLayout>
       {activeUser ? (
         <View style={styles.container}>
           <View>
@@ -77,8 +77,8 @@ export const ProfileScreen = () => {
           {renderButtons()}
         </View>
       ) : (
-        <LoadingComponent />
+        <UtLoadingComponent />
       )}
-    </RegularLayout>
+    </UtRegularLayout>
   );
 };
