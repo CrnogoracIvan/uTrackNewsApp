@@ -17,7 +17,7 @@ export const DeleteAccount = ({ onConfirm }: IProps) => {
     setIsModalVisible(false);
   };
 
-  const renderDeleteArticleButton = () => (
+  const renderTrigger = () => (
     <Button
       mode={'outlined'}
       textColor={theme.colors.primary}
@@ -30,7 +30,7 @@ export const DeleteAccount = ({ onConfirm }: IProps) => {
 
   return (
     <>
-      {renderDeleteArticleButton()}
+      {renderTrigger()}
       <UtModal
         visible={isModalVisible}
         onDismiss={() => setIsModalVisible(false)}
