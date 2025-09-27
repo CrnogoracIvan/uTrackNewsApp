@@ -1,6 +1,4 @@
 import { INewsResponse } from './types.ts';
-import { useQuery } from '@tanstack/react-query';
-import { getNewsService } from './features/news/services/newsServices.ts';
 
 export const MOCK_CREDENTIALS = {
   USER_NAME: 'ivan',
@@ -16,36 +14,55 @@ export const NEWS_DATA_MOCK: INewsResponse = {
   },
   data: [
     {
-      uuid: '5ab89492-4f4a-4554-afce-e6ea2ba29bb6',
-      title: '선문대 RISE사업단, 창업동아리 대상 ‘사업계획서 고도화 캠프’ 성료',
+      uuid: '1c88b408-14af-4807-9f5e-24141b80b0a5',
+      title: 'iOS 26: Use Live Translation in Messages',
       description:
-        '선문대학교 RISE사업단(단장 권진백)은 지난 9월 19일부터 20일까지 스플라스 리솜에서 창업동아리 학생들을 대상으로 ‘?...',
-      keywords: '선문대, RISE사업단, 사업계획서 고도화 캠프',
+        "In iOS 26, seamless multilingual conversations in Messages are just a few taps away, thanks to Apple's new Live Translation feature. When...",
+      keywords: 'Messages',
       snippet:
-        '17개 동아리 40명 참여… 실전 창업 역량 강화의 장 마련\n\n선문대학교 RISE사업단(단장 권진백)은 지난 9월 19일부터 20일까?...',
-      url: 'http://www.kyosu.net/news/articleView.html?idxno=144879',
+        "In iOS 26, seamless multilingual conversations in Messages are just a few taps away, thanks to Apple's new Live Translation feature. When chatting with friends ...",
+      url: 'https://www.macrumors.com/how-to/ios-live-translation-in-messages/',
       image_url:
-        'http://www.kyosu.net/news/thumbnail/202509/144879_139757_2823_v150.jpg',
-      language: 'ko',
-      published_at: '2025-09-24T15:28:59.000000Z',
-      source: 'kyosu.net',
-      categories: ['tech', 'general'],
+        'https://images.macrumors.com/t/lH1h5qR16ihiaywpFC574rpB7L8=/1920x/article-new/2025/09/messages-translate-ios.jpg',
+      language: 'en',
+      published_at: '2025-09-24T11:55:24.000000Z',
+      source: 'macrumors.com',
+      categories: ['tech'],
       relevance_score: null,
     },
     {
-      uuid: 'f21630a0-1ca1-44fc-bd57-b65a8d66bf87',
-      title: '목동 657-1 가로주택정비사업조합 시공자 선정',
-      description: '목동 657-1 가로주택정비사업조합 시공자 선정',
+      uuid: '06fc4ef0-c2ab-4cf7-9207-c89dbcb79481',
+      title: 'New Islamiat, Pakistan Studies, Urdu O-Level Syllabus 2025',
+      description:
+        'Pakistan updates O-Level Islamiat, Pakistan Studies, and Urdu syllabus for 2025, focusing on critical thinking, culture, and modern learning methods.',
       keywords: '',
       snippet:
-        '계정을 선택하시면 로그인·계정인증 을 통해\n\n댓글을 남기실 수 있습니다.\n\n회원 로그인 비회원 글쓰기 이름 비밀번호 ?...',
-      url: 'http://www.housingherald.co.kr/news/articleView.html?idxno=51037',
+        'Pakistan has introduced newly updated syllabi for Islamiat, Pakistan Studies, and Urdu at the O-Level stage, aiming to modernize learning while strengthening st...',
+      url: 'https://www.techjuice.pk/new-islamiat-pakistan-studies-urdu-o-level-syllabus-2025/',
       image_url:
-        'http://www.housingherald.co.kr/news/thumbnail/202509/51037_29679_2853_v150.jpg',
-      language: 'ko',
-      published_at: '2025-09-24T15:28:58.000000Z',
-      source: 'housingherald.co.kr',
-      categories: [],
+        'https://www.techjuice.pk/wp-content/uploads/2025/09/punjab-online-textbooks-now-free-for-all-students-techjuice-190979-092215.jpg',
+      language: 'en',
+      published_at: '2025-09-24T11:55:16.000000Z',
+      source: 'techjuice.pk',
+      categories: ['tech'],
+      relevance_score: null,
+    },
+    {
+      uuid: '5d7dd841-4c02-4f11-9fec-1004a56918e3',
+      title:
+        'Latency spikes with 2xx responses from requests not reaching my app',
+      description:
+        'Hello, I’ve recently migrated my Slack bot app to DigitalOcean App Platform and I’m seeing confusing CDN ingress latency spikes that I can’t explain. **Pr...',
+      keywords: '',
+      snippet:
+        'Hello,\n\nI’ve recently migrated my Slack bot app to DigitalOcean App Platform and I’m seeing confusing CDN ingress latency spikes that I can’t explain.\n\nPr...',
+      url: 'https://www.digitalocean.com/community/questions/latency-spikes-with-2xx-responses-from-requests-not-reaching-my-app',
+      image_url:
+        'https://www.digitalocean.com/_next/static/media/social-share-default.e8530e9e.jpeg',
+      language: 'en',
+      published_at: '2025-09-24T11:52:23.000000Z',
+      source: 'digitalocean.com',
+      categories: ['tech'],
       relevance_score: null,
     },
     {

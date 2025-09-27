@@ -110,6 +110,7 @@ const useAuthHook = () => {
     const updatedRegisteredUsersStringified = JSON.stringify(
       updatedRegisteredUsers,
     );
+    await logoutRemoveUserFromStorage();
     await AsyncStorage.setItem(
       REGISTERED_USERS,
       updatedRegisteredUsersStringified,
