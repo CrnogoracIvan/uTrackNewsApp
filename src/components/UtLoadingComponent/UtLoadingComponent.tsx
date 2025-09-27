@@ -1,6 +1,8 @@
 import { ActivityIndicator, Text, View } from 'react-native';
+import { useTheme } from 'react-native-paper';
 
 export const UtLoadingComponent = () => {
+  const theme = useTheme();
   return (
     <View
       style={{
@@ -11,7 +13,7 @@ export const UtLoadingComponent = () => {
       }}
     >
       <ActivityIndicator size="large" />
-      <Text>Loading...</Text>
+      <Text style={{ color: theme.colors.onSurface }}>Loading...</Text>
     </View>
   );
 };

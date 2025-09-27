@@ -34,7 +34,7 @@ export const RegisterScreen = () => {
     React.useState(false);
 
   const emailRef = useRef<any>(null);
-  const passwordlRef = useRef<any>(null);
+  const passwordRef = useRef<any>(null);
   const confirmPasswordRef = useRef<any>(null);
 
   const isRegisterButtonDisabled =
@@ -91,7 +91,7 @@ export const RegisterScreen = () => {
           activeOutlineColor={theme.colors.primary}
           error={isEmailErrorVisible}
           style={styles.input}
-          onSubmitEditing={() => passwordlRef.current?.focus()}
+          onSubmitEditing={() => passwordRef.current?.focus()}
         />
         {renderErrorMessage(
           'Email format is not correct.',
@@ -100,7 +100,7 @@ export const RegisterScreen = () => {
       </View>
       <View>
         <TextInput
-          ref={passwordlRef}
+          ref={passwordRef}
           label="Password"
           value={password}
           onChangeText={text => setPassword(text)}
