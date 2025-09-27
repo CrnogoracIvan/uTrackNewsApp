@@ -31,5 +31,14 @@ export const createStyles = (theme: MD3Theme) => {
       color: theme.colors.primary,
       fontWeight: 'bold',
     },
+
+    switchContainer: {
+      gap: 20,
+    },
+    singleSwitchContainer: {
+      flexDirection: 'row',
+      gap: 20,
+      alignItems: 'center',
+    },
   });
 };

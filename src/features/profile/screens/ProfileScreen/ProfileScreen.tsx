@@ -10,6 +10,7 @@ import { useAuthContext } from '../../../auth/context/AuthContextProvider.tsx';
 import { createStyles } from './ProfileScreen.styles.ts';
 import { DeleteAccount } from '../../components/DeleteAccount/DeleteAccount.tsx';
 import { useThemeContext } from '../../../../theme/ThemeContextProvider.tsx';
+import { useNewsContext } from '../../../news/context/NewsContextProvider.tsx';
 
 type TNavigationProps = NativeStackNavigationProp<TRootStackParamList, 'Auth'>;
 
@@ -24,6 +25,7 @@ export const ProfileScreen = () => {
     logoutRemoveUserFromStorage,
     activeUser,
   } = useAuthContext();
+  const { toggleMockDataUsage, isMockDataUsed } = useNewsContext();
 
   const handleLogout = async () => {
     await logoutRemoveUserFromStorage();
@@ -63,9 +65,15 @@ export const ProfileScreen = () => {
   );
 
   const renderSwitch = () => (
-    <View style={{ flexDirection: 'row', gap: 20, alignItems: 'center' }}>
-      <Text style={styles.labelText}>Dark theme</Text>
-      <Switch value={themeType === 'dark'} onValueChange={toggleTheme} />
+    <View style={styles.switchContainer}>
+      <View style={styles.singleSwitchContainer}>
+        <Text style={[styles.labelText, { minWidth: 110 }]}>Dark theme</Text>
+        <Switch value={themeType === 'dark'} onValueChange={toggleTheme} />
+      </View>
+      <View style={styles.singleSwitchContainer}>
+        <Text style={[styles.labelText, { minWidth: 110 }]}>Use mock data</Text>
+        <Switch value={isMockDataUsed} onValueChange={toggleMockDataUsage} />
+      </View>
     </View>
   );
 

@@ -1,4 +1,6 @@
 import { INewsResponse } from './types.ts';
+import { useQuery } from '@tanstack/react-query';
+import { getNewsService } from './features/news/services/newsServices.ts';
 
 export const MOCK_CREDENTIALS = {
   USER_NAME: 'ivan',
@@ -181,4 +183,8 @@ export const NEWS_DATA_MOCK: INewsResponse = {
       relevance_score: null,
     },
   ],
+};
+
+export const getNewsMock = async (): Promise<INewsResponse> => {
+  return NEWS_DATA_MOCK;
 };

@@ -27,7 +27,9 @@ const useNewsHook = () => {
   const [isSearchVisible, setIsSearchVisible] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const { data, isLoading, refetch, isRefetching } = useGetNews();
+  const [isMockDataUsed, setMockDataUsed] = useState(true);
+
+  const { data, isLoading, refetch, isRefetching } = useGetNews(isMockDataUsed);
   const { activeUser } = useAuthContext();
 
   const newArticle = useMemo<INewsArticle>(() => {
@@ -49,6 +51,11 @@ const useNewsHook = () => {
     newArticleSource,
     newArticleTitle,
   ]);
+
+  const toggleMockDataUsage = () => {
+    setMockDataUsed(prevState => !prevState);
+  };
+
   const isAddNewArticleButtonDisabled =
     newArticleTitle.length === 0 ||
     newArticleCategories.length === 0 ||
@@ -144,6 +151,9 @@ const useNewsHook = () => {
   }, [data?.data]);
 
   return {
+    isMockDataUsed,
+    toggleMockDataUsage,
+
     activeTabIndex,
     setActiveTabIndex,
     isSearchVisible,
