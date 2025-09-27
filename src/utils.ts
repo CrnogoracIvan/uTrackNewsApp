@@ -79,11 +79,12 @@ export const getArticlesFromStorage = async () => {
   }
 };
 
-export const getActiveUserFromStorage = async () => {
-  const { ACTIVE_USER } = STORAGE_KEYS;
-  const stringifiedUser = await AsyncStorage.getItem(ACTIVE_USER);
-  if (!stringifiedUser) {
-    return false;
-  }
-  return JSON.parse(stringifiedUser);
+export const saveThemeToStorage = (themeKey: string) => {
+  AsyncStorage.setItem(STORAGE_KEYS.THEME, themeKey);
+};
+
+export const getThemeFromStorage = async () => {
+  const { THEME } = STORAGE_KEYS;
+  const theme = await AsyncStorage.getItem(THEME);
+  return theme;
 };

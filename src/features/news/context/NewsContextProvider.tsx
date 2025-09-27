@@ -5,7 +5,6 @@ import { useAuthContext } from '../../auth/context/AuthContextProvider.tsx';
 import { NEWS_CATEGORIES } from '../../../constants.ts';
 import {
   filterMyArticles,
-  getActiveUserFromStorage,
   getArticlesFromStorage,
   setArticlesToStorage,
 } from '../../../utils.ts';
@@ -93,7 +92,6 @@ const useNewsHook = () => {
   }, [allData, searchTerm]);
 
   const handleAddArticle = async () => {
-    const activeUser = await getActiveUserFromStorage();
     const newArticleData = {
       ...newArticle,
       uuid: uuid.v4(),

@@ -11,10 +11,10 @@ import { RegisterScreen } from './features/auth/screens/RegisterScreen/RegisterS
 import { Icon } from 'react-native-paper/src';
 import { useTheme } from 'react-native-paper';
 import { ProfileScreen } from './features/profile/screens/ProfileScreen/ProfileScreen.tsx';
-import { getActiveUserFromStorage } from './utils.ts';
 import { UtLoadingComponent } from './components/UtLoadingComponent/UtLoadingComponent.tsx';
 import { useNewsContext } from './features/news/context/NewsContextProvider.tsx';
 import { useThemeContext } from './theme/ThemeContextProvider.tsx';
+import { useAuthContext } from './features/auth/context/AuthContextProvider.tsx';
 
 const LIGHT_LOGO = require('../src/assets/images/logo.png');
 const DARK_LOGO = require('../src/assets/images/logo-dark.png');
@@ -24,6 +24,7 @@ export const AppNavigator = () => {
   const Stack = createNativeStackNavigator<TRootStackParamList>();
   const { handleSearchToggle } = useNewsContext();
   const { themeType } = useThemeContext();
+  const { getActiveUserFromStorage } = useAuthContext();
 
   const [initialRoute, setInitialRoute] = useState<keyof TRootStackParamList>();
 

@@ -125,6 +125,7 @@ const useAuthHook = () => {
     loginUserGetFromStorage,
     logoutAndDeleteRemoveUserFromUsersInStorage,
     loginUserSuccessufully,
+    getActiveUserFromStorage,
   };
 };
 
