@@ -6,10 +6,10 @@ export const createStyles = (theme: MD3Theme) => {
     container: {
       flex: 1,
       height: '100%',
-      justifyContent: 'center',
-      alignItems: 'center',
-      gap: 12,
+      backgroundColor: theme.colors.background,
     },
-    text: { color: theme.colors.onSurface },
+    loaderContainer: {
+      height: '100%',
+    },
   });
 };

@@ -3,7 +3,7 @@ import { FlatList, View } from 'react-native';
 import { UtRegularLayout } from '../../../../components/UtRegularLayout/UtRegularLayout.tsx';
 import { UtLoadingComponent } from '../../../../components/UtLoadingComponent/UtLoadingComponent.tsx';
 import { SingleArticleCard } from '../../components/SingleArticleCard/SingleArticleCard.tsx';
-import { NoArticlesFound } from '../../components/NoArticlesFound/NoArticlesFound.tsx';
+import { UtItemNotFound } from '../../../../components/UtItemNotFound/UtItemNotFound.tsx';
 import { FAB } from 'react-native-paper';
 import { createStyles } from './NewsScreen.styles.ts';
 import { useNavigation } from '@react-navigation/native';
@@ -51,7 +51,10 @@ export const NewsScreen = () => {
       <View style={{ flex: 1 }}>
         <NewsHeader />
         {filteredDataByCategory?.length === 0 ? (
-          <NoArticlesFound />
+          <UtItemNotFound
+            text={'No articles found.'}
+            iconName={'newspaper-remove'}
+          />
         ) : (
           <FlatList
             showsVerticalScrollIndicator={false}
