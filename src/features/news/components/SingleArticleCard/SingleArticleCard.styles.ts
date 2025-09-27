@@ -49,7 +49,7 @@ export const createStyles = (theme: MD3Theme) => {
     smallImagePlaceholder: {
       width: '45%',
       height: 200,
-      backgroundColor: '#e0e0e0',
+      backgroundColor: theme.colors.surfaceVariant,
       justifyContent: 'center',
       alignItems: 'center',
     },

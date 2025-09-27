@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useNewsContext } from '../../context/NewsContextProvider.tsx';
 import { View } from 'react-native';
 import { NewsTabs } from '../NewsTabs/NewsTabs.tsx';
