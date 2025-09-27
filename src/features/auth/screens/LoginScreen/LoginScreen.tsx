@@ -6,14 +6,19 @@ import { TextInput, useTheme, Button } from 'react-native-paper';
 import { createStyles } from './LoginScreen.styles.ts';
 import { TRootStackParamList } from '../../../../types';
 import { useAuthContext } from '../../context/AuthContextProvider.tsx';
+import { useThemeContext } from '../../../../theme/ThemeContextProvider.tsx';
 
 type TNavigationProps = NativeStackNavigationProp<TRootStackParamList, 'News'>;
+
+const LIGHT_LOGO = require('../../../../assets/images/logo.png');
+const DARK_LOGO = require('../../../../assets/images/logo-dark.png');
 
 export const LoginScreen = () => {
   const Navigation = useNavigation<TNavigationProps>();
   const theme = useTheme();
   const styles = createStyles(theme);
   const { loginUserSuccessufully } = useAuthContext();
+  const { themeType } = useThemeContext();
 
   const [userName, setUserName] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -46,7 +51,7 @@ export const LoginScreen = () => {
       <View style={styles.mainContainer}>
         <Image
           style={styles.logo}
-          source={require('../../../../assets/images/logo.png')}
+          source={themeType === 'dark' ? DARK_LOGO : LIGHT_LOGO}
         />
 
         <View style={styles.inputContainer}>

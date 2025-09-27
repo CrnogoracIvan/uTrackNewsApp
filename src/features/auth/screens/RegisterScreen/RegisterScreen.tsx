@@ -8,6 +8,10 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TRootStackParamList } from '../../../../types.ts';
 import { useAuthContext } from '../../context/AuthContextProvider.tsx';
+import { useThemeContext } from '../../../../theme/ThemeContextProvider.tsx';
+
+const LIGHT_LOGO = require('../../../../assets/images/logo.png');
+const DARK_LOGO = require('../../../../assets/images/logo-dark.png');
 
 type TNavigationProps = NativeStackNavigationProp<TRootStackParamList, 'News'>;
 
@@ -16,6 +20,7 @@ export const RegisterScreen = () => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const { registerUserToStorage } = useAuthContext();
+  const { themeType } = useThemeContext();
 
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
@@ -164,7 +169,7 @@ export const RegisterScreen = () => {
       <View style={styles.screenContainer}>
         <Image
           style={styles.logo}
-          source={require('../../../../assets/images/logo.png')}
+          source={themeType === 'dark' ? DARK_LOGO : LIGHT_LOGO}
         />
         {renderInputFields()}
         {renderRegisterButton()}

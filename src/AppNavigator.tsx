@@ -14,11 +14,16 @@ import { ProfileScreen } from './features/profile/screens/ProfileScreen/ProfileS
 import { getActiveUserFromStorage } from './utils.ts';
 import { UtLoadingComponent } from './components/UtLoadingComponent/UtLoadingComponent.tsx';
 import { useNewsContext } from './features/news/context/NewsContextProvider.tsx';
+import { useThemeContext } from './theme/ThemeContextProvider.tsx';
+
+const LIGHT_LOGO = require('../src/assets/images/logo.png');
+const DARK_LOGO = require('../src/assets/images/logo-dark.png');
 
 export const AppNavigator = () => {
   const theme = useTheme();
   const Stack = createNativeStackNavigator<TRootStackParamList>();
   const { handleSearchToggle } = useNewsContext();
+  const { themeType } = useThemeContext();
 
   const [initialRoute, setInitialRoute] = useState<keyof TRootStackParamList>();
 
@@ -74,7 +79,7 @@ export const AppNavigator = () => {
             ),
             headerTitle: () => (
               <Image
-                source={require('./assets/images/logo.png')}
+                source={themeType === 'dark' ? DARK_LOGO : LIGHT_LOGO}
                 style={{ width: 120, height: 30, resizeMode: 'contain' }}
               />
             ),
