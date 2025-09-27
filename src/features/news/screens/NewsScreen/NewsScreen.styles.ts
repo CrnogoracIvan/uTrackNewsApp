@@ -10,4 +10,11 @@ export const createStyles = (theme: MD3Theme) =>
       bottom: 20,
       backgroundColor: theme.colors.primary,
     },
+    newsContainer: {
+      paddingBottom: 80,
+      paddingTop: 16,
+    },
+    refreshControl: {
+      color: theme.colors.primary,
+    },
   });

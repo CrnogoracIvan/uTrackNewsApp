@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, RefreshControl, View } from 'react-native';
 import { UtRegularLayout } from '../../../../components/UtRegularLayout/UtRegularLayout.tsx';
 import { UtLoadingComponent } from '../../../../components/UtLoadingComponent/UtLoadingComponent.tsx';
 import { SingleArticleCard } from '../../components/SingleArticleCard/SingleArticleCard.tsx';
@@ -25,6 +25,8 @@ export const NewsScreen = () => {
 
   const {
     areNewsLoading,
+    areNewsRefetching,
+    refetchNews,
     filteredDataByCategory,
     filteredBySearch,
     isSearchVisible,
@@ -66,8 +68,16 @@ export const NewsScreen = () => {
                 newsArticle={item}
               />
             )}
-            contentContainerStyle={{ paddingBottom: 80, paddingTop: 16 }}
+            contentContainerStyle={styles.newsContainer}
             keyExtractor={item => `news-${item.uuid}`}
+            refreshControl={
+              <RefreshControl
+                refreshing={areNewsRefetching || areNewsLoading}
+                onRefresh={refetchNews}
+                tintColor={theme.colors.onSurface}
+                colors={[theme.colors.onSurface]}
+              />
+            }
           />
         )}
         {renderFab()}

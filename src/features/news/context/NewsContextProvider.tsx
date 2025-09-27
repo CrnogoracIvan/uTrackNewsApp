@@ -27,7 +27,7 @@ const useNewsHook = () => {
   const [isSearchVisible, setIsSearchVisible] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const { data, isLoading } = useGetNews();
+  const { data, isLoading, refetch, isRefetching } = useGetNews();
   const { activeUser } = useAuthContext();
 
   const newArticle = useMemo<INewsArticle>(() => {
@@ -154,6 +154,8 @@ const useNewsHook = () => {
     filteredBySearch,
 
     areNewsLoading: isLoading,
+    areNewsRefetching: isRefetching,
+    refetchNews: refetch,
     filteredDataByCategory,
     isAddNewArticleButtonDisabled,
 
