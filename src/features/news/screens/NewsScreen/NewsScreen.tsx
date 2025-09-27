@@ -4,7 +4,7 @@ import { UtRegularLayout } from '../../../../components/UtRegularLayout/UtRegula
 import { UtLoadingComponent } from '../../../../components/UtLoadingComponent/UtLoadingComponent.tsx';
 import { SingleArticleCard } from '../../components/SingleArticleCard/SingleArticleCard.tsx';
 import { UtItemNotFound } from '../../../../components/UtItemNotFound/UtItemNotFound.tsx';
-import { FAB } from 'react-native-paper';
+import { FAB, useTheme } from 'react-native-paper';
 import { createStyles } from './NewsScreen.styles.ts';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -19,7 +19,8 @@ type TNavigationProps = NativeStackNavigationProp<
 >;
 
 export const NewsScreen = () => {
-  const styles = createStyles();
+  const theme = useTheme();
+  const styles = createStyles(theme);
   const Navigation = useNavigation<TNavigationProps>();
 
   const {

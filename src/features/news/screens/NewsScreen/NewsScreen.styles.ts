@@ -1,12 +1,13 @@
 import { StyleSheet } from 'react-native';
+import { MD3Theme } from 'react-native-paper';
 
-export const createStyles = () =>
+export const createStyles = (theme: MD3Theme) =>
   StyleSheet.create({
     fab: {
       position: 'absolute',
       margin: 16,
       right: 0,
-      bottom: 0,
-      backgroundColor: 'red',
+      bottom: 20,
+      backgroundColor: theme.colors.primary,
     },
   });
