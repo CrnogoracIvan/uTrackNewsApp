@@ -9,7 +9,6 @@ export const getNewsService = async (): Promise<INewsResponse> => {
     const data: INewsResponse = response.ok
       ? await response.json()
       : NEWS_DATA_MOCK;
-    console.log(data);
     return data;
   } catch (error) {
     console.error('Error fetching news:', error);
