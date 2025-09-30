@@ -103,13 +103,7 @@ export const AppNavigator = () => {
             headerTitle: 'Article Details',
           }}
         />
-        <Stack.Screen
-          name={'NewArticle'}
-          component={AddArticleScreen}
-          options={{
-            headerTitle: 'New Article',
-          }}
-        />
+        <Stack.Screen name={'NewArticle'} component={AddArticleScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

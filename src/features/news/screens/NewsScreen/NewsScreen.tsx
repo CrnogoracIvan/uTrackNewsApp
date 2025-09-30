@@ -30,6 +30,7 @@ export const NewsScreen = () => {
     filteredDataByCategory,
     filteredBySearch,
     isSearchVisible,
+    handleClearNewArticleForm,
   } = useNewsContext();
 
   const { handleSetActiveUser } = useAuthContext();
@@ -44,7 +45,8 @@ export const NewsScreen = () => {
       icon="plus"
       color="white"
       onPress={() => {
-        Navigation.navigate('NewArticle');
+        handleClearNewArticleForm();
+        Navigation.navigate('NewArticle', {});
       }}
     />
   );

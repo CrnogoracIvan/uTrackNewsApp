@@ -1,7 +1,7 @@
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { UtRegularLayout } from '../../../../components/UtRegularLayout/UtRegularLayout.tsx';
 import { Button, TextInput, useTheme } from 'react-native-paper';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNewsContext } from '../../context/NewsContextProvider.tsx';
 import { UtDropdown } from '../../../../components/UtDropdown/UtDropdown.tsx';
 import { NEWS_CATEGORIES } from '../../../../constants.ts';
@@ -11,35 +11,44 @@ import { useNavigation } from '@react-navigation/native';
 import { requestPermissions } from '../../../../utils.ts';
 import { Toast } from 'toastify-react-native';
 import { createStyles } from './AddArticleScreen.styles.ts';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { TRootStackParamList } from '../../../../types.ts';
 
-export const AddArticleScreen = () => {
+type TProps = NativeStackScreenProps<TRootStackParamList, 'NewArticle'>;
+
+export const AddArticleScreen = (props: TProps) => {
   const [isErrorVisible, setIsErrorVisible] = React.useState(false);
   const theme = useTheme();
   const styles = createStyles(theme);
   const Navigation = useNavigation();
   const {
-    newArticleTitle,
-    setNewArticleTitle,
-    newArticleDescription,
-    setNewArticleDescription,
-    newArticleImage,
-    setNewArticleImage,
-    newArticleSource,
-    setNewArticleSource,
-    newArticleCategories,
-    setNewArticleCategories,
+    articleData,
+    setArticleData,
+    handleSetNewArticleTitle,
+    handleSetNewArticleDescription,
+    handleSetNewArticleSource,
+    handleSetNewArticleCategories,
+    handleSetNewArticleImage,
     handleAddArticle,
+    handleEditArticle,
     handleClearNewArticleForm,
     isAddNewArticleButtonDisabled,
   } = useNewsContext();
+
+  const { route } = props;
+  const articleForEditing = route?.params?.article;
 
   const dropDownData = NEWS_CATEGORIES.filter(
     category => !['all', 'my'].includes(category.value),
   );
 
   const handleSaveArticle = () => {
-    handleAddArticle();
-    Toast.success('Article has been added successfully.');
+    if (!articleForEditing) {
+      handleAddArticle();
+      Toast.success('Article has been added successfully.');
+    } else {
+      handleEditArticle(articleForEditing);
+    }
     Navigation.goBack();
   };
 
@@ -62,36 +71,53 @@ export const AddArticleScreen = () => {
       if (!result.assets || result.assets.length === 0) {
         return;
       }
-      setNewArticleImage(result.assets[0]);
+      handleSetNewArticleImage(result.assets[0]);
     } catch (e) {}
   };
 
   const handleCategorySelect = (selectedCategories: string[]) => {
-    setNewArticleCategories(selectedCategories);
+    handleSetNewArticleCategories(selectedCategories);
     setIsErrorVisible(false);
   };
 
-  const renderImagePreview = () => {
-    if (!newArticleImage) {
-      return (
-        <View style={styles.imageContainer}>
-          <Icon
-            size={64}
-            source={'image-outline'}
-            color={theme.colors.outline}
-          />
-          <Text style={{ color: theme.colors.onSurfaceVariant }}>
-            Upload Article cover image
-          </Text>
-        </View>
-      );
+  useEffect(() => {
+    if (!articleForEditing) {
+      return;
     }
+    if (!articleData.uuid) {
+      setArticleData(articleForEditing);
+    }
+  }, [
+    articleForEditing,
+    articleData,
+    articleData.uuid,
+    handleClearNewArticleForm,
+    setArticleData,
+  ]);
+
+  useEffect(() => {
+    Navigation.setOptions({
+      title: route.params?.article ? 'Edit Article' : 'New Article',
+    });
+  }, [Navigation, route.params?.article]);
+
+  const renderImagePreview = () => {
+    if (articleData?.image?.uri || articleData?.image_url)
+      return (
+        <Image
+          resizeMode="cover"
+          source={{ uri: articleData?.image?.uri || articleData?.image_url }}
+          style={styles.image}
+        />
+      );
+
     return (
-      <Image
-        resizeMode="cover"
-        source={{ uri: newArticleImage.uri }}
-        style={styles.image}
-      />
+      <View style={styles.imageContainer}>
+        <Icon size={64} source={'image-outline'} color={theme.colors.outline} />
+        <Text style={{ color: theme.colors.onSurfaceVariant }}>
+          Upload Article cover image
+        </Text>
+      </View>
     );
   };
 
@@ -101,16 +127,16 @@ export const AddArticleScreen = () => {
         <View style={styles.form}>
           <TextInput
             label="Title"
-            value={newArticleTitle}
-            onChangeText={text => setNewArticleTitle(text)}
+            value={articleData.title}
+            onChangeText={text => handleSetNewArticleTitle(text)}
             onChange={() => setIsErrorVisible(false)}
             mode="outlined"
             error={isErrorVisible}
           />
           <TextInput
             label="Description"
-            value={newArticleDescription}
-            onChangeText={text => setNewArticleDescription(text)}
+            value={articleData.description}
+            onChangeText={text => handleSetNewArticleDescription(text)}
             onChange={() => setIsErrorVisible(false)}
             mode="outlined"
             multiline={true}
@@ -118,8 +144,8 @@ export const AddArticleScreen = () => {
           />
           <TextInput
             label="Source"
-            value={newArticleSource}
-            onChangeText={text => setNewArticleSource(text)}
+            value={articleData.source}
+            onChangeText={text => handleSetNewArticleSource(text)}
             onChange={() => setIsErrorVisible(false)}
             mode="outlined"
             error={isErrorVisible}
@@ -130,7 +156,7 @@ export const AddArticleScreen = () => {
             label="Categories"
             placeholder="Select Categories"
             options={dropDownData}
-            value={newArticleCategories}
+            value={articleData.categories}
             onSelect={handleCategorySelect}
             error={isErrorVisible}
           />

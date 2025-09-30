@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Text, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { INewsArticle, TRootStackParamList } from '../../../../types';
 import { createStyles } from './SingleArticleCard.styles.ts';
 import { getFormattedDate } from '../../../../utils.ts';
@@ -42,6 +42,10 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
 
   const handleCardPress = (article: INewsArticle) =>
     Navigation.navigate('Article', { article: article });
+
+  const handleEditArticlePress = (article: INewsArticle) => {
+    Navigation.navigate('NewArticle', { article: article });
+  };
 
   const renderDescription = () => {
     if (!description) {
@@ -111,10 +115,26 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
     );
   };
 
+  const renderEditArticleButton = (article: INewsArticle) => (
+    <TouchableOpacity
+      onPress={() => handleEditArticlePress(article)}
+      style={styles.editTrigger}
+    >
+      <Icon source={'pencil-box'} size={24} color={'white'} />
+    </TouchableOpacity>
+  );
+
+  const renderArticleAction = (article: INewsArticle) => (
+    <>
+      {renderEditArticleButton(article)}
+      <DeleteArticle article={article} />
+    </>
+  );
+
   const LargeCard = ({ article }: CardProps) => {
     return (
       <View>
-        {isArticleMy(article) && <DeleteArticle article={article} />}
+        {isArticleMy(article) && renderArticleAction(article)}
         {image_url ? (
           <Image source={{ uri: image_url }} style={styles.image} />
         ) : (
@@ -136,7 +156,7 @@ export const SingleArticleCard: React.FC<SingleNewsCardProps> = ({
 
   const SmallCard = ({ article }: CardProps) => (
     <View style={styles.smallContentContainer}>
-      {isArticleMy(article) && <DeleteArticle article={article} />}
+      {isArticleMy(article) && renderArticleAction(article)}
       <View style={styles.smallTextContentContainer}>
         <Text style={styles.title}>{title}</Text>
         {renderDescription()}

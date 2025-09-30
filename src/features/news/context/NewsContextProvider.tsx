@@ -13,16 +13,35 @@ import uuid from 'react-native-uuid';
 interface IProps {
   children: React.ReactNode;
 }
+
+interface INewArticleData {
+  title: string;
+  description: string;
+  image: any;
+  source: string;
+  categories: string[];
+  published_at: string;
+  userId: string;
+  uuid: string;
+}
+
+const initialArticleData: INewArticleData = {
+  title: '',
+  description: '',
+  image: null,
+  source: '',
+  categories: [],
+  published_at: '',
+  userId: '',
+  uuid: '',
+};
+
 const useNewsHook = () => {
   const [allData, setAllData] = useState<INewsArticle[]>([]);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
-  const [newArticleTitle, setNewArticleTitle] = useState('');
-  const [newArticleDescription, setNewArticleDescription] = useState('');
-  const [newArticleImage, setNewArticleImage] = useState(null);
-  const [newArticleSource, setNewArticleSource] = useState('');
-  const [newArticleCategories, setNewArticleCategories] = useState<string[]>(
-    [],
-  );
+  const [articleData, setArticleData] =
+    useState<INewArticleData>(initialArticleData);
+
   const [isSearchVisible, setIsSearchVisible] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -33,33 +52,63 @@ const useNewsHook = () => {
 
   const newArticle = useMemo<INewsArticle>(() => {
     return {
-      uuid: '',
-      title: newArticleTitle,
-      description: newArticleDescription,
-      url: newArticleSource,
+      uuid: articleData.uuid || '',
+      title: articleData.title,
+      description: articleData.description,
+      url: articleData.source,
       // @ts-ignore
-      image_url: newArticleImage?.uri,
-      published_at: '',
-      source: newArticleSource,
-      categories: [...newArticleCategories, 'my'],
+      image_url: articleData?.image?.uri || articleData.image_url,
+      published_at: articleData.published_at || '',
+      source: articleData.source,
+      categories: [...articleData.categories],
+      userId: articleData.userId || '',
     };
-  }, [
-    newArticleCategories,
-    newArticleDescription,
-    newArticleImage,
-    newArticleSource,
-    newArticleTitle,
-  ]);
+  }, [articleData]);
 
   const toggleMockDataUsage = () => {
     setMockDataUsed(prevState => !prevState);
   };
 
+  const handleSetNewArticleTitle = (title: string) => {
+    setArticleData(prevState => ({
+      ...prevState,
+      title,
+    }));
+  };
+
+  const handleSetNewArticleDescription = (description: string) => {
+    setArticleData(prevState => ({
+      ...prevState,
+      description,
+    }));
+  };
+
+  const handleSetNewArticleSource = (source: string) => {
+    setArticleData(prevState => ({
+      ...prevState,
+      source,
+    }));
+  };
+
+  const handleSetNewArticleCategories = (categories: string[]) => {
+    setArticleData(prevState => ({
+      ...prevState,
+      categories,
+    }));
+  };
+
+  const handleSetNewArticleImage = (image: any) => {
+    setArticleData(prevState => ({
+      ...prevState,
+      image,
+    }));
+  };
+
   const isAddNewArticleButtonDisabled =
-    newArticleTitle.length === 0 ||
-    newArticleCategories.length === 0 ||
-    newArticleDescription.length === 0 ||
-    newArticleSource.length === 0;
+    articleData.title.length === 0 ||
+    articleData.categories.length === 0 ||
+    articleData.description.length === 0 ||
+    articleData.source.length === 0;
 
   const filteredDataByCategory = useMemo(() => {
     if (allData.length === 0) return [];
@@ -97,6 +146,7 @@ const useNewsHook = () => {
       uuid: uuid.v4(),
       published_at: new Date().toISOString(),
       userId: activeUser.id,
+      categories: [...articleData.categories, 'my'],
     };
     const newArticles = [newArticleData, ...allData];
     setAllData(newArticles);
@@ -104,6 +154,20 @@ const useNewsHook = () => {
     const myArticleData = filterMyArticles(newArticles);
     setArticlesToStorage(myArticleData);
     handleClearNewArticleForm();
+  };
+
+  const handleEditArticle = (articleForEditing: INewsArticle) => {
+    const existingArticleIndex = allData.findIndex(
+      allDataArticle => allDataArticle.uuid === articleForEditing.uuid,
+    );
+    if (existingArticleIndex !== -1) {
+      const newArticles = [...allData];
+      newArticles[existingArticleIndex] = newArticle;
+      setAllData(newArticles);
+
+      const myArticleData = filterMyArticles(newArticles);
+      setArticlesToStorage(myArticleData);
+    }
   };
 
   const handleDeleteArticle = (articleUuid: string) => {
@@ -116,11 +180,7 @@ const useNewsHook = () => {
   };
 
   const handleClearNewArticleForm = () => {
-    setNewArticleTitle('');
-    setNewArticleDescription('');
-    setNewArticleImage(null);
-    setNewArticleSource('');
-    setNewArticleCategories([]);
+    setArticleData(initialArticleData);
   };
 
   const handleSearchToggle = () => {
@@ -167,18 +227,16 @@ const useNewsHook = () => {
     filteredDataByCategory,
     isAddNewArticleButtonDisabled,
 
-    newArticleTitle,
-    setNewArticleTitle,
-    newArticleDescription,
-    setNewArticleDescription,
-    newArticleImage,
-    setNewArticleImage,
-    newArticleSource,
-    setNewArticleSource,
-    newArticleCategories,
-    setNewArticleCategories,
+    articleData,
+    setArticleData,
+    handleSetNewArticleTitle,
+    handleSetNewArticleDescription,
+    handleSetNewArticleSource,
+    handleSetNewArticleCategories,
+    handleSetNewArticleImage,
 
     handleAddArticle,
+    handleEditArticle,
     handleClearNewArticleForm,
     handleDeleteArticle,
   };

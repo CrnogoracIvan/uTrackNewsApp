@@ -123,5 +123,15 @@ export const createStyles = (theme: MD3Theme) => {
       ...categoryText,
       color: theme.colors.onPrimary,
     } as TextStyle,
+
+    editTrigger: {
+      position: 'absolute',
+      top: 8,
+      right: 48,
+      zIndex: 10,
+      backgroundColor: theme.colors.primary,
+      borderRadius: 4,
+      padding: 2,
+    },
   });
 };

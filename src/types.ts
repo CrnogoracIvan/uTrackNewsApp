@@ -41,6 +41,6 @@ export type TRootStackParamList = {
   Register: undefined;
   Profile: undefined;
   News: undefined;
-  Article: { article: INewsArticle };
-  NewArticle: undefined;
+  Article: { article?: INewsArticle };
+  NewArticle: { article?: INewsArticle };
 };

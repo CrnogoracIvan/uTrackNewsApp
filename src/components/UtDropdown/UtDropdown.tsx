@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { MultiSelectDropdown } from 'react-native-paper-dropdown';
 import { useTheme } from 'react-native-paper';
 import { INewsCategory } from '../../types.ts';
@@ -25,6 +24,12 @@ export const UtDropdown = ({
   const [selectedValues, setSelectedValues] = useState<string[]>(value);
   const theme = useTheme();
   const styles = createStyles(theme);
+
+  useEffect(() => {
+    if (!selectedValues.length) {
+      setSelectedValues(value);
+    }
+  }, [selectedValues, value]);
 
   const handleSelect = (values: string[]) => {
     setSelectedValues(values);
